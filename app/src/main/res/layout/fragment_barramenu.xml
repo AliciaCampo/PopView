@@ -11,6 +11,7 @@
         android:layout_height="70dp"
         android:background="#A6003D"
         android:layout_gravity="bottom |center_horizontal" />
+
     <com.google.android.material.card.MaterialCardView
         android:clickable="true"
         android:focusable="true"
