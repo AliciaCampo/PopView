@@ -3,32 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".barramenu">
-
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#A6003D"
-        android:layout_gravity="bottom |center_horizontal"
-        />
-
+        android:layout_gravity="bottom |center_horizontal" />
     <com.google.android.material.card.MaterialCardView
         android:clickable="true"
         android:focusable="true"
         android:checkable="true"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
-
     </com.google.android.material.card.MaterialCardView>
-
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="70dp"
        android:orientation="horizontal"
-       android:layout_gravity="bottom |center_horizontal">
-
-
+       android:layout_gravity="bottom |center_horizontal"
+       android:gravity="center">
+       <ImageView
+           android:id="@+id/home"
+           android:layout_width="0dp"
+           android:layout_height="35dp"
+           android:layout_weight="1"
+           app:srcCompat="@drawable/home_vector"/>
+       <ImageView
+           android:id="@+id/buscar"
+           android:layout_width="0dp"
+           android:layout_height="35dp"
+           android:layout_weight="1"
+           app:srcCompat="@drawable/search"/>
+       <ImageView
+           android:id="@+id/estrella"
+           android:layout_width="0dp"
+           android:layout_height="35dp"
+           android:layout_weight="1"
+           app:srcCompat="@drawable/star_rate"/>
+       <ImageView
+           android:id="@+id/cuenta"
+           android:layout_width="0dp"
+           android:layout_height="35dp"
+           android:layout_weight="1"
+           app:srcCompat="@drawable/account"/>
+       <ImageView
+           android:id="@+id/ajustes"
+           android:layout_width="0dp"
+           android:layout_height="35dp"
+           android:layout_weight="1"
+           app:srcCompat="@drawable/settings"/>
    </LinearLayout>
-
 </FrameLayout>
