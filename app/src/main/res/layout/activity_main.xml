@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="PopView"
         android:textSize="60sp"
-        android:fontFamily="@font/oswaldRegular"
+        android:fontFamily="@font/oswald_regular"
         android:textColor="@color/md_theme_primary" />
 
     <ImageView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:text="Totes les teves pel·lícules i sèries, sempre a mà.\nAfegeix, organitza i valora amb un sol clic."
         android:textSize="20sp"
-        android:fontFamily="@font/oswaldRegular"
+        android:fontFamily="@font/oswald_regular"
         android:textColor="@color/md_theme_primary"
         android:layout_marginTop="16dp"
         android:textAlignment="center" />
