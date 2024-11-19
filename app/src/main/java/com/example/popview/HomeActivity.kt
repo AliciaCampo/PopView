@@ -1,6 +1,8 @@
 package com.example.popview
 
 import android.os.Bundle
+import android.text.Html
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,5 +20,8 @@ class HomeActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, barramenu()) // Añadimos el fragmento
                 .commit()
         }
+        val textView: TextView = findViewById(R.id.textInciarconvidat)
+        textView.text = Html.fromHtml("<u>Iniciar como convidat</u>")
+
     }
 }

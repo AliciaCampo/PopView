@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="42dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <ImageView
             android:layout_width="172dp"
@@ -23,7 +23,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="240dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="-200dp"
             android:layout_marginTop="357dp">
 
@@ -32,12 +32,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
                 android:hint="Usuari"
-                android:textColor="@color/md_theme_primary"/>
+                android:textColor="@color/md_theme_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="240dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="-240dp"
             android:layout_marginTop="420dp">
 
@@ -45,29 +45,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:textColor="@color/md_theme_primary"
-                android:hint="Email" />
+                android:hint="Email"
+                android:textColor="@color/md_theme_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="198dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="-220dp"
+            android:layout_marginLeft="-200dp"
             android:layout_marginTop="460dp"
             android:fontFamily="@font/oswald_regular"
-            android:textColor="@color/md_theme_primaryContainer"
-            android:text="Has oblidat la contrasenya?">
-            
+            android:text="Has oblidat la contrasenya?"
+            android:textColor="@color/md_theme_primaryContainer">
+
         </TextView>
+
+
         <Button
             android:id="@+id/registrar"
             android:layout_width="110dp"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="-220dp"
             android:layout_marginTop="510dp"
-            android:text="Registre">
+            android:text="Registre"></Button>
 
-        </Button>
+        <Button
+            android:id="@+id/inici"
+            android:layout_width="110dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="510dp"
+            android:text="Inici"></Button>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-190dp"
+            android:layout_marginTop="590dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textInciarconvidat"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:fontFamily="@font/oswald_regular"
+                android:gravity="center"
+                android:text="Iniciar como convidat"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:underline="@bool/true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAjuda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajuda"
+                android:textAlignment="center"
+                app:chipCornerRadius="8dp"
+                app:chipIcon="@drawable/help_circle" />
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
