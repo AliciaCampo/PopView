@@ -6,5 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistroActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="172dp"
+            android:layout_height="176dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginLeft="118dp"
+            android:src="@drawable/avatar">
+        </ImageView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
