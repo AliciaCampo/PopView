@@ -2,4 +2,10 @@
     <string name="app_name">PopView</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prefer_ncies">Preferències</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="idioma">Idioma</string>
+    <string name="mida_del_text">Mida del text</string>
+    <string name="zona_horaria">Zona horaria</string>
+    <string name="tema">Tema</string>
 </resources>

@@ -1,10 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AjustesActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <fragment
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#A6003D"
+        android:layout_gravity="bottom |center_horizontal"/>
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald_regular"
+        android:text="@string/prefer_ncies"
+        android:textColor="@color/md_theme_primary"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewIdioma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
+            android:fontFamily="@font/oswald_regular"
+            android:text="@string/idioma"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/spinnerIdioma"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_border" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewMidaText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="46dp"
+            android:fontFamily="@font/oswald_regular"
+            android:text="@string/mida_del_text"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/spinnerMidaText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_border" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewHorari"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="51dp"
+            android:fontFamily="@font/oswald_regular"
+            android:text="@string/zona_horaria"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/spinnerHorari"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_border" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewTema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="114dp"
+            android:fontFamily="@font/oswald_regular"
+            android:text="@string/tema"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/spinnerTema"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_border" />
+    </LinearLayout>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/ajuda"
+        app:chipIcon="@drawable/help_circle" />
+
+</LinearLayout>
