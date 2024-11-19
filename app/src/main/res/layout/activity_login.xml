@@ -10,27 +10,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="42dp">
 
         <ImageView
             android:layout_width="172dp"
             android:layout_height="176dp"
-            android:layout_marginTop="138dp"
             android:layout_marginLeft="118dp"
-            android:src="@drawable/avatar">
-        </ImageView>
+            android:layout_marginTop="138dp"
+            android:src="@drawable/avatar"></ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="240dp"
             android:layout_height="40dp"
-            android:layout_marginTop="357dp"
-            android:layout_marginLeft="-200dp">
+            android:layout_marginLeft="-200dp"
+            android:layout_marginTop="357dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Usuari" />
+                android:fontFamily="@font/oswald_regular"
+                android:hint="Usuari"
+                android:textColor="@color/md_theme_primary"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="-240dp"
+            android:layout_marginTop="420dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primary"
+                android:hint="Email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="198dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="-220dp"
+            android:layout_marginTop="460dp"
+            android:fontFamily="@font/oswald_regular"
+            android:textColor="@color/md_theme_primaryContainer"
+            android:text="Has oblidat la contrasenya?">
+            
+        </TextView>
+        <Button
+            android:id="@+id/registrar"
+            android:layout_width="110dp"
+            android:layout_height="41dp"
+            android:layout_marginLeft="-220dp"
+            android:layout_marginTop="510dp"
+            android:text="Registre">
+
+        </Button>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
