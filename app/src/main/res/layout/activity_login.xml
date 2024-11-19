@@ -12,12 +12,25 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="40dp"
-            android:text="Pantalla de Inicio" />
+        <ImageView
+            android:layout_width="172dp"
+            android:layout_height="176dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginLeft="118dp"
+            android:src="@drawable/avatar">
+        </ImageView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="357dp"
+            android:layout_marginLeft="-200dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Usuari" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,12 +9,14 @@ import androidx.core.view.WindowInsetsCompat
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Verificar si el contenedor del fragmento está vacío
+        if (savedInstanceState == null) {
+            // Cargar el fragmento usando el FragmentManager
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, barramenu()) // Añadimos el fragmento
+                .commit()
         }
     }
 }
