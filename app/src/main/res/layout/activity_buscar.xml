@@ -7,4 +7,150 @@
     android:layout_height="match_parent"
     tools:context=".BuscarActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayoutBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.4">
+
+        <!-- Lupa -->
+        <ImageView
+            android:id="@+id/imageViewLupa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="?android:attr/actionModeWebSearchDrawable"
+            app:tint="@color/md_theme_primaryContainer" />
+
+        <!-- Camp de text -->
+        <EditText
+            android:id="@+id/textBuscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="BUSCAR"
+            android:backgroundTint="@color/md_theme_primaryContainer"
+            android:textColor="@color/md_theme_primaryContainer"
+            />
+
+    </LinearLayout>
+    <!-- LinearLayout vertical para centrar las imágenes debajo del texto -->
+    <LinearLayout android:id="@+id/linearLayoutImagenes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutBuscar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+        <ImageButton
+            android:id="@+id/imageCobraKai"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/cobrakai"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="10dp"
+            android:contentDescription="Descripción del botón"/>
+        <ImageButton
+            android:id="@+id/imageRespira"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/respira"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Descripción del botón"/>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayoutImagenesDos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+        <ImageButton
+            android:id="@+id/imageSabrina"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/sabrina"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="10dp"
+            android:contentDescription="Descripción del botón"/>
+        <ImageButton
+            android:id="@+id/imageButtonStrangerThings"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/strangerthingscuatro"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Descripción del botón"/>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayoutImagenesTres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenesDos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+        <ImageButton
+            android:id="@+id/imageOrangeIsTheNewBlack"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/orange_is_the_new_black"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="10dp"
+            android:contentDescription="Descripción del botón"/>
+        <ImageButton
+            android:id="@+id/imageButtonMiercoles"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/wednesdaymiercoles"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Descripción del botón"/>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayoutImagenesCuatro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenesTres"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+        <ImageButton
+            android:id="@+id/deadpoolylobezno"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/deadpoolylobezno"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="10dp"
+            android:contentDescription="Descripción del botón"/>
+        <ImageButton
+            android:id="@+id/delrevesdos"
+            android:layout_width="133dp"
+            android:layout_height="169dp"
+            android:src="@drawable/delrevesdos"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Descripción del botón"/>
+    </LinearLayout>
+    <fragment
+        android:name="com.example.popview.barramenu"
+        android:id="@+id/fragment_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </fragment>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
