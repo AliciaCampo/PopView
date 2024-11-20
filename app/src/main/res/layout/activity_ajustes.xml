@@ -41,9 +41,9 @@
         <Spinner
             android:id="@+id/spinnerIdioma"
             android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,9 +68,9 @@
         <Spinner
             android:id="@+id/spinnerMidaText"
             android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float"/>
     </LinearLayout>
 
     <LinearLayout
@@ -95,9 +95,9 @@
         <Spinner
             android:id="@+id/spinnerHorari"
             android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float"/>
     </LinearLayout>
 
     <LinearLayout
@@ -122,13 +122,13 @@
         <Spinner
             android:id="@+id/spinnerTema"
             android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float"/>
     </LinearLayout>
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip"
+        android:id="@+id/chipAjuda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -146,7 +146,7 @@
         android:text="@string/restablir_els_valors_predeterminats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chip" />
+        app:layout_constraintTop_toBottomOf="@id/chipAjuda" />
 
     <fragment
         android:id="@+id/fragment"

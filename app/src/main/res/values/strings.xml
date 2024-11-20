@@ -9,9 +9,51 @@
     <string name="zona_horaria">Zona horaria</string>
     <string name="tema">Tema</string>
     <string name="restablir_els_valors_predeterminats">Restablir els valors predeterminats</string>
+    <string name="llistes">Llistes</string>
+    <string name="s_ries_per_veure">Sèries per veure</string>
+    <string name="p_blica">Pública</string>
+    <string name="pel_l_cules_terror">Pel·lícules terror</string>
+    <string name="millors_s_ries">Millors Sèries</string>
+    <string name="privada">Privada</string>
     <string-array name="idiomas_array">
         <item>Català</item>
         <item>Castellà</item>
         <item>Anglés</item>
+    </string-array>
+    <string-array name="mides_array">
+        <item>Petita</item>
+        <item>Mitjana</item>
+        <item>Gran</item>
+    </string-array>
+    <string-array name="zonas_horarias_array">
+        <item>UTC-12:00 - Baker Island Time</item>
+        <item>UTC-11:00 - Niue Time</item>
+        <item>UTC-10:00 - Hawaii-Aleutian Standard Time</item>
+        <item>UTC-09:00 - Alaska Standard Time</item>
+        <item>UTC-08:00 - Pacific Standard Time</item>
+        <item>UTC-07:00 - Mountain Standard Time</item>
+        <item>UTC-06:00 - Central Standard Time</item>
+        <item>UTC-05:00 - Eastern Standard Time</item>
+        <item>UTC-04:00 - Atlantic Standard Time</item>
+        <item>UTC-03:00 - Argentina Time</item>
+        <item>UTC-02:00 - Azores Time</item>
+        <item>UTC-01:00 - Cape Verde Time</item>
+        <item>UTC±00:00 - Greenwich Mean Time (GMT)</item>
+        <item>UTC+01:00 - Central European Time</item>
+        <item>UTC+02:00 - Eastern European Time</item>
+        <item>UTC+03:00 - Moscow Time</item>
+        <item>UTC+04:00 - Azerbaijan Standard Time</item>
+        <item>UTC+05:00 - Pakistan Standard Time</item>
+        <item>UTC+06:00 - Bangladesh Standard Time</item>
+        <item>UTC+07:00 - Indochina Time</item>
+        <item>UTC+08:00 - China Standard Time</item>
+        <item>UTC+09:00 - Japan Standard Time</item>
+        <item>UTC+10:00 - Australian Eastern Standard Time</item>
+        <item>UTC+11:00 - Solomon Islands Time</item>
+        <item>UTC+12:00 - Fiji Time</item>
+    </string-array>
+    <string-array name="tema_array">
+        <item>Clar</item>
+        <item>Fosc</item>
     </string-array>
 </resources>
