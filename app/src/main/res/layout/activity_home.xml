@@ -150,6 +150,52 @@
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop">
     </ImageButton>
+    <TextView
+        android:id="@+id/textPeliculesMesPopulars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pel·lícules més populars"
+        android:textSize="30dp"
+        android:fontFamily="@font/oswald_regular"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/letras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/miercoles"
+        android:paddingBottom="10dp"
+        />
+    <ImageButton
+        android:id="@+id/jokerdos"
+        android:layout_width="133dp"
+        android:layout_height="169dp"
+        android:src="@drawable/jokerdos"
+        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
+        android:contentDescription="Descripción del botón"
+        app:layout_constraintStart_toStartOf="@id/textCategories"
+        android:scaleType="centerCrop">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/venomtres"
+        android:layout_width="133dp"
+        android:layout_height="169dp"
+        android:src="@drawable/venomtres"
+        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
+        android:contentDescription="Descripción del botón"
+        app:layout_constraintStart_toEndOf="@id/jokerdos"
+        android:layout_marginStart="20dp"
+        android:scaleType="centerCrop">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/robotsalvaje"
+        android:layout_width="133dp"
+        android:layout_height="169dp"
+        android:src="@drawable/robotsalvaje"
+        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
+        app:layout_constraintStart_toEndOf="@id/venomtres"
+        android:contentDescription="Descripción del botón"
+        android:layout_marginStart="20dp"
+        android:scaleType="centerCrop">
+    </ImageButton>
     <fragment
         android:name="com.example.popview.barramenu"
         android:id="@+id/fragment_navigation"
