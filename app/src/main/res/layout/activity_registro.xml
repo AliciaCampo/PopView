@@ -20,51 +20,70 @@
         </ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="-200dp"
+            android:layout_marginTop="357dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="#A6003D"
+                android:hint="Usuari" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="-240dp"
+            android:layout_marginTop="420dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="#A6003D"
+                android:hint="Email" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="-240dp"
+            android:layout_marginTop="483dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="#A6003D"
+                android:hint="Edat" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="-240dp"
+            android:layout_marginTop="546dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="#A6003D"
+                android:hint="Contrasenya" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/buttonRegistre"
+            android:layout_width="40dp"
+            android:layout_height="51dp"
             android:layout_weight="1"
-            android:text="Button" />
+            android:layout_marginTop="637dp"
+            android:layout_marginLeft="-160dp"
+            android:layout_marginRight="130dp"
+            android:text="Registre" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

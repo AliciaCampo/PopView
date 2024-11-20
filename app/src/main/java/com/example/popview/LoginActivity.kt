@@ -1,10 +1,13 @@
 package com.example.popview
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.chip.Chip
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +19,21 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val inici = findViewById<Button>(R.id.inici)
+        val registre = findViewById<Button>(R.id.registrar)
+        val chipAjuda = findViewById<Chip>(R.id.chipAjuda)
+        inici.setOnClickListener{
+            val intent = Intent (this,HomeActivity::class.java)
+            startActivity(intent)
+        }
+        registre.setOnClickListener{
+            val intent = Intent (this,RegistroActivity::class.java)
+            startActivity(intent)
+        }
+        chipAjuda.setOnClickListener {
+            val intent = Intent(this, AjudaActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

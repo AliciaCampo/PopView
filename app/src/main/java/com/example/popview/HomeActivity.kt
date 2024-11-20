@@ -20,8 +20,7 @@ class HomeActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, barramenu()) // Añadimos el fragmento
                 .commit()
         }
-        val textView: TextView = findViewById(R.id.textInciarconvidat)
-        textView.text = Html.fromHtml("<u>Iniciar como convidat</u>")
+
 
     }
 }

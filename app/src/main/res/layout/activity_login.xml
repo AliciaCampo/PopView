@@ -94,8 +94,7 @@
                 android:textColor="@color/md_theme_primaryContainer"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:underline="@bool/true" />
+                android:textStyle="bold" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipAjuda"
