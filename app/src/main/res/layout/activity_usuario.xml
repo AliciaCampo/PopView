@@ -31,7 +31,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/oswald_regular"
             android:text="user2131"
-            android:textColor="@color/md_theme_primaryContainer"
+            android:textColor="@color/md_theme_primary"
             android:textSize="30sp"></TextView>
     </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:fontFamily="@font/oswald_regular"
         android:id="@+id/listas"
         android:text="Llistes"
-        android:textColor="@color/md_theme_primaryContainer"
+        android:textColor="@color/md_theme_primary"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearAvatarUser" />
@@ -70,7 +70,7 @@
                 android:layout_marginTop="18sp"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/oswald_regular"
-                android:textColor="@color/md_theme_primaryContainer"
+                android:textColor="@color/md_theme_primary"
                 >
             </TextView>
 
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/oswaldLight"
                 android:text="Pública"
-                android:textColor="@color/md_theme_primaryContainer"
+                android:textColor="@color/md_theme_primary"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="360dp"
@@ -97,7 +97,7 @@
                 android:layout_marginTop="18sp"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/oswald_regular"
-                android:textColor="@color/md_theme_primaryContainer"
+                android:textColor="@color/md_theme_primary"
                 >
             </TextView>
 
@@ -108,7 +108,7 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/oswaldLight"
                 android:text="Pública"
-                android:textColor="@color/md_theme_primaryContainer"
+                android:textColor="@color/md_theme_primary"></TextView>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="360dp"
@@ -124,7 +124,7 @@
                 android:layout_marginTop="18sp"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/oswald_regular"
-                android:textColor="@color/md_theme_primaryContainer"
+                android:textColor="@color/md_theme_primary"
                 >
             </TextView>
 
@@ -135,7 +135,9 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/oswaldLight"
                 android:text="Privada"
-                android:textColor="@color/md_theme_primaryContainer"
+                android:textColor="@color/md_theme_primary">
+
+            </TextView>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
