@@ -42,11 +42,103 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/oswald_regular"
+        android:id="@+id/listas"
         android:text="Llistes"
         android:textColor="@color/md_theme_primaryContainer"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearAvatarUser" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/listas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="360dp"
+            android:layout_height="80dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sèries per veure"
+                android:layout_marginTop="18sp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primaryContainer"
+                >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/oswaldLight"
+                android:text="Pública"
+                android:textColor="@color/md_theme_primaryContainer"
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="360dp"
+            android:layout_height="80dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pel·lícules terror"
+                android:layout_marginTop="18sp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primaryContainer"
+                >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/oswaldLight"
+                android:text="Pública"
+                android:textColor="@color/md_theme_primaryContainer"
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="360dp"
+            android:layout_height="80dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Millors Sèries"
+                android:layout_marginTop="18sp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primaryContainer"
+                >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/oswaldLight"
+                android:text="Privada"
+                android:textColor="@color/md_theme_primaryContainer"
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
     <fragment
         android:name="com.example.popview.barramenu"
