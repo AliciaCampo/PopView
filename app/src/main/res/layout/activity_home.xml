@@ -18,6 +18,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/letras"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:paddingBottom="10dp"
         />
 
@@ -52,15 +53,6 @@
         android:id="@+id/buttonCComedia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Comèdia"
-        app:layout_constraintTop_toBottomOf="@id/textCategories"
-        app:layout_constraintStart_toEndOf="@id/buttonCAccio"
-        android:layout_marginStart="20dp"
-        />
-    <Button
-        android:id="@+id/buttonCComedia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Superherois"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
@@ -86,6 +78,7 @@
         android:layout_height="169dp"
         android:src="@drawable/deadpoolylobezno"
         app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
+        android:contentDescription="Descripción del botón"
         app:layout_constraintStart_toStartOf="@id/textCategories"
         android:scaleType="centerCrop">
     </ImageButton>
@@ -96,16 +89,18 @@
         android:src="@drawable/delrevesdos"
         app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
         app:layout_constraintStart_toEndOf="@id/deadpoolylobezno"
+        android:contentDescription="Descripción del botón"
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop">
     </ImageButton>
     <ImageButton
-        android:id="@+id/beetlejuice2"
+        android:id="@+id/beetlejuicedos"
         android:layout_width="133dp"
         android:layout_height="169dp"
         android:src="@drawable/beetlejuice2"
         app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
         app:layout_constraintStart_toEndOf="@id/delrevesdos"
+        android:contentDescription="Descripción del botón"
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop">
     </ImageButton>
@@ -129,6 +124,7 @@
         android:layout_height="169dp"
         android:src="@drawable/wednesdaymiercoles"
         app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars"
+        android:contentDescription="Descripción del botón"
         app:layout_constraintStart_toStartOf="@id/textCategories"
         android:scaleType="centerCrop">
     </ImageButton>
@@ -138,6 +134,7 @@
         android:layout_height="169dp"
         android:src="@drawable/juegocalamar"
         app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars"
+        android:contentDescription="Descripción del botón"
         app:layout_constraintStart_toEndOf="@id/miercoles"
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop">
@@ -149,10 +146,12 @@
         android:src="@drawable/casapapel"
         app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars"
         app:layout_constraintStart_toEndOf="@id/juegocalamar"
+        android:contentDescription="Descripción del botón"
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop">
     </ImageButton>
     <fragment
+        android:name="com.example.popview.barramenu"
         android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
