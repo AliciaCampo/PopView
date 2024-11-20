@@ -1,53 +1,201 @@
 package com.example.popview
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.content.Intent
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.chip.Chip
 
 class AjustesActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajustes)
 
-        // Configurar el Spinner de idioma
-        val spinnerIdioma = findViewById<Spinner>(R.id.spinnerIdioma)
+        val ajuda = findViewById<Chip>(R.id.chipAjuda)
 
-        // Usar datos de un recurso XML
-        val adapter = ArrayAdapter.createFromResource(
+        ajuda.setOnClickListener {
+            val intent = Intent(this, AjudaActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configurar el Spinner d'idioma
+        val spinnerIdioma = findViewById<Spinner>(R.id.spinnerIdioma)
+        val adapterIdioma = ArrayAdapter.createFromResource(
             this,
-            R.array.idiomas_array,  // Asegúrate de tener este recurso en strings.xml
+            R.array.idiomas_array,
             android.R.layout.simple_spinner_item
         )
+        adapterIdioma.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerIdioma.adapter = adapterIdioma
 
-        // Configura el diseño para los ítems desplegables del Spinner
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Recuperar la selecció d'idioma guardada
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("config", Context.MODE_PRIVATE)
+        val idiomaGuardado = sharedPreferences.getString("idiomaSeleccionado", "Español")
+        val idiomaIndex = adapterIdioma.getPosition(idiomaGuardado)
+        spinnerIdioma.setSelection(idiomaIndex)
 
-        // Asigna el adaptador al Spinner
-        spinnerIdioma.adapter = adapter
-
-        // Manejo de selección en el Spinner
+        // Control de selecció en el Spinner d'idioma
         spinnerIdioma.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
                 val idiomaSeleccionado = parent.getItemAtPosition(position).toString()
-                Toast.makeText(applicationContext, "Seleccionaste: $idiomaSeleccionado", Toast.LENGTH_SHORT).show()
+
+                // Guardar la selecció d'idioma
+                val editor = sharedPreferences.edit()
+                editor.putString("idiomaSeleccionado", idiomaSeleccionado)
+                editor.apply()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // Maneja el caso donde no se seleccionó nada (opcional)
+                // Opcional: Que fer si no es selecciona res
             }
         }
 
-        // Manejo de los márgenes de los bordes de la pantalla (Edge to Edge)
+        // Configurar el Spinner de mida (mides_array)
+        val spinnerMida = findViewById<Spinner>(R.id.spinnerMidaText)
+        val adapterMida = ArrayAdapter.createFromResource(
+            this,
+            R.array.mides_array,
+            android.R.layout.simple_spinner_item
+        )
+        adapterMida.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerMida.adapter = adapterMida
+
+        // Recuperar la selecció de mida guardada
+        val midaGuardada = sharedPreferences.getString("midaSeleccionada", "Mitjana")
+        val midaIndex = adapterMida.getPosition(midaGuardada)
+        spinnerMida.setSelection(midaIndex)
+
+        // Control de selecció en el Spinner de mida
+        spinnerMida.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val midaSeleccionada = parent.getItemAtPosition(position).toString()
+
+                // Guardar la selecció de mida
+                val editor = sharedPreferences.edit()
+                editor.putString("midaSeleccionada", midaSeleccionada)
+                editor.apply()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Opcional: Que fer si no es selecciona res
+            }
+        }
+
+        // Configurar el Spinner de zones horàries (zonas_horarias_array)
+        val spinnerHorarios = findViewById<Spinner>(R.id.spinnerHorari)
+        val adapterHorarios = ArrayAdapter.createFromResource(
+            this,
+            R.array.zonas_horarias_array,
+            android.R.layout.simple_spinner_item
+        )
+        adapterHorarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerHorarios.adapter = adapterHorarios
+
+        // Recuperar la selecció de zona horària guardada
+        val zonaGuardada = sharedPreferences.getString("zonaSeleccionada", "GMT")
+        val zonaIndex = adapterHorarios.getPosition(zonaGuardada)
+        spinnerHorarios.setSelection(zonaIndex)
+
+        // Control de selecció en el Spinner de zona horària
+        spinnerHorarios.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val zonaSeleccionada = parent.getItemAtPosition(position).toString()
+
+                // Guardar la selecció de zona horària
+                val editor = sharedPreferences.edit()
+                editor.putString("zonaSeleccionada", zonaSeleccionada)
+                editor.apply()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Opcional: Que fer si no es selecciona res
+            }
+        }
+
+        // Configurar el Spinner de temes
+        val spinnerTema = findViewById<Spinner>(R.id.spinnerTema)
+        val adapterTema = ArrayAdapter.createFromResource(
+            this,
+            R.array.tema_array,
+            android.R.layout.simple_spinner_item
+        )
+        adapterTema.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTema.adapter = adapterTema
+
+        // Recuperar la selecció de tema guardada
+        val temaGuardado = sharedPreferences.getString("temaSeleccionado", "Claro")
+        val temaIndex = adapterTema.getPosition(temaGuardado)
+        spinnerTema.setSelection(temaIndex)
+
+        // Control de selecció en el Spinner de tema
+        spinnerTema.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val temaSeleccionado = parent.getItemAtPosition(position).toString()
+
+                // Guardar la selecció de tema
+                val editor = sharedPreferences.edit()
+                editor.putString("temaSeleccionado", temaSeleccionado)
+                editor.apply()
+
+                // Aplicar el tema a l'aplicació
+                when (temaSeleccionado) {
+                    "Claro" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    "Oscuro" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Opcional: Que fer si no es selecciona res
+            }
+        }
+
+        // Control dels marges dels costats de la pantalla (Edge to Edge)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    // Quan es reinicia l'activitat, es recuperen les seleccions guardades
+    override fun onResume() {
+        super.onResume()
+        // Recuperar les seleccions guardades
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("config", Context.MODE_PRIVATE)
+        val idiomaGuardado = sharedPreferences.getString("idiomaSeleccionado", "Español")
+        val midaGuardada = sharedPreferences.getString("midaSeleccionada", "Mitjana")
+        val zonaGuardada = sharedPreferences.getString("zonaSeleccionada", "GMT")
+        val temaGuardado = sharedPreferences.getString("temaSeleccionado", "Claro")
     }
 }
