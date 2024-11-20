@@ -9,6 +9,12 @@
     <string name="zona_horaria">Zona horaria</string>
     <string name="tema">Tema</string>
     <string name="restablir_els_valors_predeterminats">Restablir els valors predeterminats</string>
+    <string name="llistes">Llistes</string>
+    <string name="s_ries_per_veure">Sèries per veure</string>
+    <string name="p_blica">Pública</string>
+    <string name="pel_l_cules_terror">Pel·lícules terror</string>
+    <string name="millors_s_ries">Millors Sèries</string>
+    <string name="privada">Privada</string>
     <string-array name="idiomas_array">
         <item>Català</item>
         <item>Castellà</item>

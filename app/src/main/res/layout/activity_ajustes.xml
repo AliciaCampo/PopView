@@ -42,8 +42,8 @@
             android:id="@+id/spinnerIdioma"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,8 +69,8 @@
             android:id="@+id/spinnerMidaText"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float"/>
     </LinearLayout>
 
     <LinearLayout
@@ -96,8 +96,8 @@
             android:id="@+id/spinnerHorari"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float"/>
     </LinearLayout>
 
     <LinearLayout
@@ -123,8 +123,8 @@
             android:id="@+id/spinnerTema"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:background="@drawable/spinner_border"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:drawableEnd="@android:drawable/arrow_down_float"/>
     </LinearLayout>
 
     <com.google.android.material.chip.Chip
