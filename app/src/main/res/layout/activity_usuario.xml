@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
-                android:fontFamily="@font/oswaldlight"
+                android:fontFamily="@font/oswaldLight"
                 android:text="@string/p_blica"
                 android:textColor="@color/md_theme_primaryContainer" />
         </androidx.cardview.widget.CardView>
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
-                android:fontFamily="@font/oswaldlight"
+                android:fontFamily="@font/oswaldLight"
                 android:text="@string/p_blica"
                 android:textColor="@color/md_theme_primaryContainer" />
         </androidx.cardview.widget.CardView>
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
-                android:fontFamily="@font/oswaldlight"
+                android:fontFamily="@font/oswaldLight"
                 android:text="@string/privada"
                 android:textColor="@color/md_theme_primaryContainer" />
         </androidx.cardview.widget.CardView>
