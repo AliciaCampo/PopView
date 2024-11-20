@@ -31,7 +31,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/oswald_regular"
             android:text="user2131"
-            android:textColor="@color/letras"
+            android:textColor="@color/md_theme_primaryContainer"
             android:textSize="30sp"></TextView>
     </LinearLayout>
 
@@ -43,7 +43,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/oswald_regular"
         android:text="Llistes"
-        android:textColor="@color/letras"
+        android:textColor="@color/md_theme_primaryContainer"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearAvatarUser" />
