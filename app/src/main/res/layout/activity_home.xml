@@ -16,7 +16,7 @@
         android:fontFamily="@font/oswald_regular"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/md_theme_primaryContainer"
+        android:textColor="@color/letras"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingBottom="10dp"
         />
@@ -29,15 +29,16 @@
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         app:layout_constraintStart_toStartOf="@id/textCategories"
         />
+
     <Button
         android:id="@+id/buttonCFantasia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fantasia"
-        app:layout_constraintTop_toBottomOf="@id/textCategories"
-        app:layout_constraintStart_toEndOf="@id/buttonCAccio"
         android:layout_marginStart="20dp"
-        />
+        android:text="Fantasia"
+        app:layout_constraintStart_toEndOf="@id/buttonCAccio"
+        app:layout_constraintTop_toBottomOf="@id/textCategories"
+        tools:ignore="DuplicateClickableBoundsCheck" />
         <Button
         android:id="@+id/buttonCSuperherois"
         android:layout_width="wrap_content"
@@ -48,10 +49,10 @@
         android:layout_marginStart="20dp"
         />
     <Button
-        android:id="@+id/buttonCFantasia"
+        android:id="@+id/buttonCComedia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fantasia"
+        android:text="Comèdia"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         app:layout_constraintStart_toEndOf="@id/buttonCAccio"
         android:layout_marginStart="20dp"
@@ -74,7 +75,7 @@
         android:fontFamily="@font/oswald_regular"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/md_theme_primaryContainer"
+        android:textColor="@color/letras"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonCAccio"
         android:paddingBottom="10dp"
@@ -117,7 +118,7 @@
         android:fontFamily="@font/oswald_regular"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/md_theme_primaryContainer"
+        android:textColor="@color/letras"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/deadpoolylobezno"
         android:paddingBottom="10dp"
@@ -152,6 +153,7 @@
         android:scaleType="centerCrop">
     </ImageButton>
     <fragment
+        android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent">
