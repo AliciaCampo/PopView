@@ -12,26 +12,58 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="40dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/oswald_regular"
+        android:textColor="@color/md_theme_primary"
+        android:text="Ajuda" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip"
-        android:layout_width="match_parent"
+        android:id="@+id/chipPasos"
+        android:text="Primers passos"
+        app:chipCornerRadius="8dp"
+        android:fontFamily="@font/oswald_regular"
+        android:textColor="@color/md_theme_primary"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip2"
-        android:layout_width="match_parent"
+        android:id="@+id/chipCentreAjuda"
+        android:text="Centre d'ajuda"
+        app:chipCornerRadius="8dp"
+        android:fontFamily="@font/oswald_regular"
+        android:textColor="@color/md_theme_primary"
+        app:chipIcon="@drawable/help_circle"
+        app:layout_constraintTop_toBottomOf="@id/chipPasos"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip3"
-        android:layout_width="match_parent"
+        android:id="@+id/chipInfoApp"
+        android:text="Informació de l'aplicació"
+        android:fontFamily="@font/oswald_regular"
+        android:textColor="@color/md_theme_primary"
+        app:chipCornerRadius="8dp"
+        app:chipIcon="@drawable/info"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/chipCentreAjuda"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        app:layout_constraintTop_toBottomOf="@id/chipInfoApp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="Tornar" />
 </LinearLayout>
