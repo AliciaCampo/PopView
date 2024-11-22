@@ -32,12 +32,20 @@
             android:id="@+id/textBuscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="12"
             android:inputType="text"
-            android:text="BUSCAR"
-            android:backgroundTint="@color/md_theme_primaryContainer"
-            android:textColor="@color/md_theme_primaryContainer"
-            />
+            android:textColorHint="@color/md_theme_primary"
+            android:hint="Buscar"
+            android:background="@drawable/custom_search_background"
+            android:padding="5dp"
+            android:textColor="@color/md_theme_primaryContainer" />
+        <ImageView
+            android:id="@+id/imageFiltro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/filtro"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="10dp" />
 
     </LinearLayout>
     <!-- LinearLayout vertical para centrar las imágenes debajo del texto -->
