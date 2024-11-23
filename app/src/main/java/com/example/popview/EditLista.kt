@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.popview.PeliculasAdapter
 
 class EditLista : AppCompatActivity() {
 
@@ -46,15 +45,18 @@ class EditLista : AppCompatActivity() {
         adapter = PeliculasAdapter(peliculasList)
         recyclerView.adapter = adapter
 
-        // Prellenar con los datos existentes
+        // Prellenar con los datos existentes y manejar errores de índice
         if (listaData != null) {
             val partes = listaData.split(", ")
-            val titulo = partes[0]  // El título de la lista (por ejemplo: "Serie: S_ries per veure")
-            val descripcion = partes[1]  // La descripción
-            val privacidad = partes[2]  // La privacidad (Privada/Pública)
-            editTextTitulo.setText(titulo)  // Establecer el título en el EditText
-            editTextDescripcion.setText(descripcion)  // Establecer la descripción
-            switchPrivada.isChecked = privacidad == "Privada"  // Establecer el estado del switch
+            val titulo = partes.getOrNull(0) ?: "" // Usar "" si no hay título
+            val descripcion = partes.getOrNull(1) ?: "" // Usar "" si no hay descripción
+            val privacidad = partes.getOrNull(2) ?: "Pública" // Asumir "Pública" si no hay dato
+
+            editTextTitulo.setText(titulo)
+            editTextDescripcion.setText(descripcion)
+            switchPrivada.isChecked = privacidad == "Privada"
+        } else {
+            Toast.makeText(this, "No se recibieron datos de la lista.", Toast.LENGTH_SHORT).show()
         }
 
         // Cuando se hace clic en el botón para añadir una película
@@ -77,7 +79,11 @@ class EditLista : AppCompatActivity() {
             val esPrivada = switchPrivada.isChecked
 
             // Guardar los datos modificados (puedes guardarlos en una base de datos, SharedPreferences, etc.)
-            Toast.makeText(this, "Lista guardada: $listaTitulo, $listaDescripcion, Privacidad: $esPrivada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Lista guardada: $listaTitulo, $listaDescripcion, Privacidad: ${if (esPrivada) "Privada" else "Pública"}",
+                Toast.LENGTH_SHORT
+            ).show()
             finish()  // Finalizar la actividad y regresar
         }
     }
