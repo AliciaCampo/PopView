@@ -2,6 +2,7 @@ package com.example.popview
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -45,6 +46,10 @@ class UsuarioActivity : AppCompatActivity() {
             intent.putExtra("listaData", listaData) // Pasando datos al EditLista
             startActivity(intent)
         }
-
+        val btnGuardar = findViewById<Button>(R.id.btnCrearLista)
+        btnGuardar.setOnClickListener {
+            val intent = Intent(this, CrearListaActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

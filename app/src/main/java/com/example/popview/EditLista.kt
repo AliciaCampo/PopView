@@ -55,8 +55,17 @@ class EditLista : AppCompatActivity() {
             editTextTitulo.setText(titulo)
             editTextDescripcion.setText(descripcion)
             switchPrivada.isChecked = privacidad == "Privada"
+
+            // Actualizar la visibilidad de la descripción en función del estado del Switch
+            updateDescripcionVisibility(switchPrivada.isChecked, editTextDescripcion)
         } else {
             Toast.makeText(this, "No se recibieron datos de la lista.", Toast.LENGTH_SHORT).show()
+        }
+
+        // Cuando el switch de privacidad cambia
+        switchPrivada.setOnCheckedChangeListener { _, isChecked ->
+            // Cambiar la visibilidad de la descripción según el estado del switch
+            updateDescripcionVisibility(isChecked, editTextDescripcion)
         }
 
         // Cuando se hace clic en el botón para añadir una película
@@ -85,6 +94,15 @@ class EditLista : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
             finish()  // Finalizar la actividad y regresar
+        }
+    }
+
+    // Método para actualizar la visibilidad de la descripción según la privacidad
+    private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
+        if (isPrivada) {
+            descripcionField.visibility = EditText.GONE  // Ocultar el campo de descripción
+        } else {
+            descripcionField.visibility = EditText.VISIBLE  // Mostrar el campo de descripción
         }
     }
 }

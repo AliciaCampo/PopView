@@ -25,11 +25,9 @@
         <!-- Descripción o detalles de la lista -->
         <EditText
             android:id="@+id/editTextDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Descripción de la lista"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
         <!-- Switch para privacidad -->
         <Switch
@@ -44,7 +42,7 @@
             android:id="@+id/editTextPelicula"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Añadir título de película"
+            android:hint="Nuevo Titulo "
             android:textSize="18sp"
             android:layout_marginBottom="16dp" />
 
@@ -53,7 +51,7 @@
             android:id="@+id/btnAñadirPelicula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Añadir película"
+            android:text="Añadir titulo"
             android:layout_marginBottom="16dp" />
 
         <!-- RecyclerView para mostrar la lista de películas añadidas -->
