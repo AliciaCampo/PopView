@@ -5,6 +5,386 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RatingActivity">
+    tools:context=".BuscarActivity">
 
+    <!-- Categorías -->
+    <TextView
+        android:id="@+id/textCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/oswald_regular"
+        android:paddingBottom="10dp"
+        android:text="Categories"
+        android:textColor="@color/md_theme_primaryContainer"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Botones de categorías -->
+    <Button
+        android:id="@+id/buttonCAccio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acció"
+        app:layout_constraintStart_toStartOf="@id/textCategories"
+        app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+    <Button
+        android:id="@+id/buttonCFantasia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Fantasia"
+        app:layout_constraintStart_toEndOf="@id/buttonCAccio"
+        app:layout_constraintTop_toBottomOf="@id/textCategories"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
+    <Button
+        android:id="@+id/buttonCSuperherois"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Superherois"
+        app:layout_constraintStart_toEndOf="@id/buttonCFantasia"
+        app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+    <Button
+        android:id="@+id/buttonCComedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Superherois"
+        app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
+        app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+    <!-- Primera fila de imágenes -->
+    <LinearLayout
+        android:id="@+id/linearLayoutImagenesDos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCComedia">
+
+        <!-- Contenedor para Sabrina -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="1."
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/imageSabrina"
+                android:layout_width="133dp"
+                android:layout_height="169dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Descripción del botón"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sabrina" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Contenedor para Stranger Things -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="2."
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonStrangerThings"
+                android:layout_width="133dp"
+                android:layout_height="169dp"
+                android:contentDescription="Descripción del botón"
+                android:scaleType="centerCrop"
+                android:src="@drawable/strangerthingscuatro" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/half_star" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Segunda fila de imágenes -->
+    <LinearLayout
+        android:id="@+id/linearLayoutImagenesTres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenesDos">
+
+        <!-- Contenedor para Orange Is The New Black -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="3."
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/imageOrangeIsTheNewBlack"
+                android:layout_width="133dp"
+                android:layout_height="169dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Descripción del botón"
+                android:scaleType="centerCrop"
+                android:src="@drawable/orange_is_the_new_black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/empty_star" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Contenedor para Miércoles -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="4."
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonMiercoles"
+                android:layout_width="133dp"
+                android:layout_height="169dp"
+                android:contentDescription="Descripción del botón"
+                android:scaleType="centerCrop"
+                android:src="@drawable/wednesdaymiercoles" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+            <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/imageView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/half_star" />
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/empty_star" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Tercera fila de imágenes -->
+    <LinearLayout
+        android:id="@+id/linearLayoutImagenesCuatro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenesTres">
+
+        <!-- Contenedor para Deadpool y Lobezno -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="5."
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/deadpoolylobezno"
+                android:layout_width="133dp"
+                android:layout_height="169dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Descripción del botón"
+                android:scaleType="centerCrop"
+                android:src="@drawable/deadpoolylobezno" />
+        </LinearLayout>
+
+        <!-- Contenedor para Del Revés -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="6."
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/delrevesdos"
+                android:layout_width="133dp"
+                android:layout_height="169dp"
+                android:contentDescription="Descripción del botón"
+                android:scaleType="centerCrop"
+                android:src="@drawable/delrevesdos" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Barra de navegación -->
+    <fragment
+        android:id="@+id/fragment_navigation"
+        android:name="com.example.popview.barramenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

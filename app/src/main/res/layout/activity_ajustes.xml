@@ -43,7 +43,9 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:spinnerMode="dropdown"
-            android:drawableEnd="@android:drawable/arrow_down_float" />
+            android:drawableEnd="@android:drawable/arrow_down_float"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 
     <LinearLayout
