@@ -11,16 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="-54dp">
 
         <!-- Título de la lista (Editable) -->
         <EditText
             android:id="@+id/editTextTitulo"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
             android:hint="Título de la lista"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="18sp" />
 
         <!-- Descripción o detalles de la lista -->
         <EditText
@@ -34,25 +36,25 @@
             android:id="@+id/switchPrivada"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="Privada"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:text="Privada" />
 
         <!-- EditText para añadir título de película -->
         <EditText
             android:id="@+id/editTextPelicula"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
             android:hint="Nuevo Titulo "
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="18sp" />
 
         <!-- Botón de añadir película -->
         <Button
             android:id="@+id/btnAñadirPelicula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Añadir titulo"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:text="Añadir titulo" />
 
         <!-- RecyclerView para mostrar la lista de películas añadidas -->
         <androidx.recyclerview.widget.RecyclerView
@@ -66,10 +68,19 @@
             android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar cambios"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:text="Guardar cambios" />
+
+        <Button
+            android:id="@+id/borrar"
+            android:layout_width="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="140dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/borrar"/>
 
     </LinearLayout>
+
     <fragment
         android:name="com.example.popview.barramenu"
         android:layout_width="match_parent"
