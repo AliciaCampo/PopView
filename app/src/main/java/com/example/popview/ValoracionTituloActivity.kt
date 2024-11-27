@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.RatingBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
@@ -35,6 +37,12 @@ class ValoracionTituloActivity : AppCompatActivity() {
             startActivity(intentEnrere)
             // Cerrar la actividad actual
             finish()
+        }
+        // Obtén la referencia del RatingBar
+        val ratingBar: RatingBar = findViewById(R.id.ratingBar)
+
+        // Configura el listener para detectar cambios en la puntuación
+        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
         }
     }
 }

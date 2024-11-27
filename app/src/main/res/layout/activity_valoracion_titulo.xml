@@ -70,7 +70,7 @@
             android:layout_marginTop="10dp"
             android:numStars="4"
             android:stepSize="0.5"
-            android:rating="3.5"
+            android:isIndicator="false"
             android:theme="@style/Widget.AppCompat.RatingBar.Small" />
     </LinearLayout>
 

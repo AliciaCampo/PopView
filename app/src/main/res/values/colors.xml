@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="gray">#CCCCCC</color>
+    <color name="light_gold">#FCE69C</color>
+    <color name="gold">#F1C644</color>
     <color name="md_theme_primary">#BD0047</color>
     <color name="md_theme_onPrimary">#FFD9DD</color>
     <color name="md_theme_primaryContainer">#A6003D</color>
