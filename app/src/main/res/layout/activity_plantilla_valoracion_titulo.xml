@@ -24,7 +24,6 @@
             android:id="@+id/imageContent"
             android:layout_width="400dp"
             android:layout_height="450dp"
-            android:src=""
             android:contentDescription="Imagen del contenido" />
 
         <!-- Título del contenido -->
