@@ -49,7 +49,7 @@
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Deadpool y Lobezno"
+            android:text="@string/deadpool_y_lobezno"
             android:textColor="@color/md_theme_primaryContainer" />
 
         <!-- Descripción del contenido -->
@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:textSize="11sp"
             android:textColor="@color/md_theme_primaryContainer"
-            android:text="Un apático Wade Wilson se afana en la vida civil tras dejar atrás sus días como Deadpool, un mercenario moralmente flexible. Pero cuando su mundo natal se enfrenta a una amenaza existencial, Wade debe volver a vestirse a regañadientes con un Lobezno aún más reacio a ayudar." />
+            android:text="@string/un_ap_tico_wade_wilson_se_afana_en_la_vida_civil_tras_dejar_atr_s_sus_d_as_como_deadpool_un_mercenario_moralmente_flexible_pero_cuando_su_mundo_natal_se_enfrenta_a_una_amenaza_existencial_wade_debe_volver_a_vestirse_a_rega_adientes_con_un_lobezno_a_n_m_s_reacio_a_ayudar" />
 
         <!-- RatingBar para puntuación -->
         <RatingBar

@@ -35,7 +35,7 @@
             android:ems="12"
             android:inputType="text"
             android:textColorHint="@color/md_theme_primary"
-            android:hint="Buscar"
+            android:hint="@string/buscar"
             android:background="@drawable/custom_search_background"
             android:padding="5dp"
             android:textColor="@color/md_theme_primaryContainer" />
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/filtro"
             android:scaleType="centerCrop"
-            android:layout_marginRight="10dp" />
+            android:layout_marginEnd="10dp" />
 
     </LinearLayout>
     <!-- LinearLayout vertical para centrar las imágenes debajo del texto -->
@@ -64,7 +64,7 @@
             android:layout_height="169dp"
             android:src="@drawable/cobrakai"
             android:scaleType="centerCrop"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:contentDescription="Descripción del botón"/>
         <ImageButton
             android:id="@+id/imageRespira"
@@ -98,7 +98,7 @@
             android:layout_height="169dp"
             android:src="@drawable/strangerthingscuatro"
             android:scaleType="centerCrop"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:contentDescription="Descripción del botón"/>
     </LinearLayout>
     <LinearLayout android:id="@+id/linearLayoutImagenesTres"
@@ -116,7 +116,7 @@
             android:layout_height="169dp"
             android:src="@drawable/orange_is_the_new_black"
             android:scaleType="centerCrop"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:contentDescription="Descripción del botón"/>
         <ImageButton
             android:id="@+id/imageButtonMiercoles"
@@ -142,7 +142,7 @@
             android:layout_height="169dp"
             android:src="@drawable/deadpoolylobezno"
             android:scaleType="centerCrop"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:contentDescription="Descripción del botón"/>
         <ImageButton
             android:id="@+id/delrevesdos"
@@ -150,7 +150,7 @@
             android:layout_height="169dp"
             android:src="@drawable/delrevesdos"
             android:scaleType="centerCrop"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:contentDescription="Descripción del botón"/>
     </LinearLayout>
     <fragment

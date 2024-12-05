@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/oswald_regular"
-            android:text="user2131"
+            android:text="@string/user2131"
             android:textColor="@color/md_theme_primaryContainer"
             android:textSize="30sp" />
     </LinearLayout>
@@ -52,7 +52,7 @@
         android:id="@+id/btnCrearLista"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/icon"
+        android:drawableEnd="@drawable/icon"
         app:layout_constraintTop_toTopOf="@id/listas"
         app:layout_constraintStart_toEndOf="@id/listas"
         android:layout_marginStart="180dp" />

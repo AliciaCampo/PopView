@@ -10,7 +10,7 @@
         android:id="@+id/tituloTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PopView"
+        android:text="@string/popview"
         android:textSize="60sp"
         android:fontFamily="@font/oswald_regular"
         android:textColor="@color/md_theme_primary" />
@@ -26,7 +26,7 @@
         android:id="@+id/descripcionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Totes les teves pel·lícules i sèries, sempre a mà.\nAfegeix, organitza i valora amb un sol clic."
+        android:text="@string/totes_les_teves_pel_l_cules_i_s_ries_sempre_a_m_nafegeix_organitza_i_valora_amb_un_sol_clic"
         android:textSize="20sp"
         android:fontFamily="@font/oswald_regular"
         android:textColor="@color/md_theme_primary"

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="16dp"
-            android:hint="Título de la lista"
+            android:hint="@string/t_tulo_de_la_lista"
             android:textSize="18sp" />
 
         <!-- Descripción o detalles de la lista -->
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="16dp"
-            android:hint="Nuevo Titulo "
+            android:hint="@string/nuevo_titulo"
             android:textSize="18sp" />
 
         <!-- Botón de añadir película -->
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Añadir titulo" />
+            android:text="@string/a_adir_titulo" />
 
         <!-- RecyclerView para mostrar la lista de películas añadidas -->
         <androidx.recyclerview.widget.RecyclerView
@@ -69,15 +69,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Guardar cambios" />
+            android:text="@string/guardar_cambios" />
 
         <Button
             android:id="@+id/borrar"
             android:layout_width="60dp"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="140dp"
+            android:layout_marginStart="140dp"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/borrar"/>
+            android:drawableEnd="@drawable/borrar"/>
 
     </LinearLayout>
 

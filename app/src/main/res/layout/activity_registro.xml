@@ -31,7 +31,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Usuari"
+            android:hint="@string/usuari"
             android:textColor="#A6003D"
             android:fontFamily="@font/oswald_regular" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/email"
             android:textColor="#A6003D"
             android:fontFamily="@font/oswald_regular" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,7 +69,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edat"
+            android:hint="@string/edat"
             android:textColor="#A6003D"
             android:fontFamily="@font/oswald_regular" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -88,7 +88,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contrasenya"
+            android:hint="@string/contrasenya"
             android:textColor="#A6003D"
             android:fontFamily="@font/oswald_regular" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +98,7 @@
         android:id="@+id/buttonRegistre"
         android:layout_width="110dp"
         android:layout_height="48dp"
-        android:text="Registre"
+        android:text="@string/registre"
         app:layout_constraintTop_toBottomOf="@id/textInputContrasenya"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,13 +12,13 @@
         android:id="@+id/textCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/oswald_regular"
         android:paddingBottom="10dp"
-        android:text="Categories"
+        android:text="@string/categories"
         android:textColor="@color/md_theme_primaryContainer"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/buttonCAccio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Acció"
+        android:text="@string/acci"
         app:layout_constraintStart_toStartOf="@id/textCategories"
         app:layout_constraintTop_toBottomOf="@id/textCategories" />
 
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="Fantasia"
+        android:text="@string/fantasia"
         app:layout_constraintStart_toEndOf="@id/buttonCAccio"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         tools:ignore="DuplicateClickableBoundsCheck" />
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="Superherois"
+        android:text="@string/superherois"
         app:layout_constraintStart_toEndOf="@id/buttonCFantasia"
         app:layout_constraintTop_toBottomOf="@id/textCategories" />
 
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="Superherois"
+        android:text="@string/comedia"
         app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
         app:layout_constraintTop_toBottomOf="@id/textCategories" />
 
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:text="1."
+                android:text="@string/_1"
                 android:textSize="24sp" />
 
             <ImageButton
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:text="2."
+                android:text="@string/_2"
                 android:textSize="24sp" />
 
             <ImageButton
@@ -167,7 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:text="3."
+                android:text="@string/_3"
                 android:textSize="24sp" />
 
             <ImageButton
@@ -203,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:text="4."
+                android:text="@string/_4"
                 android:textSize="24sp" />
 
             <ImageButton
@@ -250,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:text="5."
+                android:text="@string/_5"
                 android:textSize="24sp" />
 
             <ImageButton
@@ -275,7 +275,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
-                android:text="6."
+                android:text="@string/_6"
                 android:textSize="24sp" />
 
             <ImageButton
