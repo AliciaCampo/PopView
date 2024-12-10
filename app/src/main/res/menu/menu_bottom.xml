@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:title="home"
+    android:icon="@drawable/home_vector"
+    android:id="@+id/home"/>
+    <item
+        android:title="buscar"
+        android:icon="@drawable/search"
+        android:id="@+id/buscar"/>
+    <item
+        android:title="estrella"
+        android:icon="@drawable/star_rate"
+        android:id="@+id/estrella"/>
+    <item
+        android:title="cuenta"
+        android:icon="@drawable/account"
+        android:id="@+id/cuenta"/>
+    <item
+        android:title="ajustes"
+        android:icon="@drawable/settings"
+        android:id="@+id/ajustes"/>
+
+</menu>
