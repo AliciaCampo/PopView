@@ -12,10 +12,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         // Verificar si el contenedor del fragmento está vacío
-
-
-
     }
 }

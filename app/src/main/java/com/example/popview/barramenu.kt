@@ -51,8 +51,6 @@ class barramenu : Fragment() {
                 else -> false
             }
         }
-
         return view
     }
 }
-

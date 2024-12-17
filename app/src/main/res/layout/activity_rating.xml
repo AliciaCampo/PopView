@@ -287,11 +287,9 @@
                 android:src="@drawable/delrevesdos" />
         </LinearLayout>
     </LinearLayout>
-
-    <!-- Barra de navegación -->
     <fragment
-        android:id="@+id/fragment_navigation"
         android:name="com.example.popview.barramenu"
+        android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent" />
