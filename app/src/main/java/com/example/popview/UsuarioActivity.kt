@@ -18,6 +18,11 @@ class UsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario)
+        // Inicializamos RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewListas)
+
+        // Configuramos el LayoutManager para el RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ListasAdapter(listas) { lista ->
