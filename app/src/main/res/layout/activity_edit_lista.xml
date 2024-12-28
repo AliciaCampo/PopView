@@ -27,8 +27,8 @@
         <!-- Descripción o detalles de la lista -->
         <EditText
             android:id="@+id/editTextDescripcion"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:visibility="gone" />
 
         <!-- Switch para privacidad -->
@@ -56,29 +56,27 @@
             android:layout_marginBottom="16dp"
             android:text="@string/a_adir_titulo" />
 
-        <!-- RecyclerView para mostrar la lista de películas añadidas -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPeliculas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp" />
 
-        <!-- Botón de guardar cambios -->
         <Button
             android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/guardar_cambios" />
-
-        <Button
-            android:id="@+id/borrar"
+        <ImageButton
+            android:id="@+id/btnEliminar"
             android:layout_width="60dp"
             android:layout_marginTop="50dp"
             android:layout_marginStart="140dp"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/borrar"/>
-
+            android:src="@drawable/borrar"
+            android:contentDescription="Eliminar lista" />
     </LinearLayout>
 
     <fragment

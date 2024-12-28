@@ -21,9 +21,7 @@
             android:id="@+id/imagenAvatar"
             android:layout_width="175dp"
             android:layout_height="175dp"
-            android:src="@drawable/avataruser">
-
-        </ImageView>
+            android:src="@drawable/avataruser"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +32,6 @@
             android:textColor="@color/md_theme_primaryContainer"
             android:textSize="30sp" />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/listas"
@@ -48,6 +45,7 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearAvatarUser" />
+
     <Button
         android:id="@+id/btnCrearLista"
         android:layout_width="60dp"
@@ -57,102 +55,15 @@
         app:layout_constraintStart_toEndOf="@id/listas"
         android:layout_marginStart="180dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <!-- RecyclerView para mostrar las listas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewListas"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/listas"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/listas">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="360dp"
-            android:id="@+id/card01"
-            android:layout_height="80dp"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardElevation="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="18sp"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/s_ries_per_veure"
-                android:textColor="@color/md_theme_primaryContainer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/oswald_light"
-                android:text="@string/p_blica"
-                android:textColor="@color/md_theme_primaryContainer" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card02"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_width="360dp"
-            android:layout_height="80dp"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="18sp"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/pel_l_cules_terror"
-                android:textColor="@color/md_theme_primaryContainer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/oswald_light"
-                android:text="@string/p_blica"
-                android:textColor="@color/md_theme_primaryContainer" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card03"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_width="360dp"
-            android:layout_height="80dp"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="18sp"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/millors_s_ries"
-                android:textColor="@color/md_theme_primaryContainer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/oswald_light"
-                android:text="@string/privada"
-                android:textColor="@color/md_theme_primaryContainer" />
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <fragment
         android:name="com.example.popview.barramenu"
@@ -161,5 +72,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ class CrearListaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_lista)
+
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val switchPrivada = findViewById<Switch>(R.id.switchPrivada)
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
@@ -23,13 +24,16 @@ class CrearListaActivity : AppCompatActivity() {
 
             if (titulo.isNotEmpty()) {
                 val nuevaLista = Lista(titulo, esPrivada)
+
+                // Crear el Intent para enviar la nueva lista
                 val intent = Intent()
-                intent.putExtra("nuevaLista", nuevaLista)
+                intent.putExtra("nuevaLista", nuevaLista) // Pasamos la lista con título y si es privada
                 setResult(RESULT_OK, intent)
-                finish()
+                finish() // Cerramos la actividad
             } else {
                 Toast.makeText(this, "El título no puede estar vacío", Toast.LENGTH_SHORT).show()
             }
         }
     }
 }
+
