@@ -23,7 +23,8 @@ class CrearListaActivity : AppCompatActivity() {
             val esPrivada = switchPrivada.isChecked
 
             if (titulo.isNotEmpty()) {
-                val nuevaLista = Lista(titulo, esPrivada)
+                // Crear el objeto Lista con valores predeterminados para descripcion y peliculas
+                val nuevaLista = Lista(titulo, esPrivada = esPrivada)
 
                 // Crear el Intent para enviar la nueva lista
                 val intent = Intent()
@@ -36,4 +37,3 @@ class CrearListaActivity : AppCompatActivity() {
         }
     }
 }
-
