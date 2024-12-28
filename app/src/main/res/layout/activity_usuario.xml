@@ -55,15 +55,18 @@
         app:layout_constraintStart_toEndOf="@id/listas"
         android:layout_marginStart="180dp" />
 
-    <!-- RecyclerView para mostrar las listas -->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListas"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/listas"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
     <fragment
         android:name="com.example.popview.barramenu"

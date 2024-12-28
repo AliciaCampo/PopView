@@ -7,8 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,7 +27,6 @@ class EditLista : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_lista)
 
-        // Obtener el título de la lista que se editó
         val listaData = intent.getStringExtra("listaData")
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val editTextDescripcion = findViewById<EditText>(R.id.editTextDescripcion)
@@ -33,26 +34,23 @@ class EditLista : AppCompatActivity() {
         val editTextPelicula = findViewById<EditText>(R.id.editTextPelicula)
         val btnAñadirPelicula = findViewById<Button>(R.id.btnAñadirPelicula)
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
-
-        // Configuración del RecyclerView
+        val tituloLista = intent.getStringExtra("tituloLista")
+        if (tituloLista != null) {
+            findViewById<TextView>(R.id.textTitulo).text = tituloLista
+        }
         recyclerView = findViewById(R.id.recyclerViewPeliculas)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = PeliculasAdapter(peliculasList)
         recyclerView.adapter = adapter
-
-        // Cargar datos si están disponibles
         if (listaData != null) {
             val partes = listaData.split(", ")
             listaTitulo = partes.getOrNull(0) ?: ""
             val descripcion = partes.getOrNull(1) ?: ""
             val privacidad = partes.getOrNull(2) ?: "Pública"
-
             editTextTitulo.setText(listaTitulo)
             editTextDescripcion.setText(descripcion)
             switchPrivada.isChecked = privacidad == "Privada"
             updateDescripcionVisibility(switchPrivada.isChecked, editTextDescripcion)
-
-            // Cargar las películas asociadas a la lista desde SharedPreferences
             val listas = loadLists(this)
             val lista = listas.find { it.titulo == listaTitulo }
             if (lista != null) {
@@ -63,13 +61,9 @@ class EditLista : AppCompatActivity() {
         } else {
             Toast.makeText(this, "No se recibieron datos de la lista.", Toast.LENGTH_SHORT).show()
         }
-
-        // Cuando el switch de privacidad cambia
         switchPrivada.setOnCheckedChangeListener { _, isChecked ->
             updateDescripcionVisibility(isChecked, editTextDescripcion)
         }
-
-        // Cuando se hace clic en el botón para añadir una película
         btnAñadirPelicula.setOnClickListener {
             val peliculaTitulo = editTextPelicula.text.toString().trim()
             if (peliculaTitulo.isNotEmpty()) {
@@ -81,8 +75,6 @@ class EditLista : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, ingresa un título de película", Toast.LENGTH_SHORT).show()
             }
         }
-
-        // Cuando el usuario guarda los cambios
         btnGuardar.setOnClickListener {
             val listaTitulo = editTextTitulo.text.toString()
             val listaDescripcion = editTextDescripcion.text.toString()
@@ -99,20 +91,31 @@ class EditLista : AppCompatActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }
-
         // Botón de eliminar la lista
         val btnEliminar = findViewById<ImageButton>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
-            if (listaTitulo != null) {
-                deleteList(this, listaTitulo!!)  // Eliminar la lista completa
-                Toast.makeText(this, "Lista eliminada", Toast.LENGTH_SHORT).show()
-                finish()  // Volver a la actividad anterior
-            } else {
-                Toast.makeText(this, "No se puede eliminar la lista", Toast.LENGTH_SHORT).show()
-            }
+            mostrarDialogoConfirmacion(tituloLista)
         }
     }
-
+    private fun mostrarDialogoConfirmacion(tituloLista: String?) {
+        if (tituloLista == null) return
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar eliminación")
+        builder.setMessage("¿Quieres borrar la lista \"$tituloLista\"?")
+        builder.setPositiveButton("Confirmar") { _, _ ->
+            eliminarLista(tituloLista)
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+    private fun eliminarLista(tituloLista: String) {
+        val intent = Intent()
+        intent.putExtra("listaAEliminar", tituloLista)
+        setResult(RESULT_OK, intent)
+        finish() // Cierra la actividad
+    }
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
         if (isPrivada) {
             descripcionField.visibility = EditText.GONE
