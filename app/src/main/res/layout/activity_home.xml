@@ -72,19 +72,36 @@
         android:paddingBottom="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewImage"
+        android:id="@+id/recyclerViewRecomancions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:id="@+id/textPeliculesMesPopulars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pel_l_cules_m_s_populars"
+        android:textSize="30sp"
+        android:fontFamily="@font/oswald_regular"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/md_theme_primaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewRecomancions"
+        android:paddingBottom="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewImagePelisPop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
 
     <fragment
         android:name="com.example.popview.barramenu"
