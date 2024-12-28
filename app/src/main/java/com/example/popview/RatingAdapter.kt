@@ -1,23 +1,42 @@
 package com.example.popview
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RatingAdapter(private val items: List<RatingItem>) : RecyclerView.Adapter<RatingViewHolder>() {
+class RatingAdapter(private val itemList: List<RatingItem>) :
+    RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
 
-    // Infla el disseny de l'element i crea un ViewHolder
+    // ViewHolder para mantener las vistas
+    class RatingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val numRating: TextView = itemView.findViewById(R.id.numrating)
+        val imageButton: ImageButton = itemView.findViewById(R.id.imageSabrina)
+        val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar01)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatingViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return RatingViewHolder(inflater, parent)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.plantilla_rating, parent, false)
+        return RatingViewHolder(view)
     }
 
-    // Vincula les dades al ViewHolder
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
-        val item = items[position]
-        holder.bind(item)
+        val item = itemList[position]
+        holder.numRating.text = item.title
+        holder.imageButton.setImageResource(item.imageResId)
+        holder.ratingBar.rating = item.rating
+
+        // Configuración opcional para clics en el ImageButton
+        holder.imageButton.setOnClickListener {
+            // Puedes manejar el evento de clic aquí, si es necesario
+        }
     }
 
-    // Retorna el número d'elements
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int {
+        return itemList.size
+    }
 }

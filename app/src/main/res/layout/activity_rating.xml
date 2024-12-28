@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BuscarActivity">
+    tools:context=".RatingActivity">
 
     <!-- Categorías -->
     <TextView
@@ -38,8 +38,7 @@
         android:layout_marginStart="20dp"
         android:text="@string/fantasia"
         app:layout_constraintStart_toEndOf="@id/buttonCAccio"
-        app:layout_constraintTop_toBottomOf="@id/textCategories"
-        tools:ignore="DuplicateClickableBoundsCheck" />
+        app:layout_constraintTop_toBottomOf="@id/textCategories" />
 
     <Button
         android:id="@+id/buttonCSuperherois"
@@ -59,239 +58,24 @@
         app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
         app:layout_constraintTop_toBottomOf="@id/textCategories" />
 
-    <!-- Primera fila de imágenes -->
-    <LinearLayout
-        android:id="@+id/linearLayoutImagenesDos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonCComedia"
+        app:layout_constraintBottom_toTopOf="@id/fragment_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCComedia">
-
-        <!-- Contenedor para Sabrina -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/_1"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/imageSabrina"
-                android:layout_width="133dp"
-                android:layout_height="169dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Descripción del botón"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sabrina" />
-
-            <RatingBar
-                android:id="@+id/ratingBar01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="4"
-                android:rating="4"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:stepSize="0.5"
-                android:theme="@style/Widget.AppCompat.RatingBar.Small" />
-
-
-        </LinearLayout>
-
-        <!-- Contenedor para Stranger Things -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/_2"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/imageButtonStrangerThings"
-                android:layout_width="133dp"
-                android:layout_height="169dp"
-                android:contentDescription="Descripción del botón"
-                android:scaleType="centerCrop"
-                android:src="@drawable/strangerthingscuatro" />
-
-            <RatingBar
-                android:id="@+id/ratingBar02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="4"
-                android:rating="3.5"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:stepSize="0.5"
-                android:theme="@style/Widget.AppCompat.RatingBar.Small" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Segunda fila de imágenes -->
-    <LinearLayout
-        android:id="@+id/linearLayoutImagenesTres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenesDos">
+        tools:listitem="@layout/plantilla_rating" />
 
-        <!-- Contenedor para Orange Is The New Black -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/_3"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/imageOrangeIsTheNewBlack"
-                android:layout_width="133dp"
-                android:layout_height="169dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Descripción del botón"
-                android:scaleType="centerCrop"
-                android:src="@drawable/orange_is_the_new_black" />
-
-            <RatingBar
-                android:id="@+id/ratingBar03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="4"
-                android:rating="3"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:stepSize="0.5"
-                android:theme="@style/Widget.AppCompat.RatingBar.Small" />
-        </LinearLayout>
-
-        <!-- Contenedor para Miércoles -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/_4"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/imageButtonMiercoles"
-                android:layout_width="133dp"
-                android:layout_height="169dp"
-                android:contentDescription="Descripción del botón"
-                android:scaleType="centerCrop"
-                android:src="@drawable/wednesdaymiercoles" />
-
-            <RatingBar
-                android:id="@+id/ratingBar04"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="4"
-                android:rating="2.5"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:stepSize="0.5"
-                android:theme="@style/Widget.AppCompat.RatingBar.Small" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Tercera fila de imágenes -->
-    <LinearLayout
-        android:id="@+id/linearLayoutImagenesCuatro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutImagenesTres">
-
-        <!-- Contenedor para Deadpool y Lobezno -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/_5"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/deadpoolylobezno"
-                android:layout_width="133dp"
-                android:layout_height="169dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Descripción del botón"
-                android:scaleType="centerCrop"
-                android:src="@drawable/deadpoolylobezno" />
-        </LinearLayout>
-
-        <!-- Contenedor para Del Revés -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/_6"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/delrevesdos"
-                android:layout_width="133dp"
-                android:layout_height="169dp"
-                android:contentDescription="Descripción del botón"
-                android:scaleType="centerCrop"
-                android:src="@drawable/delrevesdos" />
-        </LinearLayout>
-    </LinearLayout>
-
+    <!-- Barra de navegación -->
     <fragment
         android:name="com.example.popview.barramenu"
         android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
