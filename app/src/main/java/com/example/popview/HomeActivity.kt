@@ -32,5 +32,8 @@ class HomeActivity : AppCompatActivity() {
 
         // Configurar el Adapter
         recyclerView.adapter = ImageAdapter(imageList)
+
+        // Añadir espaciado entre los elementos
+        recyclerView.addItemDecoration(ItemSpacingDecoration(16)) // Ajusta el valor si es necesario
     }
 }
