@@ -26,7 +26,6 @@ class EditLista : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_lista)
-
         val listaData = intent.getStringExtra("listaData")
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val editTextDescripcion = findViewById<EditText>(R.id.editTextDescripcion)
@@ -79,19 +78,15 @@ class EditLista : AppCompatActivity() {
             val listaTitulo = editTextTitulo.text.toString()
             val listaDescripcion = editTextDescripcion.text.toString()
             val esPrivada = switchPrivada.isChecked
-
             val listaModificada = Lista(
                 listaTitulo, listaDescripcion, esPrivada, peliculasList
             )
-
             saveList(this, listaModificada)  // Guardar la lista modificada
-
             val intent = Intent()
             intent.putExtra("listaModificada", listaModificada)  // Pasar la lista modificada
             setResult(RESULT_OK, intent)
             finish()
         }
-        // Botón de eliminar la lista
         val btnEliminar = findViewById<ImageButton>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
             mostrarDialogoConfirmacion(tituloLista)
