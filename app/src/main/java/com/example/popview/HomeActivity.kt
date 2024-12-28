@@ -14,17 +14,23 @@ class HomeActivity : AppCompatActivity() {
         // Inicializar el RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewImage)
 
-        // Crear una lista de objetos ImageItem (que representan las imágenes)
+        // Crear una lista de objetos ImageItem
         val imageList = listOf(
             ImageItem(R.drawable.deadpoolylobezno),
             ImageItem(R.drawable.delrevesdos),
-            ImageItem(R.drawable.beetlejuice2)
+            ImageItem(R.drawable.beetlejuice2),
+            ImageItem(R.drawable.wednesdaymiercoles),
+            ImageItem(R.drawable.juegocalamar),
+            ImageItem(R.drawable.casapapel),
+            ImageItem(R.drawable.jokerdos),
+            ImageItem(R.drawable.venomtres),
+            ImageItem(R.drawable.robotsalvaje)
         )
 
-        // Configurar el LayoutManager para el RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Configurar el LayoutManager para desplazamiento horizontal
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        // Establecer el Adapter para el RecyclerView
-        recyclerView.adapter = Home_buscarAdapter(imageList)
+        // Configurar el Adapter
+        recyclerView.adapter = ImageAdapter(imageList)
     }
 }

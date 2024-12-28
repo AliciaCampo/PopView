@@ -19,8 +19,7 @@
         android:textColor="@color/md_theme_primaryContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="10dp"
-        />
+        android:paddingBottom="10dp" />
 
     <Button
         android:id="@+id/buttonCAccio"
@@ -28,8 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/acci"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
-        app:layout_constraintStart_toStartOf="@id/textCategories"
-        />
+        app:layout_constraintStart_toStartOf="@id/textCategories" />
 
     <Button
         android:id="@+id/buttonCFantasia"
@@ -40,15 +38,16 @@
         app:layout_constraintStart_toEndOf="@id/buttonCAccio"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         tools:ignore="DuplicateClickableBoundsCheck" />
-        <Button
+
+    <Button
         android:id="@+id/buttonCSuperherois"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/superherois"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         app:layout_constraintStart_toEndOf="@id/buttonCFantasia"
-        android:layout_marginStart="20dp"
-        />
+        android:layout_marginStart="20dp" />
+
     <Button
         android:id="@+id/buttonCComedia"
         android:layout_width="wrap_content"
@@ -56,8 +55,8 @@
         android:text="@string/comedia"
         app:layout_constraintTop_toBottomOf="@id/textCategories"
         app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
-        android:layout_marginStart="20dp"
-        />
+        android:layout_marginStart="20dp" />
+
     <TextView
         android:id="@+id/textRecomanacions"
         android:layout_width="wrap_content"
@@ -70,146 +69,23 @@
         android:textColor="@color/md_theme_primaryContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonCAccio"
-        android:paddingBottom="10dp"
-        />
+        android:paddingBottom="10dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewImage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <ImageButton
-        android:id="@+id/deadpoolylobezno"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/deadpoolylobezno"
-        app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
-        android:contentDescription="Descripción del botón"
-        app:layout_constraintStart_toStartOf="@id/textCategories"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <ImageButton
-        android:id="@+id/delrevesdos"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/delrevesdos"
-        app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
-        app:layout_constraintStart_toEndOf="@id/deadpoolylobezno"
-        android:contentDescription="Descripción del botón"
-        android:layout_marginStart="20dp"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <ImageButton
-        android:id="@+id/beetlejuicedos"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/beetlejuice2"
-        app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
-        app:layout_constraintStart_toEndOf="@id/delrevesdos"
-        android:contentDescription="Descripción del botón"
-        android:layout_marginStart="20dp"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <TextView
-        android:id="@+id/textSeriesMesPopulars"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/s_ries_m_s_populars"
-        android:textSize="30sp"
-        android:fontFamily="@font/oswald_regular"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/md_theme_primaryContainer"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/deadpoolylobezno"
-        android:paddingBottom="10dp"
-        />
-    <ImageButton
-        android:id="@+id/miercoles"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/wednesdaymiercoles"
-        app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars"
-        android:contentDescription="Descripción del botón"
-        app:layout_constraintStart_toStartOf="@id/textCategories"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <ImageButton
-        android:id="@+id/juegocalamar"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/juegocalamar"
-        app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars"
-        android:contentDescription="Descripción del botón"
-        app:layout_constraintStart_toEndOf="@id/miercoles"
-        android:layout_marginStart="20dp"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <ImageButton
-        android:id="@+id/lacasadepapel"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/casapapel"
-        app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars"
-        app:layout_constraintStart_toEndOf="@id/juegocalamar"
-        android:contentDescription="Descripción del botón"
-        android:layout_marginStart="20dp"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <TextView
-        android:id="@+id/textPeliculesMesPopulars"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pel_l_cules_m_s_populars"
-        android:textSize="30sp"
-        android:fontFamily="@font/oswald_regular"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/md_theme_primaryContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/miercoles"
-        android:paddingBottom="10dp"
-        />
-    <ImageButton
-        android:id="@+id/jokerdos"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/jokerdos"
-        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
-        android:contentDescription="Descripción del botón"
-        app:layout_constraintStart_toStartOf="@id/textCategories"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <ImageButton
-        android:id="@+id/venomtres"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/venomtres"
-        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
-        android:contentDescription="Descripción del botón"
-        app:layout_constraintStart_toEndOf="@id/jokerdos"
-        android:layout_marginStart="20dp"
-        android:scaleType="centerCrop">
-    </ImageButton>
-    <ImageButton
-        android:id="@+id/robotsalvaje"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:src="@drawable/robotsalvaje"
-        app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
-        app:layout_constraintStart_toEndOf="@id/venomtres"
-        android:contentDescription="Descripción del botón"
-        android:layout_marginStart="20dp"
-        android:scaleType="centerCrop">
-    </ImageButton>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
+
     <fragment
         android:name="com.example.popview.barramenu"
         android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-    </fragment>
-
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
