@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald_regular"
+        android:textSize="18sp"
+        android:textColor="@color/md_theme_primary" />
+
+    <!-- Imagen -->
+    <ImageView
+        android:id="@+id/imageItem"
+        android:layout_width="133dp"
+        android:layout_height="169dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="4dp" />
+
+    <!-- Barra de valoración -->
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rating="0"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:layout_marginTop="4dp" />
+</LinearLayout>
