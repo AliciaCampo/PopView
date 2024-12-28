@@ -9,7 +9,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.plantilla_image)
+        setContentView(R.layout.activity_home)
 
         // Inicializar el RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewImage)
