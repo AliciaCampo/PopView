@@ -1,48 +1,42 @@
-package com.example.popview
-
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
-import android.widget.RatingBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.Insets
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.popview.Item
+import com.example.popview.MainActivity
+import com.example.popview.R
+import com.example.popview.ValoracionTituloAdapter
 
 class ValoracionTituloActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Configurar la ventana para que no limite el contenido a las barras del sistema
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
         setContentView(R.layout.activity_valoracion_titulo)
 
-        // Ajustar el padding de los elementos para acomodar las barras del sistema
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars: Insets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        // Configurar el botón de retroceso
+        // Configurar botón de retroceso
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
-            // Crear Intent para ir a BuscarActivity
-            val intentEnrere = Intent(this@ValoracionTituloActivity, BuscarActivity::class.java)
+            // Volver a la pantalla principal
+            val intentEnrere = Intent(this, MainActivity::class.java)
             startActivity(intentEnrere)
-            // Cerrar la actividad actual
             finish()
         }
-        // Obtén la referencia del RatingBar
-        val ratingBar: RatingBar = findViewById(R.id.ratingBar)
 
-        // Configura el listener para detectar cambios en la puntuación
-        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
-        }
+        // Configurar RecyclerView para comentarios dinámicos
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Crear lista de comentarios o ítems
+        val items = listOf(
+            Item("Comentario 1", "Este es un comentario 1.", R.drawable.deadpoolylobezno, 4.0f),
+            Item("Comentario 2", "Este es un comentario 2.", R.drawable.deadpoolylobezno, 3.5f),
+            Item("Comentario 3", "Este es un comentario 3.", R.drawable.deadpoolylobezno, 5.0f)
+        )
+
+        // Configurar adaptador
+        val adapter = ValoracionTituloAdapter(items)
+        recyclerView.adapter = adapter
     }
 }

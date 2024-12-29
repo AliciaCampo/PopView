@@ -16,70 +16,90 @@
         app:srcCompat="@android:drawable/ic_menu_revert"
         app:tint="@color/md_theme_primaryContainer"
         android:background="@android:color/transparent"
-        android:contentDescription="Botó per anar enrere"
+        android:contentDescription="Botón para ir atrás"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="40dp"
         android:layout_marginStart="30dp" />
 
-    <!-- Layout principal para imagen, título, descripción y rating -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!-- Scroll principal para contenido estático y dinámico -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonEnrere"
+        app:layout_constraintBottom_toTopOf="@id/fragment_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Imagen principal del contenido -->
-        <ImageView
-            android:id="@+id/imageContent"
-            android:layout_width="400dp"
-            android:layout_height="450dp"
-            android:src="@drawable/deadpoolylobezno"
-            android:contentDescription="Imagen del contenido" />
-
-        <!-- Título del contenido -->
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="@string/deadpool_y_lobezno"
-            android:textColor="@color/md_theme_primaryContainer" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
 
-        <!-- Descripción del contenido -->
-        <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="11sp"
-            android:textColor="@color/md_theme_primaryContainer"
-            android:text="@string/un_ap_tico_wade_wilson_se_afana_en_la_vida_civil_tras_dejar_atr_s_sus_d_as_como_deadpool_un_mercenario_moralmente_flexible_pero_cuando_su_mundo_natal_se_enfrenta_a_una_amenaza_existencial_wade_debe_volver_a_vestirse_a_rega_adientes_con_un_lobezno_a_n_m_s_reacio_a_ayudar" />
+            <!-- Imagen principal centrada -->
+            <ImageView
+                android:id="@+id/imageContent"
+                android:layout_width="300dp"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/deadpoolylobezno"
+                android:contentDescription="Imagen del contenido" />
 
-        <!-- RatingBar para puntuación -->
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:numStars="4"
-            android:stepSize="0.5"
-            android:isIndicator="false"
-            android:theme="@style/Widget.AppCompat.RatingBar.Small" />
-    </LinearLayout>
+            <!-- Título centrado -->
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/deadpool_y_lobezno"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:gravity="center" />
+
+            <!-- Descripción centrada -->
+            <TextView
+                android:id="@+id/textDescription"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:gravity="center"
+                android:text="@string/un_ap_tico_wade_wilson_se_afana_en_la_vida_civil_tras_dejar_atr_s_sus_d_as_como_deadpool_un_mercenario_moralmente_flexible_pero_cuando_su_mundo_natal_se_enfrenta_a_una_amenaza_existencial_wade_debe_volver_a_vestirse_a_rega_adientes_con_un_lobezno_a_n_m_s_reacio_a_ayudar" />
+
+            <!-- RatingBar centrado -->
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:isIndicator="false"
+                android:theme="@style/Widget.AppCompat.RatingBar.Small" />
+
+            <!-- RecyclerView para comentarios dinámicos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                tools:listitem="@layout/item_valoracion_titulo" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Fragmento de menú -->
     <fragment
+        android:id="@+id/fragment_navigation"
         android:name="com.example.popview.barramenu"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
