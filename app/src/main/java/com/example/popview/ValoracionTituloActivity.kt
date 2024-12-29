@@ -20,7 +20,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
             // Volver a la pantalla principal
-            val intentEnrere = Intent(this, MainActivity::class.java)
+            val intentEnrere = Intent(this, BuscarActivity::class.java)
             startActivity(intentEnrere)
             finish()
         }
