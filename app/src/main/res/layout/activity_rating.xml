@@ -7,62 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".RatingActivity">
 
-    <!-- Categorías -->
-    <TextView
-        android:id="@+id/textCategories"
-        android:layout_width="wrap_content"
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.popview.CategoriesFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/oswald_regular"
-        android:paddingBottom="10dp"
-        android:text="@string/categories"
-        android:textColor="@color/md_theme_primaryContainer"
-        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botones de categorías -->
-    <Button
-        android:id="@+id/buttonCAccio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/acci"
-        app:layout_constraintStart_toStartOf="@id/textCategories"
-        app:layout_constraintTop_toBottomOf="@id/textCategories" />
-
-    <Button
-        android:id="@+id/buttonCFantasia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/fantasia"
-        app:layout_constraintStart_toEndOf="@id/buttonCAccio"
-        app:layout_constraintTop_toBottomOf="@id/textCategories" />
-
-    <Button
-        android:id="@+id/buttonCSuperherois"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/superherois"
-        app:layout_constraintStart_toEndOf="@id/buttonCFantasia"
-        app:layout_constraintTop_toBottomOf="@id/textCategories" />
-
-    <Button
-        android:id="@+id/buttonCComedia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/comedia"
-        app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
-        app:layout_constraintTop_toBottomOf="@id/textCategories" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/buttonCAccio"
+        app:layout_constraintTop_toBottomOf="@id/categoriesFragment"
         app:layout_constraintBottom_toTopOf="@id/fragment_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
