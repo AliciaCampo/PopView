@@ -1,119 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true">
+    tools:context=".HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        tools:context=".HomeActivity"
+    <android.widget.ScrollView
+        android:id="@+id/scrollViewContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragment_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswald_regular"
+                android:paddingBottom="10dp"
+                android:text="@string/categories"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/buttonCAccio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/acci"
+                app:layout_constraintStart_toStartOf="@id/textCategories"
+                app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+            <Button
+                android:id="@+id/buttonCFantasia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/fantasia"
+                app:layout_constraintStart_toEndOf="@id/buttonCAccio"
+                app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+            <Button
+                android:id="@+id/buttonCSuperherois"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/superherois"
+                app:layout_constraintStart_toEndOf="@id/buttonCFantasia"
+                app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+            <Button
+                android:id="@+id/buttonCComedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/comedia"
+                app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
+                app:layout_constraintTop_toBottomOf="@id/textCategories" />
+
+            <TextView
+                android:id="@+id/textRecomanacions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswald_regular"
+                android:paddingBottom="10dp"
+                android:text="@string/recomanacions"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonCAccio" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRecomancions"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textRecomanacions" />
+
+            <TextView
+                android:id="@+id/textPeliculesMesPopulars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswald_regular"
+                android:paddingBottom="10dp"
+                android:text="@string/pel_l_cules_m_s_populars"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewRecomancions" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewImagePelisPop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars" />
+
+            <TextView
+                android:id="@+id/textSeriesMesPopulars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswald_regular"
+                android:paddingBottom="10dp"
+                android:text="@string/s_ries_m_s_populars"
+                android:textColor="@color/md_theme_primaryContainer"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewImagePelisPop" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSeriesPop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </android.widget.ScrollView>
+
+    <fragment
+        android:id="@+id/fragment_navigation"
+        android:name="com.example.popview.barramenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/textCategories"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/oswald_regular"
-            android:paddingBottom="10dp"
-            android:text="@string/categories"
-            android:textColor="@color/md_theme_primaryContainer"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/buttonCAccio"
-            app:layout_constraintStart_toStartOf="@id/textCategories"
-            app:layout_constraintTop_toBottomOf="@id/textCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/acci" />
-
-        <Button
-            android:id="@+id/buttonCFantasia"
-            app:layout_constraintStart_toEndOf="@id/buttonCAccio"
-            app:layout_constraintTop_toBottomOf="@id/textCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/fantasia" />
-
-        <Button
-            android:id="@+id/buttonCSuperherois"
-            app:layout_constraintStart_toEndOf="@id/buttonCFantasia"
-            app:layout_constraintTop_toBottomOf="@id/textCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/superherois" />
-
-        <Button
-            android:id="@+id/buttonCComedia"
-            app:layout_constraintStart_toEndOf="@id/buttonCSuperherois"
-            app:layout_constraintTop_toBottomOf="@id/textCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/comedia" />
-
-        <TextView
-            android:id="@+id/textRecomanacions"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonCAccio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/oswald_regular"
-            android:paddingBottom="10dp"
-            android:text="@string/recomanacions"
-            android:textColor="@color/md_theme_primaryContainer"
-            android:textSize="30sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRecomancions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textRecomanacions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            android:id="@+id/textPeliculesMesPopulars"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerViewRecomancions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/oswald_regular"
-            android:paddingBottom="10dp"
-            android:text="@string/pel_l_cules_m_s_populars"
-            android:textColor="@color/md_theme_primaryContainer"
-            android:textSize="30sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewImagePelisPop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
-
-        <fragment
-            android:id="@+id/fragment_navigation"
-            android:name="com.example.popview.barramenu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</android.widget.ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
