@@ -1,12 +1,15 @@
 package com.example.popview
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -73,6 +76,24 @@ class EditLista : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
             finish()
+        }
+        val btnEliminar = findViewById<ImageButton>(R.id.btnEliminar)
+        btnEliminar.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Confirmació")
+            builder.setMessage("Segur que vols esborrar la llista?")
+            builder.setPositiveButton(
+                "Confirmar") { dialog, _ ->
+                val intent = Intent()
+                intent.putExtra("eliminarLista", true)
+                setResult(RESULT_OK, intent)
+                finish()
+                dialog.dismiss()
+            }
+            builder.setNegativeButton("Cancel·lar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.create().show()
         }
     }
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
