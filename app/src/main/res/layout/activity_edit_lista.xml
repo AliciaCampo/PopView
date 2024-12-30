@@ -46,17 +46,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/a_adir_titulo" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPeliculas"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnGuardar" />
 
         <Button
             android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewPeliculas"
             android:text="@string/guardar_cambios" />
         <ImageButton
             android:id="@+id/btnEliminar"

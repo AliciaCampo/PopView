@@ -20,14 +20,13 @@ class UsuarioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_usuario)
         // Inicializamos RecyclerView
         recyclerView = findViewById(R.id.recyclerViewListas)
-
         // Configuramos el LayoutManager para el RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ListasAdapter(listas) { lista ->
             val intent = Intent(this, EditLista::class.java)
-            intent.putExtra("listaData", lista)
+            intent.putExtra("listaData", lista) // Enviar el objeto Lista completo
             startActivityForResult(intent, 1)
         }
         recyclerView.adapter = adapter
@@ -39,23 +38,28 @@ class UsuarioActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == RESULT_OK) {
-            if (requestCode == 1) {
-                val nuevaLista = data?.getSerializableExtra("nuevaLista") as? Lista
-                nuevaLista?.let {
-                    listas.add(it)
-                    adapter.notifyItemInserted(listas.size - 1)
+            when (requestCode) {
+                1 -> {
+                    val nuevaLista = data?.getSerializableExtra("nuevaLista") as? Lista
+                    nuevaLista?.let {
+                        listas.add(it)
+                        adapter.notifyItemInserted(listas.size - 1)
+                    }
                 }
-            } else {
-                val listaEliminada = data?.getSerializableExtra("eliminarLista") as? Lista
-                listaEliminada?.let {
-                    val posicion = listas.indexOf(it)
-                    if (posicion != -1) {
-                        listas.removeAt(posicion)
-                        adapter.notifyItemRemoved(posicion)
+                else -> {
+                    val listaEliminada = data?.getSerializableExtra("eliminarLista") as? Lista
+                    listaEliminada?.let {
+                        val posicion = listas.indexOfFirst { lista -> lista.titulo == it.titulo }
+                        if (posicion != -1) {
+                            listas.removeAt(posicion)
+                            adapter.notifyItemRemoved(posicion)
+                        }
                     }
                 }
             }
         }
     }
+
 }
