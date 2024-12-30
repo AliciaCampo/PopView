@@ -31,17 +31,25 @@ class BuscarActivity : AppCompatActivity() {
             startActivity(intent)
         })
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
+        // Lista de filtros y su estado seleccionado
+        val filtros = arrayOf("+12", "+16", "+18", "Serie", "Pelicula", "Acción", "Fantasía", "Superhéroes", "Comedia", "Director")
+        val seleccionados = BooleanArray(filtros.size) { false } // Estado de selección inicial: ninguno seleccionado
         imageFiltro.setOnClickListener {
-            // Opciones de filtro
-            val filtros = arrayOf("+12", "+16", "+18", "Serie", "Pelicula", "Acción", "Fantasía", "Superhéroes", "Comedia", "Director")
-            // Crear diálogo
+            // Crear el diálogo con opciones múltiples seleccionables
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Selecciona un o més filtres")
-            builder.setItems(filtros) { _, which ->
-                // Por ahora solo es visual, no hace nada al seleccionarlo
-                // Puedes mostrar un Toast para indicar la selección si deseas
+            builder.setMultiChoiceItems(filtros, seleccionados) { _, which, isChecked ->
+                // Actualizar el estado de selección
+                seleccionados[which] = isChecked
+            }
+            builder.setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
             }
             val dialog = builder.create()
             dialog.show()
+        }
     }
-}}
+}
