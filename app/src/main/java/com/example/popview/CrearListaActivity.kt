@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,15 @@ class CrearListaActivity : AppCompatActivity() {
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val switchPrivada = findViewById<Switch>(R.id.switchPrivada)
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
+
+
+        val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
+        imageButtonEnrere.setOnClickListener {
+            // Volver a la pantalla principal
+            val intentEnrere = Intent(this, UsuarioActivity::class.java)
+            startActivity(intentEnrere)
+            finish()
+        }
         // Botón de guardar lista
         btnGuardar.setOnClickListener {
             val titulo = editTextTitulo.text.toString()

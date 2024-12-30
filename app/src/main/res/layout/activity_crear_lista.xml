@@ -6,19 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CrearListaActivity">
-    <!-- Título de la lista -->
+
+    <!-- Botón para volver atrás con margen superior -->
+    <ImageButton
+        android:id="@+id/imageButtonEnrere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Botón para ir atrás"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        app:tint="@color/md_theme_primaryContainer" />
+
+    <!-- EditText para título -->
     <EditText
         android:id="@+id/editTextTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/t_tulo_de_la_lista"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imageButtonEnrere" />
 
     <!-- Switch para privacidad -->
     <Switch
@@ -29,17 +44,18 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTitulo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <!-- Botón de guardar -->
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/guardar_lista"
-        app:layout_constraintTop_toBottomOf="@+id/switchPrivada"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchPrivada" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
