@@ -1,20 +1,27 @@
-package  com.example.popview
+package com.example.popview
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.popview.Item
-import com.example.popview.MainActivity
-import com.example.popview.R
-import com.example.popview.ValoracionTituloAdapter
 
 class ValoracionTituloActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_valoracion_titulo)
+
+        // Recuperar el ID del recurso drawable pasado por el Intent
+        val imageResource = intent.getIntExtra("imageResource", -1) // Valor predeterminado -1
+
+        // Si el ID del recurso es válido, mostrar la imagen
+        if (imageResource != -1) {
+            val imageView = findViewById<ImageView>(R.id.imageView)
+            imageView.setImageResource(imageResource)
+        }
 
         // Configurar botón de retroceso
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
