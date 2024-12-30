@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -28,5 +30,18 @@ class BuscarActivity : AppCompatActivity() {
             )
             startActivity(intent)
         })
+        val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
+        imageFiltro.setOnClickListener {
+            // Opciones de filtro
+            val filtros = arrayOf("+12", "+16", "+18", "Serie", "Pelicula", "Acción", "Fantasía", "Superhéroes", "Comedia", "Director")
+            // Crear diálogo
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Selecciona un o més filtres")
+            builder.setItems(filtros) { _, which ->
+                // Por ahora solo es visual, no hace nada al seleccionarlo
+                // Puedes mostrar un Toast para indicar la selección si deseas
+            }
+            val dialog = builder.create()
+            dialog.show()
     }
-}
+}}
