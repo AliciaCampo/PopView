@@ -18,7 +18,7 @@ class CategoriesFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewCategories)
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         // Lista de categorías
-        val categories = listOf("Acción", "Fantasía", "Superhéroes", "Comedia")
+        val categories = listOf("Acció", "Fantasia", "Superherois", "Comèdia")
         // Configurar adaptador
         val adapter = CategoriesAdapter(categories) { category ->
             // Acción al hacer clic en una categoría
