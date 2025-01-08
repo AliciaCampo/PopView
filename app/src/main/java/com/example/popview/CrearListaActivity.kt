@@ -38,7 +38,7 @@ class CrearListaActivity : AppCompatActivity() {
                 setResult(RESULT_OK, intent)
                 finish() // Cerramos la actividad
             } else {
-                Toast.makeText(this, "El título no puede estar vacío", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "El títol no pot estar buit.", Toast.LENGTH_SHORT).show()
             }
         }
     }

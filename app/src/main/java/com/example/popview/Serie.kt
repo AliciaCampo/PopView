@@ -1,7 +1,6 @@
 package com.example.popview
 
 import java.util.Date
-
 class Serie(
     nombre: String,
     genero: String,
@@ -12,16 +11,15 @@ class Serie(
     val numeroDeTemporadas: Int,
     plataforma: String
 ) : Titulo(nombre, genero, duracion, plataforma) {
-
     override fun mostrarInformacion() {
         super.mostrarInformacion()
-        println("Fecha del primer episodio: $fechaPrimerEpisodio")
+        println(" Data del primer episodi:$fechaPrimerEpisodio")
         if (fechaUltimoEpisodio != null) {
-            println("Fecha del último episodio: $fechaUltimoEpisodio")
+            println(" Data del últim episodi: $fechaUltimoEpisodio")
         } else {
-            println("La serie todavía está en emisión.")
+            println("La sèrie encara está en emissió.")
         }
-        println("Número de temporadas: $numeroDeTemporadas")
-        println("¿La serie está acabada?: ${if (estaAcabada) "Sí" else "No"}")
+        println("Número de temporades: $numeroDeTemporadas")
+        println("La sèrie està acabada?: ${if (estaAcabada) "Sí" else "No"}")
     }
 }

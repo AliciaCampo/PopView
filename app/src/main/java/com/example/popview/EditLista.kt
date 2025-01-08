@@ -38,7 +38,7 @@ class EditLista : AppCompatActivity() {
             switchPrivada.isChecked = listaData.esPrivada
             updateDescripcionVisibility(listaData.esPrivada, editTextDescripcion)
         } else {
-            Toast.makeText(this, "No se recibieron datos de la lista.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No s'han rebut les dades de la llista.", Toast.LENGTH_SHORT).show()
         }
 
         switchPrivada.setOnCheckedChangeListener { _, isChecked ->
@@ -59,7 +59,7 @@ class EditLista : AppCompatActivity() {
 
             Toast.makeText(
                 this,
-                "Lista guardada: $listaTitulo, $listaDescripcion, Privacidad: ${if (esPrivada) "Privada" else "Pública"}",
+                "Llista guardada: $listaTitulo, $listaDescripcion, Privacitat: ${if (esPrivada) "Privada" else "Pública"}",
                 Toast.LENGTH_SHORT
             ).show()
             finish()

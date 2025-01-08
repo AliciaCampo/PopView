@@ -7,9 +7,9 @@ open class Titulo(
     val plataforma : String
 ) {
     open fun mostrarInformacion() {
-        println("Título: $nombre")
-        println("Género: $genero")
-        println("Duración: $duracion minutos")
+        println("Títol: $nombre")
+        println("Gènere: $genero")
+        println("Duració: $duracion minuts")
         println("Plataforma: $plataforma")
     }
 }
