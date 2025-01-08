@@ -90,9 +90,9 @@ class EditLista : AppCompatActivity() {
                 peliculasList.add(peliculaTitulo)
                 adapter.notifyDataSetChanged()
                 editTextPelicula.text.clear()
-                Toast.makeText(this, "Película añadida: $peliculaTitulo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Por favor, ingresa un título de película", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Siusplau, ingresa un títol", Toast.LENGTH_SHORT).show()
             }
         }
 
