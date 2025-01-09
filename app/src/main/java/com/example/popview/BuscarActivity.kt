@@ -11,6 +11,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class BuscarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,14 +25,40 @@ class BuscarActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val imageButtonWadeYLogan = findViewById<ImageButton>(R.id.deadpoolylobezno)
-        imageButtonWadeYLogan.setOnClickListener(View.OnClickListener {
+        //val imageButtonWadeYLogan = findViewById<ImageButton>(R.id.deadpoolylobezno)
+        /*imageButtonWadeYLogan.setOnClickListener(View.OnClickListener {
             val intent = Intent(
                 this@BuscarActivity,
                 ValoracionTituloActivity::class.java
             )
             startActivity(intent)
-        })
+        })*/
+        //logica del recycler view
+        val recyclerViewContent = findViewById<RecyclerView>(R.id.recyclerViewContent)
+        //configuración del recycler view
+        recyclerViewContent.layoutManager = GridLayoutManager(this, 2) // Dos columnas
+        //lista de las imagenes
+        val listaImagenes = listOf(
+            ImageItem(R.drawable.sabrina),
+            ImageItem(R.drawable.strangerthingscuatro),
+            ImageItem(R.drawable.orange_is_the_new_black),
+            ImageItem(R.drawable.wednesdaymiercoles),
+            ImageItem(R.drawable.deadpoolylobezno),
+            ImageItem(R.drawable.delrevesdos),
+            ImageItem(R.drawable.respira),
+            ImageItem(R.drawable.beetlejuice2)
+        )
+        //logica del adaptador clics
+        val adaptador = AdaptadorImagenes(listaImagenes) { imageItem ->
+            when (imageItem.imageUrl){
+                R.drawable.deadpoolylobezno -> {
+                    val intent = Intent(this@BuscarActivity, ValoracionTituloActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+        recyclerViewContent.adapter = adaptador
+
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
         // Lista de filtros y su estado seleccionado
         val filtros = arrayOf("+12", "+16", "+18", "Sèrie", "Pel·lícula", "Acció", "Fantasía", "Superherois", "Comèdia", "Director")
