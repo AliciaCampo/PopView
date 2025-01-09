@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- Imagen a la izquierda -->
+    <ImageView
+        android:id="@+id/imagenX"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Icono de película"
+        android:src="@drawable/x" />
+
+    <!-- Texto a la derecha -->
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Título de la película"
+        android:textSize="16sp" />
+</LinearLayout>

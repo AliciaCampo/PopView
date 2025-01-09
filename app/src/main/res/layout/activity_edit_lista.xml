@@ -61,7 +61,7 @@
             android:layout_gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewPeliculas"
             android:text="@string/guardar_cambios" />
-        <ImageButton
+        <ImageView
             android:id="@+id/btnEliminar"
             android:layout_width="60dp"
             android:layout_marginTop="50dp"

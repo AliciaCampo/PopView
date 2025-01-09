@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -65,7 +66,7 @@ class EditLista : AppCompatActivity() {
             finish()
         }
 
-        val btnEliminar = findViewById<ImageButton>(R.id.btnEliminar)
+        val btnEliminar = findViewById<ImageView>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Confirmació")
