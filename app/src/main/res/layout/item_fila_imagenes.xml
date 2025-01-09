@@ -1,21 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:layout_marginBottom="16dp">
-    <ImageButton
-        android:id="@+id/botonPrimeraImagen"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:layout_marginEnd="10dp"
-        android:scaleType="centerCrop" />
-    <ImageButton
-        android:id="@+id/botonSegundaImagen"
-        android:layout_width="133dp"
-        android:layout_height="169dp"
-        android:layout_marginEnd="10dp"
-        android:scaleType="centerCrop" />
-</LinearLayout>
+    android:id="@+id/botonImagen"
+    android:layout_width="133dp"
+    android:layout_height="169dp"
+    android:contentDescription="Imagen"
+    android:layout_margin="8dp"
+    android:scaleType="centerCrop" />

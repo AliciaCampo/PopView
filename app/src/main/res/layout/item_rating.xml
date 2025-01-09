@@ -18,10 +18,9 @@
     <!-- Imagen -->
     <ImageView
         android:id="@+id/imageItem"
-        android:layout_width="133dp"
+        android:layout_width="143dp"
         android:layout_height="169dp"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="4dp" />
+        android:scaleType="centerCrop" />
 
     <!-- Barra de valoración -->
     <RatingBar

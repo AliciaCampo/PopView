@@ -18,7 +18,7 @@
             android:text="@string/_1"
             android:textSize="24sp" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imageSabrina"
             android:layout_width="133dp"
             android:layout_height="169dp"
