@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.content.Intent
+import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,6 +26,30 @@ class AjustesActivity : AppCompatActivity() {
         ajuda.setOnClickListener {
             val intent = Intent(this, AjudaActivity::class.java)
             startActivity(intent)
+        }
+
+        val reset = findViewById<Button>(R.id.buttonRestablir)
+
+        reset.setOnClickListener {
+            val sharedPreferences: SharedPreferences =
+                getSharedPreferences("config", Context.MODE_PRIVATE)
+
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
+
+            val spinnerIdioma = findViewById<Spinner>(R.id.spinnerIdioma)
+            spinnerIdioma.setSelection(0)
+
+            val spinnerMida = findViewById<Spinner>(R.id.spinnerMidaText)
+            spinnerMida.setSelection(1)
+
+            val spinnerHorarios = findViewById<Spinner>(R.id.spinnerHorari)
+            spinnerHorarios.setSelection(13)
+
+            val spinnerTema = findViewById<Spinner>(R.id.spinnerTema)
+            spinnerTema.setSelection(0)
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         // Configurar el Spinner d'idioma
