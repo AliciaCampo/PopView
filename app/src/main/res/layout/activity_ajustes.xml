@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald_regular"
                 android:text="@string/prefer_ncies"
@@ -30,16 +30,17 @@
 
             <LinearLayout
                 android:id="@+id/linearLayoutIdioma"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewIdioma"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/oswald_regular"
                     android:text="@string/idioma"
                     android:textColor="@color/md_theme_primary"
@@ -47,24 +48,26 @@
 
                 <Spinner
                     android:id="@+id/spinnerIdioma"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:drawableEnd="@android:drawable/arrow_down_float"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayoutMidaText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewMidaText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="46dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/oswald_regular"
                     android:text="@string/mida_del_text"
                     android:textColor="@color/md_theme_primary"
@@ -72,24 +75,26 @@
 
                 <Spinner
                     android:id="@+id/spinnerMidaText"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:drawableEnd="@android:drawable/arrow_down_float"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayoutHorari"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewHorari"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="51dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/oswald_regular"
                     android:text="@string/zona_horaria"
                     android:textColor="@color/md_theme_primary"
@@ -97,24 +102,26 @@
 
                 <Spinner
                     android:id="@+id/spinnerHorari"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:drawableEnd="@android:drawable/arrow_down_float"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayoutTema"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewTema"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="114dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/oswald_regular"
                     android:text="@string/tema"
                     android:textColor="@color/md_theme_primary"
@@ -122,14 +129,15 @@
 
                 <Spinner
                     android:id="@+id/spinnerTema"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:drawableEnd="@android:drawable/arrow_down_float"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
