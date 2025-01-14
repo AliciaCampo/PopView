@@ -103,7 +103,7 @@ class EditLista : AppCompatActivity() {
         if (isPrivada) {
             descripcionField.visibility = EditText.GONE
         } else {
-            descripcionField.visibility = EditText.VISIBLE // Mostrar el campo de descripción
+            descripcionField.visibility = EditText.GONE // Mostrar el campo de descripción
         }
     }
 }
