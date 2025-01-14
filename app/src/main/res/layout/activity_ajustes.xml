@@ -7,152 +7,151 @@
     android:layout_height="match_parent"
     tools:context=".AjustesActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald_regular"
-        android:text="@string/prefer_ncies"
-        android:textColor="@color/md_theme_primary"
-        android:layout_margin="20dp"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/linearLayoutIdioma"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutIdioma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView">
-
-        <TextView
-            android:id="@+id/textViewIdioma"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
-            android:fontFamily="@font/oswald_regular"
-            android:text="@string/idioma"
-            android:textColor="@color/md_theme_primary"
-            android:textSize="24sp" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <Spinner
-            android:id="@+id/spinnerIdioma"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"
-            android:drawableEnd="@android:drawable/arrow_down_float"
-            android:clickable="true"
-            android:focusable="true" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:text="@string/prefer_ncies"
+                android:textColor="@color/md_theme_primary"
+                android:textSize="30sp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutMidaText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutIdioma">
-        <TextView
-            android:id="@+id/textViewMidaText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="46dp"
-            android:fontFamily="@font/oswald_regular"
-            android:text="@string/mida_del_text"
-            android:textColor="@color/md_theme_primary"
-            android:textSize="24sp" />
+            <LinearLayout
+                android:id="@+id/linearLayoutIdioma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinnerMidaText"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"
-            android:drawableEnd="@android:drawable/arrow_down_float"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewIdioma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/oswald_regular"
+                    android:text="@string/idioma"
+                    android:textColor="@color/md_theme_primary"
+                    android:textSize="24sp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutHorari"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutMidaText">
+                <Spinner
+                    android:id="@+id/spinnerIdioma"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewHorari"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="51dp"
-            android:fontFamily="@font/oswald_regular"
-            android:text="@string/zona_horaria"
-            android:textColor="@color/md_theme_primary"
-            android:textSize="24sp" />
+            <LinearLayout
+                android:id="@+id/linearLayoutMidaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinnerHorari"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"
-            android:drawableEnd="@android:drawable/arrow_down_float"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewMidaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="46dp"
+                    android:fontFamily="@font/oswald_regular"
+                    android:text="@string/mida_del_text"
+                    android:textColor="@color/md_theme_primary"
+                    android:textSize="24sp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutTema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutHorari">
+                <Spinner
+                    android:id="@+id/spinnerMidaText"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewTema"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="114dp"
-            android:fontFamily="@font/oswald_regular"
-            android:text="@string/tema"
-            android:textColor="@color/md_theme_primary"
-            android:textSize="24sp" />
+            <LinearLayout
+                android:id="@+id/linearLayoutHorari"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinnerTema"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"
-            android:drawableEnd="@android:drawable/arrow_down_float"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewHorari"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="51dp"
+                    android:fontFamily="@font/oswald_regular"
+                    android:text="@string/zona_horaria"
+                    android:textColor="@color/md_theme_primary"
+                    android:textSize="24sp" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chipAjuda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/ajuda"
-        app:chipIcon="@drawable/help_circle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutTema" />
+                <Spinner
+                    android:id="@+id/spinnerHorari"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonRestablir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/restablir_els_valors_predeterminats"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chipAjuda" />
+            <LinearLayout
+                android:id="@+id/linearLayoutTema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewTema"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="114dp"
+                    android:fontFamily="@font/oswald_regular"
+                    android:text="@string/tema"
+                    android:textColor="@color/md_theme_primary"
+                    android:textSize="24sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerTema"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAjuda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/ajuda"
+                    app:chipIcon="@drawable/help_circle" />
+
+                <Button
+                    android:id="@+id/buttonRestablir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/restablir_els_valors_predeterminats" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <fragment
         android:id="@+id/fragment"
