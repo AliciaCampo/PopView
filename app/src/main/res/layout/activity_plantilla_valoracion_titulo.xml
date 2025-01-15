@@ -12,8 +12,7 @@
         android:id="@+id/imageContent"
         android:layout_width="400dp"
         android:layout_height="450dp"
-        android:contentDescription="Wade y Logan"
-        tools:src="@drawable/preview_image" /> <!-- Vista previa para herramientas como Android Studio -->
+        android:contentDescription="Imagen" /> <!-- Vista previa para herramientas como Android Studio -->
 
     <!-- Contenedor horizontal para el título y las imágenes de las plataformas -->
     <LinearLayout
