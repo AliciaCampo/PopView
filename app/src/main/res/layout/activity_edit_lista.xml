@@ -1,10 +1,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
-    android:padding="16dp"
     tools:context=".EditLista">
 
     <LinearLayout
@@ -14,6 +13,7 @@
         android:padding="16dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="-54dp">
+
         <EditText
             android:id="@+id/editTextTitulo"
             android:layout_width="match_parent"
@@ -21,17 +21,20 @@
             android:layout_marginBottom="16dp"
             android:hint="@string/t_tulo_de_la_lista"
             android:textSize="18sp" />
+
         <EditText
             android:id="@+id/editTextDescripcion"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:visibility="gone" />
+
         <Switch
             android:id="@+id/switchPrivada"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginBottom="16dp"
             android:text="Privada" />
+
         <EditText
             android:id="@+id/editTextPelicula"
             android:layout_width="match_parent"
@@ -59,17 +62,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewPeliculas"
-            android:text="@string/guardar_cambios" />
+            android:text="@string/guardar_cambios"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewPeliculas" />
+
         <ImageView
             android:id="@+id/btnEliminar"
             android:layout_width="60dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="140dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/borrar"
-            android:contentDescription="Eliminar lista" />
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="50dp"
+            android:contentDescription="Eliminar lista"
+            android:src="@drawable/borrar" />
     </LinearLayout>
+
     <fragment
         android:name="com.example.popview.barramenu"
         android:layout_width="match_parent"
