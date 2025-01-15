@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,102 +7,95 @@
     android:id="@+id/main"
     tools:context=".RegistroActivity">
 
-    <!-- Imagen Avatar -->
-    <ImageView
-        android:id="@+id/imagenAvatar"
-        android:layout_width="172dp"
-        android:layout_height="176dp"
-        android:src="@drawable/avatar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="138dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <!-- TextInputLayout: Usuario -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imagenAvatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="32dp"
-        android:id="@+id/textInputUsuario">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/usuari"
-            android:textColor="#A6003D"
-            android:fontFamily="@font/oswald_regular" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingTop="100dp"
+            android:gravity="center_horizontal">
 
-    <!-- TextInputLayout: Email -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textInputUsuario"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="32dp"
-        android:id="@+id/textInputEmail">
+            <!-- Imagen Avatar -->
+            <ImageView
+                android:id="@+id/imagenAvatar"
+                android:layout_width="172dp"
+                android:layout_height="176dp"
+                android:src="@drawable/avatar"
+                android:layout_marginBottom="24dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:textColor="#A6003D"
-            android:fontFamily="@font/oswald_regular" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- TextInputLayout: Usuario -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
-    <!-- TextInputLayout: Edad -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textInputEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="32dp"
-        android:id="@+id/textInputEdad">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/usuari"
+                    android:textColor="#A6003D"
+                    android:fontFamily="@font/oswald_regular" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/edat"
-            android:textColor="#A6003D"
-            android:fontFamily="@font/oswald_regular" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- TextInputLayout: Email -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
-    <!-- TextInputLayout: Contraseña -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textInputEdad"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="32dp"
-        android:id="@+id/textInputContrasenya">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:textColor="#A6003D"
+                    android:fontFamily="@font/oswald_regular" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/contrasenya"
-            android:textColor="#A6003D"
-            android:fontFamily="@font/oswald_regular" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- TextInputLayout: Edad -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputEdad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
-    <!-- Botón de Registro -->
-    <Button
-        android:id="@+id/buttonRegistre"
-        android:layout_width="110dp"
-        android:layout_height="48dp"
-        android:text="@string/registre"
-        app:layout_constraintTop_toBottomOf="@id/textInputContrasenya"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="32dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edat"
+                    android:textColor="#A6003D"
+                    android:fontFamily="@font/oswald_regular" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- TextInputLayout: Contraseña -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputContrasenya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contrasenya"
+                    android:textColor="#A6003D"
+                    android:fontFamily="@font/oswald_regular" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botón de Registro -->
+            <Button
+                android:id="@+id/buttonRegistre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/registre"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
