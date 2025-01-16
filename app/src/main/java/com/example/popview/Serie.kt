@@ -10,7 +10,7 @@ class Serie(
     val estaAcabada: Boolean,
     val numeroDeTemporadas: Int,
     plataforma: String
-) : Titulo(nombre, genero, duracion, plataforma) {
+) /*: Titulo(nombre, genero, duracion, plataforma) {
     override fun mostrarInformacion() {
         super.mostrarInformacion()
         println(" Data del primer episodi:$fechaPrimerEpisodio")
@@ -22,4 +22,4 @@ class Serie(
         println("Número de temporades: $numeroDeTemporadas")
         println("La sèrie està acabada?: ${if (estaAcabada) "Sí" else "No"}")
     }
-}
+}*/
