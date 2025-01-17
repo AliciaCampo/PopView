@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    tools:context=".ValoracionTituloActivity"
     android:padding="16dp">
 
     <!-- Botón de retroceso -->
