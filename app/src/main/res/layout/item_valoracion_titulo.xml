@@ -10,10 +10,11 @@
     <!-- Imagen principal del contenido -->
     <ImageView
         android:id="@+id/imageContent"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/account"
         android:scaleType="centerCrop"
+        app:tint="@color/md_theme_primary"
         android:contentDescription="icono perfil"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

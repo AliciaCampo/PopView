@@ -63,9 +63,9 @@ class ValoracionTituloActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         // Crear lista de Comentaris o ítems
         val items = listOf(
-            Item("Comentari 1", "Això és un comentari 1.", R.drawable.deadpoolylobezno, 4.0f),
-            Item("Comentari 2", "Això és un comentari 2.", R.drawable.deadpoolylobezno, 3.5f),
-            Item("Comentari 3", "Això és un comentari 3.", R.drawable.deadpoolylobezno, 5.0f)
+            Item("Comentari 1", "Això és un comentari 1.", R.drawable.account, 4.0f),
+            Item("Comentari 2", "Això és un comentari 2.", R.drawable.account, 3.5f),
+            Item("Comentari 3", "Això és un comentari 3.", R.drawable.account, 4.0f)
         )
         // Configurar adaptador
         val adapter = ValoracionTituloAdapter(items)
