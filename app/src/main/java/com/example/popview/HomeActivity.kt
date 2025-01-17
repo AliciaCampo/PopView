@@ -23,14 +23,16 @@ class HomeActivity : AppCompatActivity() {
             ImageItem(R.drawable.beetlejuice2),
             ImageItem(R.drawable.jokerdos),
             ImageItem(R.drawable.venomtres),
-            ImageItem(R.drawable.robotsalvaje)
+            ImageItem(R.drawable.robotsalvaje),
+            ImageItem(R.drawable.deadpoolylobezno)
         )
 
         val seriesPopulares = listOf(
             ImageItem(R.drawable.respira),
             ImageItem(R.drawable.wednesdaymiercoles),
             ImageItem(R.drawable.juegocalamar),
-            ImageItem(R.drawable.casapapel)
+            ImageItem(R.drawable.casapapel),
+            ImageItem(R.drawable.cobrakai)
         )
 
         configureRecyclerView(
