@@ -27,14 +27,7 @@ class BuscarActivity : AppCompatActivity() {
             insets
         }
         AppContext.context = this
-        //val imageButtonWadeYLogan = findViewById<ImageButton>(R.id.deadpoolylobezno)
-        /*imageButtonWadeYLogan.setOnClickListener(View.OnClickListener {
-            val intent = Intent(
-                this@BuscarActivity,
-                ValoracionTituloActivity::class.java
-            )
-            startActivity(intent)
-        })*/
+
         //logica del recycler view
         val recyclerViewContent = findViewById<RecyclerView>(R.id.recyclerViewContent)
         //configuración del recycler view
@@ -44,7 +37,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.sabrina,
                 nombre = "Sabrina",
-                description = "Una joven bruja enfrenta desafíos entre el mundo mágico y el mortal.",
+                description = AppContext.context.getString(R.string.description_sabrina),
                 platforms = listOf("Netflix", "Amazon Prime"),
                 rating = 3.5f,//se cojera de la base de datos del user
                 comments = listOf() // Por ahora vacío, mantenemos como placeholder
@@ -52,7 +45,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.strangerthingscuatro,
                 nombre = "Stranger Things",
-                description = "Un grupo de amigos enfrenta misterios sobrenaturales.",
+                description = AppContext.context.getString(R.string.description_stranger),
                 platforms = listOf("Netflix"),
                 rating = 4f,
                 comments = listOf()
@@ -60,7 +53,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.orange_is_the_new_black,
                 nombre = "Orange is the new black",
-                description = "Un grupo de amigos enfrenta misterios sobrenaturales.",
+                description = AppContext.context.getString(R.string.description_orangeisthenewblack),
                 platforms = listOf("Netflix"),
                 rating = 4f,
                 comments = listOf()
@@ -68,7 +61,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.wednesdaymiercoles,
                 nombre = "Miercoles",
-                description = "Un grupo de amigos enfrenta misterios sobrenaturales.",
+                description = AppContext.context.getString(R.string.description_miercoles),
                 platforms = listOf("Netflix"),
                 rating = 4f,
                 comments = listOf()
@@ -83,7 +76,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.delrevesdos,
                 nombre = "Del Reves 2",
-                description = "Un grupo de amigos enfrenta misterios sobrenaturales.",
+                description = AppContext.context.getString(R.string.description_delrevesdos),
                 platforms = listOf("Disney"),
                 rating = 4f,
                 comments = listOf()
@@ -91,7 +84,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.respira,
                 nombre = "Respira",
-                description = "Un grupo de amigos enfrenta misterios sobrenaturales.",
+                description = AppContext.context.getString(R.string.description_respira),
                 platforms = listOf("Netflix"),
                 rating = 4f,
                 comments = listOf()
@@ -99,7 +92,7 @@ class BuscarActivity : AppCompatActivity() {
             Titulo(
                 imagen = R.drawable.beetlejuice2,
                 nombre = "Beetlejuice 2",
-                description = "Un grupo de amigos enfrenta misterios sobrenaturales.",
+                description = AppContext.context.getString(R.string.description_beetlejuicedos),
                 platforms = listOf("Netflix"),
                 rating = 4f,
                 comments = listOf()
@@ -114,7 +107,6 @@ class BuscarActivity : AppCompatActivity() {
             startActivity(intent)
         }
         recyclerViewContent.adapter = adaptador
-
 
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
         // Lista de filtros y su estado seleccionado

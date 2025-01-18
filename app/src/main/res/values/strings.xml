@@ -52,6 +52,15 @@
     <string name="user2131">user2131</string>
     <string name="deadpool_y_lobezno">Deadpool y Lobezno</string>
     <string name="description_deadpoolylobezno">Un apático Wade Wilson se afana en la vida civil tras dejar atrás sus días como Deadpool, un mercenario moralmente flexible. Pero cuando su mundo natal se enfrenta a una amenaza existencial, Wade debe volver a vestirse a regañadientes con un Lobezno aún más reacio a ayudar.</string>
+    <string name="description_sabrina">Sabrina está a punto de cumplir 16 años y se debate entre el mundo de la magia de su familia y el mundo real de sus amigos.</string>
+    <string name="description_stranger">Homenaje a los clásicos misterios sobrenaturales de los años 80,Stranger Things es la historia de un niño que desaparece en el pequeño pueblo de Hawkins, Indiana, sin dejar rastro en 1983. En su búsqueda desesperada, tanto sus amigos y familiares como el sheriff local se ven envueltos en un enigma extraordinario: experimentos ultrasecretos, fuerzas paranormales terroríficas y una niña muy, muy rara...</string>
+    <string name="description_orangeisthenewblack">Piper Chapman (Taylor Schilling), una mujer de Connecticut con una vida estable a punto de casarse, es detenida a raíz de un delito de drogas que cometió hace una década: en aquellos días llevó un maletín con droga para Alex Vause (Laura Prepon), una traficante y antigua amante de Piper. Tras el juicio, es enviada a prisión de mujeres en Litchfield, Nueva York.</string>
+    <string name="description_miercoles">Sigue los años de Miércoles Addams como estudiante, intentando dominar su emergente habilidad psíquica mientras trata de resolver el misterio que enredó a sus padres.</string>
+    <string name="description_delrevesdos"> Riley entra en la adolescencia y el Cuartel General de su cabeza sufre una repentina reforma para hacerle hueco a algo totalmente inesperado propio de la pubertad: ¡Nuevas emociones! Alegría, Tristeza, Ira, Miedo y Asco, con años de impecable gestión a sus espaldas (según ellos...) no saben muy bien qué sentir cuando aparece con enorme ímpetu Ansiedad.</string>
+    <string name="description_respira">Biel es uno de los residentes que lleva unos meses dejándose la piel en un hospital público. Cientos de guardias, miles de horas, que apenas le dejan tiempo para su vida, todo con tal de convertirse en el mejor doctor. Lo que no se imagina es que en el hospital va a estallar una huelga total, sin servicios mínimos.</string>
+    <string name="description_beetlejuicedos">Tras una inesperada tragedia familiar, tres generaciones de la familia Deetz regresan a Winter River. La vida de Lydia, todavía atormentada por Bitelchús, da un vuelco cuando su rebelde hija adolescente, Astrid, descubre la misteriosa maqueta de la ciudad en el desván y el portal al Más Allá se abre accidentalmente.</string>
+
+
     <string-array name="idiomas_array">
         <item>Català</item>
         <item>Castellà</item>
