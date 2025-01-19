@@ -33,6 +33,7 @@
             android:layout_weight="1"
             android:background="@drawable/custom_search_background"
             android:ems="12"
+            android:fontFamily="@font/oswald_light"
             android:hint="@string/buscar"
             android:inputType="text"
             android:padding="5dp"

@@ -21,8 +21,8 @@ class CrearListaActivity : AppCompatActivity() {
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
             // Volver a la pantalla principal
-            val intentEnrere = Intent(this, UsuarioActivity::class.java)
-            startActivity(intentEnrere)
+            //val intentEnrere = Intent(this, UsuarioActivity::class.java)
+            //startActivity(intentEnrere)
             finish()
         }
         // Botón de guardar lista

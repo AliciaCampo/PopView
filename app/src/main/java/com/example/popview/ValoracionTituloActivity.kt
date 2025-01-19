@@ -25,6 +25,12 @@ class ValoracionTituloActivity : AppCompatActivity() {
         val textTitle = findViewById<TextView>(R.id.textTitle)
         val textDescription = findViewById<TextView>(R.id.textDescription)
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
+        val iconAnadirLista = findViewById<ImageView>(R.id.añadirTittulo)
+        iconAnadirLista.setOnClickListener {
+            val dialog = AddTituloLista() // Crear la instancia del fragmento
+            dialog.show(supportFragmentManager, "AddTituloLista") // Mostrar el fragmento
+        }
+
 
         // Configurar la imagen, título, descripción y puntuación
         imageView.setImageResource(titulo.imagen)
@@ -45,7 +51,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
             findViewById<ImageView>(R.id.platformIcon2),
             findViewById<ImageView>(R.id.platformIcon3)
         )
-
         platformIcons.forEachIndexed { index, imageView ->
             if (index < titulo.platforms.size) {
                 val platform = titulo.platforms[index]
@@ -55,9 +60,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 imageView.visibility = View.GONE
             }
         }
-
-
-
         // Configurar RecyclerView para Comentaris dinámicos
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -82,5 +84,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
             else -> R.drawable.logo
         }
     }
+    //logica añadir lista
 
 }
