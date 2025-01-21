@@ -12,7 +12,7 @@
     <string name="llistes">Llistes</string>
     <string name="s_ries_per_veure">Sèries per veure</string>
     <string name="p_blica">Pública</string>
-    <string name="pel_l_cules_terror">Pel·lícules terror</string>
+    <string name="pel_l_cules_terror">Pel·lícules de terror</string>
     <string name="millors_s_ries">Millors Sèries</string>
     <string name="privada">Privada</string>
     <string name="primers_passos">Primers passos</string>
@@ -21,8 +21,8 @@
     <string name="tornar">Tornar</string>
     <string name="buscar">Buscar</string>
     <string name="t_tulo_de_la_lista">Títol de la llista</string>
-    <string name="guardar_lista">Desar Llista</string>
-    <string name="nuevo_titulo">Nou Títol</string>
+    <string name="guardar_lista">Desar llista</string>
+    <string name="nuevo_titulo">Nou títol</string>
     <string name="a_adir_titulo">Afegir títol</string>
     <string name="guardar_cambios">Desar canvis</string>
     <string name="categories">Categories</string>
@@ -40,7 +40,7 @@
     <string name="iniciar_como_convidat">Iniciar com convidat</string>
     <string name="popview">PopView</string>
     <string name="totes_les_teves_pel_l_cules_i_s_ries_sempre_a_m_nafegeix_organitza_i_valora_amb_un_sol_clic">Totes les teves pel·lícules i sèries, sempre a mà.\nAfegeix, organitza i valora amb un sol clic.</string>
-    <string name="comedia">Comedia</string>
+    <string name="comedia">Comèdia</string>
     <string name="_1">1.</string>
     <string name="_2">2.</string>
     <string name="_3">3.</string>
@@ -64,7 +64,7 @@
     <string-array name="idiomas_array">
         <item>Català</item>
         <item>Castellà</item>
-        <item>Anglés</item>
+        <item>Anglès</item>
     </string-array>
     <string-array name="mides_array">
         <item>Petita</item>
