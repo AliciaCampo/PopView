@@ -1,4 +1,6 @@
 [versions]
+retrofit = "2.9.0"
+gson = "2.8.8"
 agp = "8.8.0"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
@@ -9,6 +11,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
+
 
 [libraries]
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
