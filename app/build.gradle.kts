@@ -37,8 +37,10 @@ android {
 }
 
 dependencies {
-    implementation ("com.github.bumptech.glide:glide:4.15.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")
+    implementation(libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.recyclerview:recyclerview:1.2.0")
     implementation(libs.androidx.core.ktx)
