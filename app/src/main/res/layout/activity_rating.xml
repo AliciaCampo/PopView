@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RatingActivity">
+    tools:context=".activity.RatingActivity">
 
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.example.popview.CategoriesFragment"
+        android:name="com.example.popview.fragment.CategoriesFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
 
     <!-- Barra de navegación -->
     <fragment
-        android:name="com.example.popview.barramenu"
+        android:name="com.example.popview.fragment.barramenu"
         android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"

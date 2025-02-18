@@ -13,47 +13,47 @@
         android:theme="@style/Theme.PopView"
         tools:targetApi="31">
         <activity
-            android:name=".AddTituloLista"
+            android:name=".fragment.AddTituloLista"
             android:exported="false" />
         <activity
-            android:name=".plantilla_valoracion_titulo"
+            android:name=".activity.plantilla_valoracion_titulo"
             android:exported="false" />
         <activity
-            android:name=".CrearListaActivity"
+            android:name=".activity.CrearListaActivity"
             android:exported="false" />
         <activity
-            android:name=".EditLista"
+            android:name=".activity.EditLista"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".ValoracionTituloActivity"
+            android:name=".activity.ValoracionTituloActivity"
             android:exported="false" />
         <activity
-            android:name=".AjudaActivity"
+            android:name=".activity.AjudaActivity"
             android:exported="false" />
         <activity
-            android:name=".AjustesActivity"
+            android:name=".activity.AjustesActivity"
             android:exported="false" />
         <activity
-            android:name=".RatingActivity"
+            android:name=".activity.RatingActivity"
             android:exported="false" />
         <activity
-            android:name=".BuscarActivity"
+            android:name=".activity.BuscarActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".UsuarioActivity"
+            android:name=".activity.UsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".activity.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,7 @@
 package com.example.popview
 
 import android.content.Context
+import com.example.popview.data.Lista
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

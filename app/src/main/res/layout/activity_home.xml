@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".activity.HomeActivity">
 
     <android.widget.ScrollView
         android:id="@+id/scrollViewContent"
@@ -22,7 +22,7 @@
 
             <fragment
                 android:id="@+id/categoriesFragment"
-                android:name="com.example.popview.CategoriesFragment"
+                android:name="com.example.popview.fragment.CategoriesFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -100,7 +100,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation"
-        android:name="com.example.popview.barramenu"
+        android:name="com.example.popview.fragment.barramenu"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"

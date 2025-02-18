@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuarioActivity">
+    tools:context=".activity.UsuarioActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -74,7 +74,7 @@
     </ScrollView>
 
     <fragment
-        android:name="com.example.popview.barramenu"
+        android:name="com.example.popview.fragment.barramenu"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
