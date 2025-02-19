@@ -22,31 +22,22 @@ import javax.net.ssl.X509TrustManager
 interface PopViewService {
     @GET("/usuaris/{usuari_id}")
     suspend fun getUsuari(@Path("usuari_id") usuariId: Int): Usuario
-
     @GET("/llistes/{llista_id}")
     suspend fun getLlista(@Path("llista_id") llistaId: Int): Lista
-
     @GET("/titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
-
     @POST("/usuaris")
     suspend fun createUser(usuario: Usuario): Usuario
-
     @POST("/llistes")
     suspend fun createLista(lista: Lista): Lista
-
     @POST("/titols")
     suspend fun createTitulo(titulo: Titulo): Titulo
-
     @DELETE("/usuaris/{usuari_id}")
     suspend fun deleteUsuari(@Path("usuari_id") usuariId: Int)
-
     @DELETE("/llistes/{llista_id}")
     suspend fun deleteLista(@Path("llista_id") llistaId: Int)
-
     @DELETE("/titols/{titol_id}")
     suspend fun deleteTitulo(@Path("titol_id") titolId: Int)
-
     }
     class PopViewAPI{
         private var mAPI : PopViewService? = null
@@ -74,27 +65,22 @@ private fun getUnsafeOkHttpClient(): OkHttpClient {
             @Throws(CertificateException::class)
             override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
             }
-
             @Throws(CertificateException::class)
             override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
             }
-
             override fun getAcceptedIssuers(): Array<X509Certificate> {
                 return arrayOf()
             }
         }
         )
-
         // Install the all-trusting trust manager
         val sslContext = SSLContext.getInstance("SSL")
         sslContext.init(null, trustAllCerts, SecureRandom())
         // Create an ssl socket factory with our all-trusting manager
         val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
-
         val builder = OkHttpClient.Builder()
         builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
         builder.hostnameVerifier { hostname, session -> true }
-
         val okHttpClient = builder.build()
         return okHttpClient
     } catch (e: Exception) {
