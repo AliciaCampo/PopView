@@ -49,6 +49,7 @@ interface PopViewService {
 
     }
     class PopViewAPI{
+        private var mAPI : PopViewService? = null
         @Synchronized
         fun API(): PopViewService {
             if (mAPI == null){
@@ -61,7 +62,7 @@ interface PopViewService {
                     .baseUrl("https://52.72.183.45/")
                     .client(getUnsafeOkHttpClient())
                     .build()
-                    .create(ReservesService::class.java)
+                    .create(PopViewService::class.java)
             }
             return mAPI!!
         }
