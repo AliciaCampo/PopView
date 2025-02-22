@@ -7,13 +7,13 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.popview.R
-import com.example.popview.data.RatingItem
+import com.example.popview.data.Item
 
-class RatingAdapter(private val itemList: List<RatingItem>) :
+class RatingAdapter(private val itemList: List<Item>) :
     RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
 
-    // ViewHolder para mantener las vistas
     class RatingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val numRating: TextView = itemView.findViewById(R.id.numrating)
         val imageView: ImageView = itemView.findViewById(R.id.imageSabrina)
@@ -29,16 +29,18 @@ class RatingAdapter(private val itemList: List<RatingItem>) :
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
         val item = itemList[position]
         holder.numRating.text = item.title
-        holder.imageView.setImageResource(item.imageResId)
+
+        // Usar Glide para cargar la imagen desde la URL
+        Glide.with(holder.itemView.context)
+            .load("http://44.205.116.170/PopView_fotos/${item.imageUrl}")
+            .into(holder.imageView)
+
         holder.ratingBar.rating = item.rating
 
-        // Configuración opcional para clics en el ImageButton
         holder.imageView.setOnClickListener {
-            // Puedes manejar el evento de clic aquí, si es necesario
+            // Manejar el evento de clic si es necesario
         }
     }
 
-    override fun getItemCount(): Int {
-        return itemList.size
-    }
+    override fun getItemCount(): Int = itemList.size
 }

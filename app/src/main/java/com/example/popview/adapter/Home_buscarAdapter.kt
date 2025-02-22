@@ -23,10 +23,9 @@ class ImageAdapter(private val imageList: List<ImageItem>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val currentItem = imageList[position]
         Glide.with(holder.itemView.context)
-            .load(currentItem.imageUrl)
+            .load("http://44.205.116.170/PopView_fotos/${currentItem.imageUrl}")
             .into(holder.imageView)
     }
-
     override fun getItemCount(): Int = imageList.size
 }
 

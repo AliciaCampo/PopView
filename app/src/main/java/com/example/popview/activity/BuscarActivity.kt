@@ -9,15 +9,22 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.`object`.AppContext
 import com.example.popview.R
 import com.example.popview.data.Titulo
 import com.example.popview.adapter.AdaptadorImagenes
+import com.example.popview.service.PopViewAPI
+import com.example.popview.service.PopViewService
+import kotlinx.coroutines.launch
 
 
 class BuscarActivity : AppCompatActivity() {
+    private lateinit var popViewService: PopViewService
+    private lateinit var allTitles: List<Titulo>
+    private val buscarQuery = intent.getStringExtra("SEARCH_QUERY") ?: ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,92 +34,19 @@ class BuscarActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        AppContext.context = this
-
-        //logica del recycler view
-        val recyclerViewContent = findViewById<RecyclerView>(R.id.recyclerViewContent)
-        //configuración del recycler view
-        recyclerViewContent.layoutManager = GridLayoutManager(this, 2) // Dos columnas
-        //lista de las imagenes
-        val listaTitulos = listOf(
-            Titulo(
-                imagen = R.drawable.sabrina,
-                nombre = "Sabrina",
-                description = AppContext.context.getString(R.string.description_sabrina),
-                platforms = listOf("Netflix", "Amazon Prime"),
-                rating = 3.5f,//se cojera de la base de datos del user
-                comments = listOf() // Por ahora vacío, mantenemos como placeholder
-            ),
-            Titulo(
-                imagen = R.drawable.strangerthingscuatro,
-                nombre = "Stranger Things",
-                description = AppContext.context.getString(R.string.description_stranger),
-                platforms = listOf("Netflix"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            Titulo(
-                imagen = R.drawable.orange_is_the_new_black,
-                nombre = "Orange is the new black",
-                description = AppContext.context.getString(R.string.description_orangeisthenewblack),
-                platforms = listOf("Netflix"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            Titulo(
-                imagen = R.drawable.wednesdaymiercoles,
-                nombre = "Miercoles",
-                description = AppContext.context.getString(R.string.description_miercoles),
-                platforms = listOf("Netflix"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            Titulo(
-                imagen = R.drawable.deadpoolylobezno,
-                nombre = "Deadpool y Lobezno",
-                description = AppContext.context.getString(R.string.description_deadpoolylobezno),
-                platforms = listOf("Netflix"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            Titulo(
-                imagen = R.drawable.delrevesdos,
-                nombre = "Del Reves 2",
-                description = AppContext.context.getString(R.string.description_delrevesdos),
-                platforms = listOf("Disney"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            Titulo(
-                imagen = R.drawable.respira,
-                nombre = "Respira",
-                description = AppContext.context.getString(R.string.description_respira),
-                platforms = listOf("Netflix"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            Titulo(
-                imagen = R.drawable.beetlejuice2,
-                nombre = "Beetlejuice 2",
-                description = AppContext.context.getString(R.string.description_beetlejuicedos),
-                platforms = listOf("Netflix"),
-                rating = 4f,
-                comments = listOf()
-            ),
-            // Agrega los otros títulos de la misma manera
-        )
-
-        // Configurar el adaptador
-        val adaptador = AdaptadorImagenes(listaTitulos) { titulo ->
-            val intent = Intent(this@BuscarActivity, ValoracionTituloActivity::class.java)
-            intent.putExtra("titulo", titulo)
-            startActivity(intent)
+        popViewService = PopViewAPI().API()
+        lifecycleScope.launch {
+            try{
+                val allTitles= popViewService.getAllTitols()
+                val filteredTitles = allTitles.filter { it.nombre.contains(buscarQuery, ignoreCase = true) }
+                actualizaRecyclerView(filteredTitles)
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
         }
-        recyclerViewContent.adapter = adaptador
-
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
         // Lista de filtros y su estado seleccionado
-        val filtros = arrayOf("+12", "+16", "+18", "Sèrie", "Pel·lícula", "Acció", "Fantasía", "Superherois", "Comèdia", "Director")
+        val filtros = arrayOf("+12", "+16", "+18", "Sèrie", "Pel·lícula", "Acció", "Fantasía", "Superherois", "Comèdia")
         val seleccionados = BooleanArray(filtros.size) { false } // Estado de selección inicial: ninguno seleccionado
         imageFiltro.setOnClickListener {
             // Crear el diálogo con opciones múltiples seleccionables
@@ -131,5 +65,32 @@ class BuscarActivity : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
         }
+    }
+    private fun actualizaRecyclerView(titles: List<Titulo>){
+        val recyclerViewContent = findViewById<RecyclerView>(R.id.recyclerViewContent)
+        recyclerViewContent.layoutManager = GridLayoutManager(this, 2)
+        val adaptador = AdaptadorImagenes(titles) { titulo ->
+            val intent = Intent(this@BuscarActivity, ValoracionTituloActivity::class.java)
+            intent.putExtra("titulo", titulo)
+            startActivity(intent)
+        }
+        recyclerViewContent.adapter = adaptador
+    }
+    private fun aplicarFiltros(seleccionados: BooleanArray) {
+        val filteredTitles = allTitles.filter { titulo ->
+            val busquedaSeleccionada = titulo.nombre.contains(buscarQuery, ignoreCase = true)
+            val filtroSeleccionado = (!seleccionados.any { it } || // Si ningún filtro está seleccionado, mostrar todos los títulos que coinciden con la búsqueda
+                    (seleccionados[0] && titulo.edadRecomendada >= 12) ||
+                    (seleccionados[1] && titulo.edadRecomendada >= 16) ||
+                    (seleccionados[2] && titulo.edadRecomendada >= 18) ||
+                    (seleccionados[3] && titulo.genero == "Sèrie") ||
+                    (seleccionados[4] && titulo.genero == "Pel·lícula") ||
+                    (seleccionados[5] && titulo.genero == "Acció") ||
+                    (seleccionados[6] && titulo.genero == "Fantasía") ||
+                    (seleccionados[7] && titulo.genero == "Superherois") ||
+                    (seleccionados[8] && titulo.genero == "Comèdia"))
+            busquedaSeleccionada && filtroSeleccionado
+        }
+        actualizaRecyclerView(filteredTitles)
     }
 }

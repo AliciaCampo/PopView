@@ -2,75 +2,62 @@ package com.example.popview.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.popview.data.ImageItem
-import com.example.popview.itemdecoration.ItemSpacingDecoration
 import com.example.popview.R
 import com.example.popview.adapter.ImageAdapter
-
+import com.example.popview.data.ImageItem
+import com.example.popview.data.Titulo
+import com.example.popview.itemdecoration.ItemSpacingDecoration
+import com.example.popview.service.PopViewAPI
+import com.example.popview.service.PopViewService
+import kotlinx.coroutines.launch
 class HomeActivity : AppCompatActivity() {
-
+    private lateinit var popViewService: PopViewService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        val recomendaciones = listOf(
-            ImageItem(R.drawable.deadpoolylobezno),
-            ImageItem(R.drawable.delrevesdos),
-            ImageItem(R.drawable.beetlejuice2),
-            ImageItem(R.drawable.wednesdaymiercoles),
-            ImageItem(R.drawable.juegocalamar)
-        )
-
-        val peliculasPopulares = listOf(
-            ImageItem(R.drawable.beetlejuice2),
-            ImageItem(R.drawable.jokerdos),
-            ImageItem(R.drawable.venomtres),
-            ImageItem(R.drawable.robotsalvaje),
-            ImageItem(R.drawable.deadpoolylobezno)
-        )
-
-        val seriesPopulares = listOf(
-            ImageItem(R.drawable.respira),
-            ImageItem(R.drawable.wednesdaymiercoles),
-            ImageItem(R.drawable.juegocalamar),
-            ImageItem(R.drawable.casapapel),
-            ImageItem(R.drawable.cobrakai)
-        )
-
+        popViewService = PopViewAPI().API()
+        lifecycleScope.launch {
+            try {
+                val allTitles = popViewService.getAllTitols()
+                setupRecyclerViews(allTitles)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    private fun setupRecyclerViews(titles: List<Titulo>) {
+        val recomendaciones = titles.filter { it.nombre in listOf("Deadpool y Lobezno", "Del Reves 2", "Beetlejuice 2", "Miercoles", "Juego del Calamar") }
+        val peliculasPopulares = titles.filter { it.nombre in listOf("Beetlejuice 2", "Joker 2", "Venom 3", "Robot Salvaje", "Deadpool y Lobezno") }
+        val seriesPopulares = titles.filter { it.nombre in listOf("Respira", "Miercoles", "Juego del Calamar", "Casa de Papel", "Cobra Kai") }
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewRecomancions,
-            data = recomendaciones,
+            data = recomendaciones.map { ImageItem(it.imagen) },
             spacing = 16
         )
-
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewImagePelisPop,
-            data = peliculasPopulares,
+            data = peliculasPopulares.map { ImageItem(it.imagen) },
             spacing = 16
         )
-
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewSeriesPop,
-            data = seriesPopulares,
+            data = seriesPopulares.map { ImageItem(it.imagen) },
             spacing = 16
         )
     }
-
     private fun configureRecyclerView(
         recyclerViewId: Int,
         data: List<ImageItem>,
         spacing: Int
     ) {
         val recyclerView: RecyclerView = findViewById(recyclerViewId)
-
         // Configurar LayoutManager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
         // Configurar Adapter
         recyclerView.adapter = ImageAdapter(data)
-
         // Añadir espaciado entre elementos
         recyclerView.addItemDecoration(ItemSpacingDecoration(spacing))
     }

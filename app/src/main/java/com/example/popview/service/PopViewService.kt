@@ -22,10 +22,16 @@ import javax.net.ssl.X509TrustManager
 interface PopViewService {
     @GET("/usuaris/{usuari_id}")
     suspend fun getUsuari(@Path("usuari_id") usuariId: Int): Usuario
+    @GET("/usuaris")
+    suspend fun getAllUsuaris(): List<Usuario>
     @GET("/llistes/{llista_id}")
     suspend fun getLlista(@Path("llista_id") llistaId: Int): Lista
+    @GET("/llistes")
+    suspend fun getAllLlistes(): List<Lista>
     @GET("/titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
+    @GET("/titols")
+    suspend fun getAllTitols(): List<Titulo>
     @POST("/usuaris")
     suspend fun createUser(usuario: Usuario): Usuario
     @POST("/llistes")
