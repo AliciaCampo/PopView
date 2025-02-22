@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.popview.R
 import com.example.popview.data.Item
 
@@ -21,7 +22,10 @@ class ValoracionTituloAdapter(
         val item = items[position]
         holder.textTitle.text = item.title
         holder.textDescription.text = item.description
-        holder.imageContent.setImageResource(item.imageResId)
+        Glide.with(holder.itemView.context)
+            .load(item.imageUrl)
+            .into(holder.imageContent)
+
         holder.ratingBar.rating = item.rating
     }
 
