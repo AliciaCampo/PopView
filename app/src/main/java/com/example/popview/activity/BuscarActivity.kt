@@ -17,11 +17,13 @@ import com.example.popview.adapter.AdaptadorImagenes
 import com.example.popview.service.PopViewAPI
 import com.example.popview.service.PopViewService
 import kotlinx.coroutines.launch
+import kotlin.math.min
 
 class BuscarActivity : AppCompatActivity() {
     private lateinit var popViewService: PopViewService
     private lateinit var allTitles: List<Titulo>
     private val buscarQuery by lazy { intent.getStringExtra("SEARCH_QUERY") ?: "" }
+    private lateinit var seleccionados: BooleanArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +39,7 @@ class BuscarActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 allTitles = popViewService.getAllTitols()
-                val filteredTitles = allTitles.filter { it.nombre.contains(buscarQuery, ignoreCase = true) }
-                actualizaRecyclerView(filteredTitles)
+                aplicarFiltros()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -46,17 +47,18 @@ class BuscarActivity : AppCompatActivity() {
 
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
         val filtros = arrayOf("+12", "+16", "+18", "Sèrie", "Pel·lícula", "Acció", "Fantasía", "Superherois", "Comèdia")
-        val seleccionados = BooleanArray(filtros.size) { false }
+        seleccionados = BooleanArray(filtros.size) { false }
+
         imageFiltro.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Selecciona un o més filtres")
                 .setMultiChoiceItems(filtros, seleccionados) { _, which, isChecked ->
                     seleccionados[which] = isChecked
                 }
-                .setPositiveButton("Acceptar") { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton("Acceptar") { _, _ -> aplicarFiltros() }
                 .setNegativeButton("Cancel·lar") { dialog, _ -> dialog.dismiss() }
-
-            builder.create().show()
+                .create()
+                .show()
         }
     }
 
@@ -71,9 +73,13 @@ class BuscarActivity : AppCompatActivity() {
         recyclerViewContent.adapter = adaptador
     }
 
-    private fun aplicarFiltros(seleccionados: BooleanArray) {
+    private fun aplicarFiltros() {
         val filteredTitles = allTitles.filter { titulo ->
-            val busquedaSeleccionada = titulo.nombre.contains(buscarQuery, ignoreCase = true)
+            // Aplicamos la búsqueda difusa con similitud mayor al 60%
+            val similitud = similarity(titulo.nombre, buscarQuery)
+            val busquedaSeleccionada = similitud >= 60.0
+
+            // Aplicación de filtros
             val filtroSeleccionado = (!seleccionados.any { it } ||
                     (seleccionados[0] && titulo.edadRecomendada >= 12) ||
                     (seleccionados[1] && titulo.edadRecomendada >= 16) ||
@@ -84,8 +90,41 @@ class BuscarActivity : AppCompatActivity() {
                     (seleccionados[6] && titulo.genero == "Fantasía") ||
                     (seleccionados[7] && titulo.genero == "Superherois") ||
                     (seleccionados[8] && titulo.genero == "Comèdia"))
+
+            // Se incluyen solo los títulos que pasen ambos filtros
             busquedaSeleccionada && filtroSeleccionado
         }
+
         actualizaRecyclerView(filteredTitles)
+    }
+
+    // Función para calcular la distancia de Levenshtein
+    private fun levenshteinDistance(s1: String, s2: String): Int {
+        val dp = Array(s1.length + 1) { IntArray(s2.length + 1) }
+
+        for (i in s1.indices) dp[i][0] = i
+        for (j in s2.indices) dp[0][j] = j
+
+        for (i in 1..s1.length) {
+            for (j in 1..s2.length) {
+                dp[i][j] = if (s1[i - 1] == s2[j - 1]) {
+                    dp[i - 1][j - 1]
+                } else {
+                    min(min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1
+                }
+            }
+        }
+
+        return dp[s1.length][s2.length]
+    }
+
+    // Función para calcular la similitud (0 a 100%)
+    private fun similarity(s1: String, s2: String): Double {
+        val maxLength = maxOf(s1.length, s2.length)
+        return if (maxLength > 0) {
+            (1.0 - levenshteinDistance(s1.lowercase(), s2.lowercase()).toDouble() / maxLength) * 100
+        } else {
+            0.0
+        }
     }
 }

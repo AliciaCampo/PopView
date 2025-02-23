@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.data.ListItem
 import com.example.popview.R
 
-class ListaFragmentAddapter(private val items: List<ListItem>) : RecyclerView.Adapter<ListaFragmentAddapter.ViewHolder>() {
+class ListaFragmentAddapter(private var items: MutableList<ListItem>) : RecyclerView.Adapter<ListaFragmentAddapter.ViewHolder>() {
 
     // ViewHolder para cada item
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,11 +30,7 @@ class ListaFragmentAddapter(private val items: List<ListItem>) : RecyclerView.Ad
         holder.textView.text = currentItem.name
 
         // Cambia la imagen del check dependiendo del estado
-        if (currentItem.isChecked) {
-            holder.checkImage.setImageResource(R.drawable.check_done)
-        } else {
-            holder.checkImage.setImageResource(R.drawable.check_undone)
-        }
+        holder.checkImage.setImageResource(if (currentItem.isChecked) R.drawable.check_done else R.drawable.check_undone)
 
         // Establece el comportamiento del clic en el check
         holder.checkImage.setOnClickListener {
@@ -47,4 +43,13 @@ class ListaFragmentAddapter(private val items: List<ListItem>) : RecyclerView.Ad
     }
 
     override fun getItemCount() = items.size
+
+    // Método para actualizar la lista
+    fun updateList(newItems: List<ListItem>) {
+        // Limpiar la lista actual y agregar los nuevos items
+        items.clear()
+        items.addAll(newItems)
+        // Notificar que la lista completa ha cambiado
+        notifyDataSetChanged()
+    }
 }
