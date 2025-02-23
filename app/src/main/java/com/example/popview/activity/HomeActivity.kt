@@ -70,7 +70,7 @@ class HomeActivity : AppCompatActivity(), FilterListener {
             "Star Wars: El despertar de la força", "Star Wars: Els últims Jedi", "Star Wars: L'ascens de Skywalker",
             "Harry Potter i la pedra filosofal", "Harry Potter i la cambra secreta",
             "Harry Potter i el presoner d'Azkaban", "Harry Potter i el calze de foc",
-            "Harry Potter i l'orde del Fènix", "Harry Potter i el princep mestís",
+            "Harry Potter i l'orde del Fènix", "Harry Potter i el misteri del princep",
             "Harry Potter i les relíquies de la mort: Part 1", "Harry Potter i les relíquies de la mort: Part 2",
             "Spider-Man", "Spider-Man 2", "Spider-Man 3", "The Amazing Spider-Man", "The Amazing Spider-Man 2",
             "Spider-Man: Homecoming", "Spider-Man: Far From Home", "Spider-Man: No Way Home",
