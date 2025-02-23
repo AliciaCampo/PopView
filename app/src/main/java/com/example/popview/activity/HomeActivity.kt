@@ -9,13 +9,15 @@ import com.example.popview.R
 import com.example.popview.adapter.ImageAdapter
 import com.example.popview.data.ImageItem
 import com.example.popview.data.Titulo
+import com.example.popview.interficie.FilterListener
 import com.example.popview.itemdecoration.ItemSpacingDecoration
 import com.example.popview.service.PopViewAPI
 import com.example.popview.service.PopViewService
 import kotlinx.coroutines.launch
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), FilterListener {
     private lateinit var popViewService: PopViewService
+    private var allTitles: List<Titulo> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +27,21 @@ class HomeActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val allTitles = popViewService.getAllTitols()
-                setupRecyclerViews(allTitles)
+                allTitles = popViewService.getAllTitols()
+                applyFilters(emptyList(), emptyList()) // Mostrar todos los títulos inicialmente
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun applyFilters(selectedGenres: List<String>, selectedPlatforms: List<String>) {
+        val filteredTitles = allTitles.filter { titulo ->
+            (selectedGenres.isEmpty() || selectedGenres.contains(titulo.genero)) &&
+                    (selectedPlatforms.isEmpty() || titulo.platforms.any { it in selectedPlatforms })
+        }
+
+        setupRecyclerViews(filteredTitles)
     }
 
     private fun setupRecyclerViews(titles: List<Titulo>) {

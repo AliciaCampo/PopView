@@ -8,13 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
 import com.example.popview.adapter.RatingAdapter
 import com.example.popview.data.Item
+import com.example.popview.data.Titulo
+import com.example.popview.interficie.FilterListener
 import com.example.popview.service.PopViewAPI
 import com.example.popview.service.PopViewService
 import kotlinx.coroutines.launch
 
-class RatingActivity : AppCompatActivity() {
+class RatingActivity : AppCompatActivity(), FilterListener {
 
     private lateinit var popViewService: PopViewService
+    private lateinit var recyclerView: RecyclerView
+    private var allTitles: List<Titulo> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,25 +26,34 @@ class RatingActivity : AppCompatActivity() {
 
         popViewService = PopViewAPI().API()
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 2) // Dos columnas
 
         lifecycleScope.launch {
             try {
-                val allTitles = popViewService.getAllTitols()
-                val topTitles = allTitles.sortedByDescending { it.rating }.take(5)
-                val ratingItems = topTitles.mapIndexed { index, titulo ->
-                    Item(
-                        title = "${index + 1}. ${titulo.nombre}",
-                        imageUrl = titulo.imagen,
-                        description = titulo.description,
-                        rating = titulo.rating
-                    )
-                }
-                recyclerView.adapter = RatingAdapter(ratingItems)
+                allTitles = popViewService.getAllTitols()
+                applyFilters(emptyList(), emptyList()) // Mostrar todos los títulos inicialmente
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun applyFilters(selectedGenres: List<String>, selectedPlatforms: List<String>) {
+        val filteredTitles = allTitles.filter { titulo ->
+            (selectedGenres.isEmpty() || selectedGenres.contains(titulo.genero)) &&
+                    (selectedPlatforms.isEmpty() || titulo.platforms.any { it in selectedPlatforms })
+        }
+
+        val topTitles = filteredTitles.sortedByDescending { it.rating }.take(5)
+        val ratingItems = topTitles.mapIndexed { index, titulo ->
+            Item(
+                title = "${index + 1}. ${titulo.nombre}",
+                imageUrl = titulo.imagen,
+                description = titulo.description,
+                rating = titulo.rating
+            )
+        }
+        recyclerView.adapter = RatingAdapter(ratingItems)
     }
 }
