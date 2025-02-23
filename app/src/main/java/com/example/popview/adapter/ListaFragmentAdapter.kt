@@ -44,7 +44,7 @@ class ListaFragmentAddapter(private var items: MutableList<ListItem>) : Recycler
 
     override fun getItemCount() = items.size
 
-    // Método para actualizar la lista
+    // Métode para actualizar la lista
     fun updateList(newItems: List<ListItem>) {
         // Limpiar la lista actual y agregar los nuevos items
         items.clear()
