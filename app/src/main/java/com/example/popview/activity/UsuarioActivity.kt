@@ -9,56 +9,62 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
 import com.example.popview.adapter.ListasAdapter
 import com.example.popview.data.Lista
+import com.example.popview.service.PopViewAPI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class UsuarioActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ListasAdapter
-    private val listas: MutableList<Lista> = mutableListOf()
+    private val listaDeListas = mutableListOf<Lista>()
+    private lateinit var listasAdapter: ListasAdapter
+    private val popViewService = PopViewAPI().API()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario)
-        // Inicializamos RecyclerView
-        recyclerView = findViewById(R.id.recyclerViewListas)
-        // Configuramos el LayoutManager para el RecyclerView
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView = findViewById(R.id.recyclerViewListas)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ListasAdapter(listas) { lista ->
+        // Pasar el manejador de clics al adaptador
+        listasAdapter = ListasAdapter(listaDeListas) { lista ->
+            // Manejar el clic en un elemento de la lista
             val intent = Intent(this, EditLista::class.java)
-            intent.putExtra("listaData", lista) // Enviar el objeto Lista completo
-            startActivityForResult(intent, 1)
+            intent.putExtra("lista", lista)
+            startActivity(intent)
         }
-        recyclerView.adapter = adapter
+        recyclerView.adapter = listasAdapter
         val btnCrearLista = findViewById<Button>(R.id.btnCrearLista)
         btnCrearLista.setOnClickListener {
             val intent = Intent(this, CrearListaActivity::class.java)
-            startActivityForResult(intent, 1)
+            startActivityForResult(intent, CREAR_LISTA_REQUEST_CODE)
+        }
+        // Cargar las listas del usuario desde el servidor
+        cargarListasUsuario()
+    }
+    private fun cargarListasUsuario() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val listas = popViewService.getAllLlistes()
+                runOnUiThread {
+                    listaDeListas.clear()
+                    listaDeListas.addAll(listas)
+                    listasAdapter.notifyDataSetChanged()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                1 -> {
-                    val nuevaLista = data?.getSerializableExtra("nuevaLista") as? Lista
-                    nuevaLista?.let {
-                        listas.add(it)
-                        adapter.notifyItemInserted(listas.size - 1)
-                    }
-                }
-                else -> {
-                    val listaEliminada = data?.getSerializableExtra("eliminarLista") as? Lista
-                    listaEliminada?.let {
-                        val posicion = listas.indexOfFirst { lista -> lista.titulo == it.titulo }
-                        if (posicion != -1) {
-                            listas.removeAt(posicion)
-                            adapter.notifyItemRemoved(posicion)
-                        }
-                    }
-                }
+        if (requestCode == CREAR_LISTA_REQUEST_CODE && resultCode == RESULT_OK) {
+            data?.getSerializableExtra("nuevaLista")?.let {
+                val nuevaLista = it as Lista
+                listaDeListas.add(nuevaLista)
+                listasAdapter.notifyItemInserted(listaDeListas.size - 1)
             }
         }
     }
 
+    companion object {
+        const val CREAR_LISTA_REQUEST_CODE = 1
+    }
 }
