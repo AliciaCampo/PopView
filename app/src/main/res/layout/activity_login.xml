@@ -34,6 +34,7 @@
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextUserID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/oswald_regular"
@@ -48,11 +49,14 @@
                 android:layout_marginTop="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/oswald_regular"
-                    android:hint="@string/email"
-                    android:textColor="@color/md_theme_primary" />
+                    android:hint="@string/contrasenya"
+                    android:textColor="@color/md_theme_primary"
+                    android:inputType="textPassword" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
