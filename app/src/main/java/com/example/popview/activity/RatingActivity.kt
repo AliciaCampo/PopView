@@ -30,7 +30,12 @@ class RatingActivity : AppCompatActivity() {
                 val allTitles = popViewService.getAllTitols()
                 val topTitles = allTitles.sortedByDescending { it.rating }.take(5)
                 val ratingItems = topTitles.mapIndexed { index, titulo ->
-                    Item("${index + 1}.", titulo.imagen, "", titulo.rating)
+                    Item(
+                        title = "${index + 1}. ${titulo.nombre}",
+                        imageUrl = titulo.imagen,
+                        description = titulo.description,
+                        rating = titulo.rating
+                    )
                 }
                 recyclerView.adapter = RatingAdapter(ratingItems)
             } catch (e: Exception) {

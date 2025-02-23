@@ -13,12 +13,16 @@ import com.example.popview.itemdecoration.ItemSpacingDecoration
 import com.example.popview.service.PopViewAPI
 import com.example.popview.service.PopViewService
 import kotlinx.coroutines.launch
+
 class HomeActivity : AppCompatActivity() {
     private lateinit var popViewService: PopViewService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
         popViewService = PopViewAPI().API()
+
         lifecycleScope.launch {
             try {
                 val allTitles = popViewService.getAllTitols()
@@ -28,37 +32,39 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun setupRecyclerViews(titles: List<Titulo>) {
         val recomendaciones = titles.filter { it.nombre in listOf("Deadpool y Lobezno", "Del Reves 2", "Beetlejuice 2", "Miercoles", "Juego del Calamar") }
         val peliculasPopulares = titles.filter { it.nombre in listOf("Beetlejuice 2", "Joker 2", "Venom 3", "Robot Salvaje", "Deadpool y Lobezno") }
         val seriesPopulares = titles.filter { it.nombre in listOf("Respira", "Miercoles", "Juego del Calamar", "Casa de Papel", "Cobra Kai") }
+
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewRecomancions,
-            data = recomendaciones.map { ImageItem(it.imagen) },
+            data = recomendaciones.map { ImageItem(it.imagen, it) },
             spacing = 16
         )
+
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewImagePelisPop,
-            data = peliculasPopulares.map { ImageItem(it.imagen) },
+            data = peliculasPopulares.map { ImageItem(it.imagen, it) },
             spacing = 16
         )
+
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewSeriesPop,
-            data = seriesPopulares.map { ImageItem(it.imagen) },
+            data = seriesPopulares.map { ImageItem(it.imagen, it) },
             spacing = 16
         )
     }
+
     private fun configureRecyclerView(
         recyclerViewId: Int,
         data: List<ImageItem>,
         spacing: Int
     ) {
         val recyclerView: RecyclerView = findViewById(recyclerViewId)
-        // Configurar LayoutManager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        // Configurar Adapter
         recyclerView.adapter = ImageAdapter(data)
-        // Añadir espaciado entre elementos
         recyclerView.addItemDecoration(ItemSpacingDecoration(spacing))
     }
 }
