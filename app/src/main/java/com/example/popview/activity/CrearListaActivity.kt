@@ -10,11 +10,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.popview.data.Lista
 import com.example.popview.R
+import com.example.popview.service.PopViewAPI
 
 class CrearListaActivity : AppCompatActivity() {
+    private val popViewService = PopViewAPI().API()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_lista)
+
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val switchPrivada = findViewById<Switch>(R.id.switchPrivada)
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
@@ -22,9 +25,6 @@ class CrearListaActivity : AppCompatActivity() {
 
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
-            // Volver a la pantalla principal
-            //val intentEnrere = Intent(this, UsuarioActivity::class.java)
-            //startActivity(intentEnrere)
             finish()
         }
         // Botón de guardar lista
