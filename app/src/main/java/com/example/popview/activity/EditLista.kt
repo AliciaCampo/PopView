@@ -1,6 +1,5 @@
 package com.example.popview.activity
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -13,30 +12,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.data.Lista
+import com.example.popview.data.Titulo
 import com.example.popview.adapter.PeliculasAdapter
 import com.example.popview.R
+import com.example.popview.service.PopViewAPI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EditLista : AppCompatActivity() {
-    private val peliculasList = mutableListOf<String>() // Lista para almacenar títulos de películas
+    private val peliculasList = mutableListOf<Titulo>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PeliculasAdapter
-
+    private val popViewService = PopViewAPI().API()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_lista)
-
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val editTextDescripcion = findViewById<EditText>(R.id.editTextDescripcion)
         val switchPrivada = findViewById<Switch>(R.id.switchPrivada)
 
-        // Recibir el objeto Lista
-        val listaData = intent.getSerializableExtra("listaData") as? Lista
+        val listaData = intent.getSerializableExtra("lista") as? Lista
         if (listaData != null) {
-            // Actualizar los campos con la información de la lista
             editTextTitulo.setText(listaData.titulo)
             editTextDescripcion.setText(listaData.descripcion)
             switchPrivada.isChecked = listaData.esPrivada
             updateDescripcionVisibility(listaData.esPrivada, editTextDescripcion)
+            peliculasList.addAll(listaData.titulos)
         } else {
             Toast.makeText(this, "No s'han rebut les dades de la llista.", Toast.LENGTH_SHORT).show()
         }
@@ -45,10 +47,34 @@ class EditLista : AppCompatActivity() {
             updateDescripcionVisibility(isChecked, editTextDescripcion)
         }
 
-        // Configuración del RecyclerView para películas
         recyclerView = findViewById(R.id.recyclerViewPeliculas)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = PeliculasAdapter(peliculasList)
+        adapter = PeliculasAdapter(peliculasList) { titulo ->
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Confirmació")
+            builder.setMessage("Segur que vols eliminar aquest títol de la llista?")
+            builder.setPositiveButton("Confirmar") { dialog, _ ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        listaData?.let { lista ->
+                            popViewService.deleteTituloFromLista(lista.id, titulo.id)
+                            runOnUiThread {
+                                peliculasList.remove(titulo)
+                                adapter.notifyDataSetChanged()
+                                Toast.makeText(this@EditLista, "Títol eliminat de la llista.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                dialog.dismiss()
+            }
+            builder.setNegativeButton("Cancel·lar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.create().show()
+        }
         recyclerView.adapter = adapter
 
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
@@ -57,24 +83,49 @@ class EditLista : AppCompatActivity() {
             val listaDescripcion = editTextDescripcion.text.toString()
             val esPrivada = switchPrivada.isChecked
 
-            Toast.makeText(
-                this,
-                "Llista guardada: $listaTitulo, $listaDescripcion, Privacitat: ${if (esPrivada) "Privada" else "Pública"}",
-                Toast.LENGTH_SHORT
-            ).show()
-            finish()
+            listaData?.let { lista ->
+                val updatedLista = lista.copy(
+                    titulo = listaTitulo,
+                    descripcion = listaDescripcion,
+                    esPrivada = esPrivada,
+                    titulos = peliculasList
+                )
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        popViewService.createLista(updatedLista)
+                        runOnUiThread {
+                            Toast.makeText(this@EditLista, "Llista desada amb èxit.", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
         }
 
         val btnEliminar = findViewById<ImageView>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Confirmació")
-            builder.setMessage("Segur que vols esborrar la llista?")
+            builder.setMessage("Segur que vols eliminar la llista?")
             builder.setPositiveButton("Confirmar") { dialog, _ ->
-                val intent = Intent()
-                intent.putExtra("eliminarLista", listaData) // Enviar la lista eliminada
-                setResult(RESULT_OK, intent)
-                finish()
+                listaData?.let { lista ->
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            popViewService.deleteLista(lista.id)
+                            runOnUiThread {
+                                val intent = Intent()
+                                intent.putExtra("eliminarLista", lista)
+                                setResult(RESULT_OK, intent)
+                                finish()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
                 dialog.dismiss()
             }
             builder.setNegativeButton("Cancel·lar") { dialog, _ ->
@@ -82,27 +133,39 @@ class EditLista : AppCompatActivity() {
             }
             builder.create().show()
         }
+
         val btnAñadirPelicula = findViewById<Button>(R.id.btnAñadirPelicula)
         val editTextPelicula = findViewById<EditText>(R.id.editTextPelicula)
         btnAñadirPelicula.setOnClickListener {
             val peliculaTitulo = editTextPelicula.text.toString().trim()
             if (peliculaTitulo.isNotEmpty()) {
-                peliculasList.add(peliculaTitulo)
-                adapter.notifyDataSetChanged()
-                editTextPelicula.text.clear()
-                Toast.makeText(this, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val titulos = popViewService.getAllTitols()
+                        val tituloExistente = titulos.find { it.nombre == peliculaTitulo }
+                        if (tituloExistente != null) {
+                            runOnUiThread {
+                                peliculasList.add(tituloExistente)
+                                adapter.notifyDataSetChanged()
+                                editTextPelicula.text.clear()
+                                Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            runOnUiThread {
+                                Toast.makeText(this@EditLista, "El títol no existeix al servidor.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
             } else {
-                Toast.makeText(this, "Siusplau, ingresa un títol", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Si us plau, introdueix un títol.", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
-        if (isPrivada) {
-            descripcionField.visibility = EditText.GONE
-        } else {
-            descripcionField.visibility = EditText.GONE // Mostrar el campo de descripción
-        }
+        descripcionField.visibility = if (isPrivada) EditText.GONE else EditText.VISIBLE
     }
 }
