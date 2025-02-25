@@ -5,17 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.popview.activity.CrearListaActivity
-import com.example.popview.data.ListItem
-import com.example.popview.adapter.ListaFragmentAddapter
 import com.example.popview.R
+import com.example.popview.activity.CrearListaActivity
+import com.example.popview.adapter.ListaFragmentAddapter
+import com.example.popview.data.ListItem
+import com.example.popview.service.PopViewAPI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.min
 
 class AddTituloLista : DialogFragment() {
@@ -30,44 +37,32 @@ class AddTituloLista : DialogFragment() {
 
         // Configuración del RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLists)
-        itemList = mutableListOf(
-            ListItem("Lista 1", false),
-            ListItem("Lista 2", true),
-            ListItem("Lista 3", false)
-        )
+        itemList = mutableListOf()  // Lista vacía que se llenará con Retrofit
         adapter = ListaFragmentAddapter(itemList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        // Llamada a la API para obtener las listas
+        obtenerListas()
+
         // Campo de búsqueda
         val searchEditText = view.findViewById<EditText>(R.id.textBuscar)
-
-        // Aseguramos que el TextWatcher esté configurado correctamente
         searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-                // Aquí puedes manejar acciones antes de que el texto cambie, si es necesario
-            }
-
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
                 val query = charSequence.toString()
                 filtrarListas(query)
             }
-
-            override fun afterTextChanged(editable: Editable?) {
-                // Aquí puedes manejar acciones después de que el texto haya cambiado, si es necesario
-            }
+            override fun afterTextChanged(editable: Editable?) {}
         })
 
         // Botón de cancelar
         val bntCancelar = view.findViewById<Button>(R.id.btnCancel)
-        bntCancelar.setOnClickListener {
-            dismiss()
-        }
+        bntCancelar.setOnClickListener { dismiss() }
 
         // LinearLayout para crear una nueva lista
         val linearLayout = view.findViewById<LinearLayout>(R.id.linearLayout)
         linearLayout.setOnClickListener {
-            // Al hacer clic en el LinearLayout, redirigir a la actividad para crear una nueva lista
             val intent = Intent(requireContext(), CrearListaActivity::class.java)
             startActivity(intent)
         }
@@ -76,10 +71,25 @@ class AddTituloLista : DialogFragment() {
         return builder.create()
     }
 
+    // Función para obtener las listas desde la API usando Retrofit
+    private fun obtenerListas() {
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    PopViewAPI().API().getAllLlistes()  // Llamada a la API
+                }
+                itemList = response.map { lista -> ListItem(lista.titulo, false) }.toMutableList()
+                adapter.updateList(itemList)  // Actualiza el RecyclerView
+            } catch (e: Exception) {
+                Log.e("API_ERROR", "Error al obtenir les  llistes: ${e.message}")
+                Toast.makeText(requireContext(), "Error al obtenir les llistes", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     // Función para filtrar las listas por nombre usando similitud
     private fun filtrarListas(query: String) {
         val filteredItems = itemList.filter { item ->
-            // Compara el nombre de cada lista con el texto de búsqueda usando similitud
             similarity(item.name, query) >= 60.0  // Umbral de 60% de similitud
         }
         adapter.updateList(filteredItems) // Actualiza la lista en el RecyclerView
