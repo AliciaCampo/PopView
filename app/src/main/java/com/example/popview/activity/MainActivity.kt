@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             cargarBarraProgreso()
             // Una vez completada la carga, inicia HomeActivity
             withContext(Dispatchers.Main) {
-                val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
                 startActivity(intent)
             }
         }

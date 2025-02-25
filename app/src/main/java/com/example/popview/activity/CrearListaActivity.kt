@@ -43,6 +43,7 @@ class CrearListaActivity : AppCompatActivity() {
                             finish()
                         }
                     } catch (e: Exception) {
+                        e.printStackTrace()
                         runOnUiThread {
                             Toast.makeText(this@CrearListaActivity, "Error al crear la lista", Toast.LENGTH_SHORT).show()
                         }

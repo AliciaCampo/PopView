@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -35,7 +36,7 @@ interface PopViewService {
     @POST("/usuaris")
     suspend fun createUser(usuario: Usuario): Usuario
     @POST("/llistes")
-    suspend fun createLista(lista: Lista): Lista
+    suspend fun createLista(@Body lista: Lista): Lista
     @POST("/titols")
     suspend fun createTitulo(titulo: Titulo): Titulo
     @DELETE("/usuaris/{usuari_id}")
@@ -52,7 +53,10 @@ interface PopViewService {
         @Synchronized
         fun API(): PopViewService {
             if (mAPI == null){
-                val client: OkHttpClient = getUnsafeOkHttpClient()
+                val client = OkHttpClient.Builder()
+                    .followRedirects(true)
+                    .followSslRedirects(true)
+                    .build()
                 val gsondateformat= GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     .create();
