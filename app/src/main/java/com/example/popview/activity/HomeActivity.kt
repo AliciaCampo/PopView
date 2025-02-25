@@ -1,6 +1,7 @@
 package com.example.popview.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity(), FilterListener {
         lifecycleScope.launch {
             try {
                 allTitles = popViewService.getAllTitols()
+                Log.d("HomeActivity", "Títulos recuperados: ${allTitles.size}")  // Verifica el tamaño de los títulos
                 applyFilters(emptyList(), emptyList()) // Mostrar todos los títulos inicialmente
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -45,61 +47,41 @@ class HomeActivity : AppCompatActivity(), FilterListener {
     }
 
     private fun setupRecyclerViews(titles: List<Titulo>) {
-        val recomendaciones = titles.filter { it.nombre in listOf(
-            "Star Wars: Una nova esperança", "Star Wars: L'Imperi contraataca", "Star Wars: El retorn del Jedi",
-            "Star Wars: La amenaça fantasma", "Star Wars: L'atac dels clons", "Star Wars: La venjança dels Sith",
-            "Star Wars: El despertar de la força", "Star Wars: Els últims Jedi", "Star Wars: L'ascens de Skywalker",
-            "Harry Potter i la pedra filosofal", "Harry Potter i la cambra secreta",
-            "Harry Potter i el presoner d'Azkaban", "Harry Potter i el calze de foc",
-            "Harry Potter i l'orde del Fènix", "Harry Potter i el misteri del princep",
-            "Harry Potter i les relíquies de la mort: Part 1", "Harry Potter i les relíquies de la mort: Part 2",
-            "Spider-Man", "Spider-Man 2", "Spider-Man 3", "The Amazing Spider-Man", "The Amazing Spider-Man 2",
-            "Spider-Man: Homecoming", "Spider-Man: Far From Home", "Spider-Man: No Way Home",
-            "Deadpool", "Deadpool 2", "Fast & Furious", "Fast & Furious 2", "Fast & Furious 3: Tòquio Drift",
-            "Fast & Furious 4", "Fast & Furious 5", "Fast & Furious 6", "Fast & Furious 7", "Fast & Furious 8",
-            "Fast & Furious 9", "El senyor dels anells: La comunitat de l'anell",
-            "El senyor dels anells: Les dues torres", "El senyor dels anells: El retorn del rei",
-            "El Hobbit: Un viatge inesperat", "El Hobbit: La desolació de Smaug",
-            "El Hobbit: La batalla dels cinc exèrcits", "Barbie", "Oppenheimer", "Titanic", "E.T.", "Els 100",
-            "Matilda", "Temps"
-        )}
-
         val peliculasPopulares = titles.filter { it.nombre in listOf(
-            "Star Wars: Una nova esperança", "Star Wars: L'Imperi contraataca", "Star Wars: El retorn del Jedi",
-            "Star Wars: La amenaça fantasma", "Star Wars: L'atac dels clons", "Star Wars: La venjança dels Sith",
-            "Star Wars: El despertar de la força", "Star Wars: Els últims Jedi", "Star Wars: L'ascens de Skywalker",
-            "Harry Potter i la pedra filosofal", "Harry Potter i la cambra secreta",
-            "Harry Potter i el presoner d'Azkaban", "Harry Potter i el calze de foc",
-            "Harry Potter i l'orde del Fènix", "Harry Potter i el misteri del princep",
-            "Harry Potter i les relíquies de la mort: Part 1", "Harry Potter i les relíquies de la mort: Part 2",
+            "Star Wars: Una nueva esperanza", "Star Wars: El Imperio contraataca", "Star Wars: El retorno del Jedi",
+            "Star Wars: La amenaza fantasma", "Star Wars: El ataque de los clones", "Star Wars: La venganza de los Sith",
+            "Star Wars: El despertar de la fuerza", "Star Wars: Los últimos Jedi", "Star Wars: El ascenso de Skywalker",
+            "Harry Potter y la piedra filosofal", "Harry Potter y la cámara secreta",
+            "Harry Potter y el prisionero de Azkaban", "Harry Potter y el cáliz de fuego",
+            "Harry Potter y la orden del Fénix", "Harry Potter y el misterio del príncipe",
+            "Harry Potter y las reliquias de la muerte: Parte 1", "Harry Potter y las reliquias de la muerte: Parte 2",
             "Spider-Man", "Spider-Man 2", "Spider-Man 3", "The Amazing Spider-Man", "The Amazing Spider-Man 2",
             "Spider-Man: Homecoming", "Spider-Man: Far From Home", "Spider-Man: No Way Home",
-            "Deadpool", "Deadpool 2", "Fast & Furious", "Fast & Furious 2", "Fast & Furious 3: Tòquio Drift",
+            "Deadpool", "Deadpool 2", "Fast & Furious", "Fast & Furious 2", "Fast & Furious 3: Tokyo Drift",
             "Fast & Furious 4", "Fast & Furious 5", "Fast & Furious 6", "Fast & Furious 7", "Fast & Furious 8",
-            "Fast & Furious 9", "El senyor dels anells: La comunitat de l'anell",
-            "El senyor dels anells: Les dues torres", "El senyor dels anells: El retorn del rei",
-            "El Hobbit: Un viatge inesperat", "El Hobbit: La desolació de Smaug",
-            "El Hobbit: La batalla dels cinc exèrcits", "Oppenheimer", "Titanic", "E.T.", "Els 100",
-            "Matilda"
+            "Fast & Furious 9", "El señor de los anillos: La comunidad del anillo",
+            "El señor de los anillos: Las dos torres", "El señor de los anillos: El retorno del rey",
+            "El Hobbit: Un viaje inesperado", "El Hobbit: La desolación de Smaug", "El Hobbit: La batalla de los cinco ejércitos",
+            "Oppenheimer", "Titanic", "E.T.", "Los 100", "Matilda"
         )}
 
         val seriesPopulares = titles.filter { it.nombre in listOf(
             "Friends", "Grey’s Anatomy", "The Big Bang Theory", "Merlí",
-            "Pulseres vermelles", "Mic", "La que se avecina", "Aquí no hi ha qui visqui",
+            "Pulseres vermelles", "Mic", "La que se avecina", "Aquí no hay quien viva",
             "Començo a comptar", "The Walking Dead", "Breaking Bad", "Peaky Blinders",
-            "Shameless", "Els Simpson", "Arcane", "American Horror Story",
-            "Laia (pel·lícula de Netflix)", "The rain", "Benvinguts a Eden", "SCREAM",
-            "Enola Holmes", "La teoria del tot", "La maledicció de Bly Manor",
-            "Vis a Vis", "Les noies del cable", "Heartstopper", "La primera mort",
-            "La carrer del terror", "Destí la saga Winx", "Gambit de dama",
-            "The umbrella academy", "Atípic", "Desencant", "La monja guerrera",
-            "Elite", "Paquita Salas", "Ni una més", "Dahmer", "Joves i bruixes",
-            "Nina russa", "Tallant per la línia de punts", "Invencible"
+            "Shameless", "Los Simpson", "Arcane", "American Horror Story",
+            "Laia (película de Netflix)", "The rain", "Benvinguts a Eden", "SCREAM",
+            "Enola Holmes", "La teoría del todo", "La maldición de Bly Manor",
+            "Vis a Vis", "Las chicas del cable", "Heartstopper", "La primera muerte",
+            "La calle del terror", "Destino: La saga Winx", "Gambito de dama",
+            "The Umbrella Academy", "Atípico", "Desencantada", "La monja guerrera",
+            "Élite", "Paquita Salas", "Ni una más", "Dahmer", "Jóvenes y brujas",
+            "Nina rusa", "Cortando por la línea de puntos", "Invencible"
         )}
 
         configureRecyclerView(
             recyclerViewId = R.id.recyclerViewRecomancions,
-            data = recomendaciones.map { ImageItem(it.imagen, it) },
+            data = peliculasPopulares.map { ImageItem(it.imagen, it) },
             spacing = 16
         )
 
@@ -115,6 +97,7 @@ class HomeActivity : AppCompatActivity(), FilterListener {
             spacing = 16
         )
     }
+
 
     private fun configureRecyclerView(
         recyclerViewId: Int,

@@ -31,7 +31,12 @@ class CrearListaActivity : AppCompatActivity() {
             val titulo = editTextTitulo.text.toString()
             val esPrivada = switchPrivada.isChecked
             if (titulo.isNotEmpty()) {
-                val nuevaLista = Lista(titulo, esPrivada)
+                val nuevaLista = Lista(
+                    titulo = titulo,
+                    descripcion = null,  // o ""
+                    esPrivada = esPrivada,
+                    titulos = mutableListOf()
+                )
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {

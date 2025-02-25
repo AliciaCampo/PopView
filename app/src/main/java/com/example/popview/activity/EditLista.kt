@@ -38,7 +38,9 @@ class EditLista : AppCompatActivity() {
             editTextDescripcion.setText(listaData.descripcion)
             switchPrivada.isChecked = listaData.esPrivada
             updateDescripcionVisibility(listaData.esPrivada, editTextDescripcion)
-            peliculasList.addAll(listaData.titulos)
+            listaData.titulos?.let {
+                peliculasList.addAll(it)
+            }
         } else {
             Toast.makeText(this, "No s'han rebut les dades de la llista.", Toast.LENGTH_SHORT).show()
         }

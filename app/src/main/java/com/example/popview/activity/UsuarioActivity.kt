@@ -2,6 +2,7 @@ package com.example.popview.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,9 +44,14 @@ class UsuarioActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val listas = popViewService.getAllLlistes()
+                Log.d("UsuarioActivity", "Listas recibidas: ${listas.size}")
+                for (lista in listas) {
+                    Log.d("UsuarioActivity", "Lista recibida: ${lista.titulo}")
+                }
                 runOnUiThread {
                     listaDeListas.clear()
                     listaDeListas.addAll(listas)
+                    Log.d("UsuarioActivity", "Listas actualizadas en el adaptador: ${listaDeListas.size}")
                     listasAdapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
@@ -53,6 +59,7 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CREAR_LISTA_REQUEST_CODE && resultCode == RESULT_OK) {

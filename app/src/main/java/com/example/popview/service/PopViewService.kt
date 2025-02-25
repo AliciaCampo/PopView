@@ -38,7 +38,7 @@ interface PopViewService {
     @POST("/llistes")
     suspend fun createLista(@Body lista: Lista): Lista
     @POST("/titols")
-    suspend fun createTitulo(titulo: Titulo): Titulo
+    suspend fun createTitulo(@Body titulo: Titulo): Titulo
     @DELETE("/usuaris/{usuari_id}")
     suspend fun deleteUsuari(@Path("usuari_id") usuariId: Int)
     @DELETE("/llistes/{llista_id}")
@@ -53,10 +53,7 @@ interface PopViewService {
         @Synchronized
         fun API(): PopViewService {
             if (mAPI == null){
-                val client = OkHttpClient.Builder()
-                    .followRedirects(true)
-                    .followSslRedirects(true)
-                    .build()
+                val client: OkHttpClient = getUnsafeOkHttpClient()
                 val gsondateformat= GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     .create();
@@ -90,9 +87,11 @@ private fun getUnsafeOkHttpClient(): OkHttpClient {
         sslContext.init(null, trustAllCerts, SecureRandom())
         // Create an ssl socket factory with our all-trusting manager
         val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
+
         val builder = OkHttpClient.Builder()
         builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
         builder.hostnameVerifier { hostname, session -> true }
+
         val okHttpClient = builder.build()
         return okHttpClient
     } catch (e: Exception) {

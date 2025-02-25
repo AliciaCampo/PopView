@@ -1,5 +1,6 @@
 package com.example.popview.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,24 +33,27 @@ class ListasAdapter(
 
     override fun onBindViewHolder(holder: ListaViewHolder, position: Int) {
         val lista = listas[position]
+        Log.d("ListasAdapter", "Binding item at position $position with title ${lista.titulo}")
         holder.titulo.text = lista.titulo
 
-        // Mostrar si es pública o privada
         val estadoText = if (lista.esPrivada) "Privada" else "Pública"
         holder.estado.text = estadoText
+
         holder.itemView.setOnClickListener {
             onItemClicked(lista)
         }
+
         holder.itemView.setOnLongClickListener {
-            // Eliminar la lista localmente
+            Log.d("ListasAdapter", "Long click on item at position $position")
             listas.removeAt(position)
             notifyItemRemoved(position)
-            // Eliminar la lista del servidor
+
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     popViewService.deleteLista(lista.id)
                 } catch (e: Exception) {
                     e.printStackTrace()
+                    Log.e("ListasAdapter", "Error deleting lista: ${e.message}")
                 }
             }
             true
