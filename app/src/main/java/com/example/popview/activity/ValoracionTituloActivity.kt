@@ -69,10 +69,10 @@ class ValoracionTituloActivity : AppCompatActivity() {
                     findViewById<ImageView>(R.id.platformIcon2),
                     findViewById<ImageView>(R.id.platformIcon3)
                 )
-
+                val platformsList = titulo.platforms.split(", ").map { it.trim() }
                 platformIcons.forEachIndexed { index, imageView ->
-                    if (index < titulo.platforms.size) {
-                        val platform = titulo.platforms[index]
+                    if (index < platformsList.size) { // Usar platformsList.size
+                        val platform = platformsList[index] // Usar platformsList[index]
                         imageView.visibility = View.VISIBLE
                         imageView.setImageResource(getPlatformIcon(platform))
                     } else {
@@ -80,7 +80,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                     }
                 }
 
-                recyclerView.adapter = ValoracionTituloAdapter(titulo.comments)
+                recyclerView.adapter = ValoracionTituloAdapter(titulo.comments ?: emptyList())
 
             } catch (e: Exception) {
                 Toast.makeText(this@ValoracionTituloActivity, "Error al cargar datos", Toast.LENGTH_SHORT).show()

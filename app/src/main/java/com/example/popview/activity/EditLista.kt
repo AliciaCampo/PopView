@@ -1,7 +1,9 @@
 package com.example.popview.activity
 
+import com.example.popview.data.Titulo
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.data.Lista
-import com.example.popview.data.Titulo
 import com.example.popview.adapter.PeliculasAdapter
 import com.example.popview.R
 import com.example.popview.service.PopViewAPI
@@ -32,7 +33,8 @@ class EditLista : AppCompatActivity() {
         val editTextDescripcion = findViewById<EditText>(R.id.editTextDescripcion)
         val switchPrivada = findViewById<Switch>(R.id.switchPrivada)
 
-        val listaData = intent.getSerializableExtra("lista") as? Lista
+        var listaData = intent.getSerializableExtra("lista") as? Lista
+        Log.d("EditLista", "ID recibido: ${listaData?.id}")
         if (listaData != null) {
             editTextTitulo.setText(listaData.titulo)
             editTextDescripcion.setText(listaData.descripcion)
@@ -114,9 +116,19 @@ class EditLista : AppCompatActivity() {
             builder.setMessage("Segur que vols eliminar la llista?")
             builder.setPositiveButton("Confirmar") { dialog, _ ->
                 listaData?.let { lista ->
+                    // Verificamos si el ID es válido
+                    if (lista.id == null || lista.id == 0) {
+                        Toast.makeText(this, "No es pot eliminar la llista. ID no vàlid.", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                        return@setPositiveButton
+                    }
+
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
+                            // Realizamos la eliminación de la lista en el servidor
                             popViewService.deleteLista(lista.id)
+
+                            // Si la eliminación es exitosa, hacemos las acciones correspondientes en la interfaz
                             runOnUiThread {
                                 val intent = Intent()
                                 intent.putExtra("eliminarLista", lista)
@@ -125,6 +137,9 @@ class EditLista : AppCompatActivity() {
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
+                            runOnUiThread {
+                                Toast.makeText(this@EditLista, "Error al eliminar la llista: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -136,18 +151,40 @@ class EditLista : AppCompatActivity() {
             builder.create().show()
         }
 
+
         val btnAñadirPelicula = findViewById<Button>(R.id.btnAñadirPelicula)
         val editTextPelicula = findViewById<EditText>(R.id.editTextPelicula)
+
         btnAñadirPelicula.setOnClickListener {
             val peliculaTitulo = editTextPelicula.text.toString().trim()
             if (peliculaTitulo.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val titulos = popViewService.getAllTitols()
-                        val tituloExistente = titulos.find { it.nombre == peliculaTitulo }
+                        // Obtener todos los títulos disponibles en el servidor
+                        val titulos = popViewService.getAllTitols() ?: emptyList()
+                        val tituloExistente = titulos.find { it.nombre.equals(peliculaTitulo, ignoreCase = true) }
+
                         if (tituloExistente != null) {
+                            // Añadir el título a la lista en memoria
+                            peliculasList.add(tituloExistente)
+
+                            // Actualizar la lista en el servidor
+                            listaData?.let { lista ->
+                                // Crear una copia actualizada de la lista con los nuevos títulos
+                                val updatedLista = lista.copy(titulos = peliculasList)
+
+                                // Eliminar la lista anterior (si existe)
+                                if (lista.id != null) {
+                                    popViewService.deleteLista(lista.id)
+                                }
+
+                                // Crear una nueva lista con los datos actualizados
+                                val nuevaLista = popViewService.createLista(updatedLista)
+                                listaData = nuevaLista // Actualizar la referencia local
+                            }
+
+                            // Actualizar la UI en el hilo principal
                             runOnUiThread {
-                                peliculasList.add(tituloExistente)
                                 adapter.notifyDataSetChanged()
                                 editTextPelicula.text.clear()
                                 Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
@@ -159,6 +196,9 @@ class EditLista : AppCompatActivity() {
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
+                        runOnUiThread {
+                            Toast.makeText(this@EditLista, "Error al afegir el títol: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } else {

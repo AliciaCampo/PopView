@@ -81,9 +81,9 @@ class BuscarActivity : AppCompatActivity() {
 
             // Aplicación de filtros
             val filtroSeleccionado = (!seleccionados.any { it } ||
-                    (seleccionados[0] && titulo.edadRecomendada >= 12) ||
-                    (seleccionados[1] && titulo.edadRecomendada >= 16) ||
-                    (seleccionados[2] && titulo.edadRecomendada >= 18) ||
+                    (seleccionados[0] && (titulo.edadRecomendada ?: 0) >= 12) ||
+                    (seleccionados[1] && (titulo.edadRecomendada ?: 0) >= 16) ||
+                    (seleccionados[2] && (titulo.edadRecomendada ?: 0) >= 18) ||
                     (seleccionados[3] && titulo.genero == "Sèrie") ||
                     (seleccionados[4] && titulo.genero == "Pel·lícula") ||
                     (seleccionados[5] && titulo.genero == "Acció") ||

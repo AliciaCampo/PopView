@@ -39,8 +39,9 @@ class HomeActivity : AppCompatActivity(), FilterListener {
 
     override fun applyFilters(selectedGenres: List<String>, selectedPlatforms: List<String>) {
         val filteredTitles = allTitles.filter { titulo ->
+            val platformsList = titulo.platforms.split(", ").map { it.trim() }
             (selectedGenres.isEmpty() || selectedGenres.contains(titulo.genero)) &&
-                    (selectedPlatforms.isEmpty() || titulo.platforms.any { it in selectedPlatforms })
+                    (selectedPlatforms.isEmpty() || platformsList.any { it in selectedPlatforms })
         }
 
         setupRecyclerViews(filteredTitles)

@@ -46,7 +46,7 @@ class UsuarioActivity : AppCompatActivity() {
                 val listas = popViewService.getAllLlistes()
                 Log.d("UsuarioActivity", "Listas recibidas: ${listas.size}")
                 for (lista in listas) {
-                    Log.d("UsuarioActivity", "Lista recibida: ${lista.titulo}")
+                    Log.d("UsuarioActivity", "Lista recibida: ${lista.titulo}, ID: ${lista.id}")
                 }
                 runOnUiThread {
                     listaDeListas.clear()
