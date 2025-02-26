@@ -21,31 +21,31 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 interface PopViewService {
-    @GET("/usuaris/{usuari_id}")
+    @GET("usuaris/{usuari_id}")
     suspend fun getUsuari(@Path("usuari_id") usuariId: Int): Usuario
-    @GET("/usuaris")
+    @GET("usuaris/")
     suspend fun getAllUsuaris(): List<Usuario>
-    @GET("/llistes/{llista_id}")
+    @GET("llistes/{llista_id}")
     suspend fun getLlista(@Path("llista_id") llistaId: Int): Lista
-    @GET("/llistes")
+    @GET("llistes/")
     suspend fun getAllLlistes(): List<Lista>
-    @GET("/titols/{titol_id}")
+    @GET("titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
-    @GET("/titols")
+    @GET("titols/")
     suspend fun getAllTitols(): List<Titulo>
-    @POST("/usuaris")
+    @POST("usuaris/")
     suspend fun createUser(usuario: Usuario): Usuario
-    @POST("/llistes")
+    @POST("llistes/")
     suspend fun createLista(@Body lista: Lista): Lista
-    @POST("/titols")
+    @POST("titols/")
     suspend fun createTitulo(@Body titulo: Titulo): Titulo
-    @DELETE("/usuaris/{usuari_id}")
+    @DELETE("usuaris/{usuari_id}")
     suspend fun deleteUsuari(@Path("usuari_id") usuariId: Int)
-    @DELETE("/llistes/{llista_id}")
+    @DELETE("llistes/{llista_id}")
     suspend fun deleteLista(@Path("llista_id") llistaId: Int)
-    @DELETE("/titols/{titol_id}")
+    @DELETE("titols/{titol_id}")
     suspend fun deleteTitulo(@Path("titol_id") titolId: Int)
-    @DELETE("/llistes/{llista_id}/titols/{titol_id}")
+    @DELETE("llistes/{llista_id}/titols/{titol_id}")
     suspend fun deleteTituloFromLista(@Path("llista_id") llistaId: Int, @Path("titol_id") titolId: Int)
     }
     class PopViewAPI{
@@ -59,7 +59,7 @@ interface PopViewService {
                     .create();
                 mAPI = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create(gsondateformat))
-                    .baseUrl("https://52.72.183.45/")
+                    .baseUrl("https://52.72.183.45")
                     .client(getUnsafeOkHttpClient())
                     .build()
                     .create(PopViewService::class.java)

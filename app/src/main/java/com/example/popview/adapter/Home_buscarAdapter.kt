@@ -14,7 +14,7 @@ import com.example.popview.activity.ValoracionTituloActivity
 class ImageAdapter(private val imageList: List<ImageItem>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        val imageView: ImageView = itemView.findViewById(R.id.plantimg_imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -25,7 +25,7 @@ class ImageAdapter(private val imageList: List<ImageItem>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val currentItem = imageList[position]
         Glide.with(holder.itemView.context)
-            .load("http://44.205.116.170/PopView_fotos/${currentItem.imageUrl}")
+            .load("http://44.205.116.170/${currentItem.imageUrl}")
             .into(holder.imageView)
         holder.imageView.setOnClickListener {
             val context = holder.itemView.context

@@ -33,7 +33,7 @@ class RatingAdapter(private val itemList: List<Item>) :
         holder.numRating.text = item.title
 
         Glide.with(holder.itemView.context)
-            .load("http://44.205.116.170/PopView_fotos/${item.imageUrl}")
+            .load("http://44.205.116.170/${item.imageUrl}")
             .into(holder.imageView)
 
         holder.ratingBar.rating = item.rating

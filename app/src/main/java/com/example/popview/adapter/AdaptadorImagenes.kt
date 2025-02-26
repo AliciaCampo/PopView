@@ -16,8 +16,8 @@ class AdaptadorImagenes(
 ) : RecyclerView.Adapter<AdaptadorImagenes.TituloViewHolder>() {
 
     class TituloViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
-        val textView: TextView = itemView.findViewById(R.id.textView)
+        val imageView: ImageView = itemView.findViewById(R.id.plantimg_imageView)
+       // val textView: TextView = itemView.findViewById(R.id.textView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TituloViewHolder {
@@ -30,7 +30,7 @@ class AdaptadorImagenes(
         Glide.with(holder.itemView.context)
             .load("http://44.205.116.170/${titulo.imagen}")
             .into(holder.imageView)
-        holder.textView.text = titulo.nombre
+        //holder.textView.text = titulo.nombre
         holder.itemView.setOnClickListener { onItemClick(titulo) }
     }
 
