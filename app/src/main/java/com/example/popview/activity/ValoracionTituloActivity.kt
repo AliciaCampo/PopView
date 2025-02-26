@@ -61,7 +61,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 ratingBar.rating = titulo.rating
 
                 Glide.with(this@ValoracionTituloActivity)
-                    .load("http://44.205.116.170/PopView_fotos/${titulo.imagen}")
+                    .load("http://44.205.116.170/${titulo.imagen}")
                     .into(imageView)
 
                 val platformIcons = listOf(
@@ -92,7 +92,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
             "Netflix" -> R.drawable.logo_netflix
             "Amazon Prime" -> R.drawable.logo_amazon_prime
             "HBO" -> R.drawable.logo_hbo
-            "Disney" -> R.drawable.logo_disneyplus
+            "Disney+" -> R.drawable.logo_disneyplus
             "Movistar" -> R.drawable.logo_movistarplus
             "Jazztel" -> R.drawable.logo_jazzteltv
             else -> R.drawable.logo

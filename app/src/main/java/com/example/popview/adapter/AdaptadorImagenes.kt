@@ -28,7 +28,7 @@ class AdaptadorImagenes(
     override fun onBindViewHolder(holder: TituloViewHolder, position: Int) {
         val titulo = titulos[position]
         Glide.with(holder.itemView.context)
-            .load("http://44.205.116.170/PopView_fotos/${titulo.imagen}")
+            .load("http://44.205.116.170/${titulo.imagen}")
             .into(holder.imageView)
         holder.textView.text = titulo.nombre
         holder.itemView.setOnClickListener { onItemClick(titulo) }
