@@ -1,5 +1,6 @@
 package com.example.popview.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.popview.R
+import com.example.popview.activity.ValoracionTituloActivity
 import com.example.popview.data.Titulo
 
 class AdaptadorImagenes(
@@ -31,7 +33,12 @@ class AdaptadorImagenes(
             .load("http://44.205.116.170/${titulo.imagen}")
             .into(holder.imageView)
         //holder.textView.text = titulo.nombre
-        holder.itemView.setOnClickListener { onItemClick(titulo) }
+        holder.imageView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, ValoracionTituloActivity::class.java)
+            intent.putExtra("titulo", titulo.nombre)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = titulos.size
