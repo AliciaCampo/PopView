@@ -46,8 +46,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
 
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
-            val intentEnrere = Intent(this, BuscarActivity::class.java)
-            startActivity(intentEnrere)
             finish()
         }
 
