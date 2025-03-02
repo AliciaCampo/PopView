@@ -46,7 +46,7 @@ class RatingActivity : AppCompatActivity(), FilterListener {
                     (selectedPlatforms.isEmpty() || platformsList.any { it in selectedPlatforms })
         }
 
-        val topTitles = filteredTitles.sortedByDescending { it.rating }.take(5)
+        val topTitles = filteredTitles.sortedByDescending { it.rating }.take(4)
         val ratingItems = topTitles.mapIndexed { index, titulo ->
             Item(
                 title = "${index + 1}. ${titulo.nombre}",
