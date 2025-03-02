@@ -47,9 +47,13 @@ interface PopViewService {
     suspend fun deleteTitulo(@Path("titol_id") titolId: Int)
     @DELETE("llistes/{llista_id}/titols/{titol_id}")
     suspend fun deleteTituloFromLista(@Path("llista_id") llistaId: Int, @Path("titol_id") titolId: Int)
-    @POST("llistes/{llista_id}")
-    suspend fun updateLista(@Path("llista_id") llistaId: Int, @Body lista: Lista): Lista
-    }
+    @POST("llistes/{llista_id}/titols/{titol_id}")
+    suspend fun updateLista(
+        @Path("llista_id") llistaId: Int,
+        @Path("titol_id") titolId: Int
+    ): Unit
+
+}
     class PopViewAPI{
         private var mAPI : PopViewService? = null
         @Synchronized
