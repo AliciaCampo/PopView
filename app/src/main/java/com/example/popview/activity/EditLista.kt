@@ -173,14 +173,9 @@ class EditLista : AppCompatActivity() {
                                 // Crear una copia actualizada de la lista con los nuevos títulos
                                 val updatedLista = lista.copy(titulos = peliculasList)
 
-                                // Eliminar la lista anterior (si existe)
-                                if (lista.id != null) {
-                                    popViewService.deleteLista(lista.id)
-                                }
-
-                                // Crear una nueva lista con los datos actualizados
-                                val nuevaLista = popViewService.createLista(updatedLista)
-                                listaData = nuevaLista // Actualizar la referencia local
+                                // Actualizar la lista existente en el servidor
+                                val listaActualizada = popViewService.updateLista(lista.id, updatedLista)
+                                listaData = listaActualizada // Actualizar la referencia local
                             }
 
                             // Actualizar la UI en el hilo principal
@@ -205,6 +200,7 @@ class EditLista : AppCompatActivity() {
                 Toast.makeText(this, "Si us plau, introdueix un títol.", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
