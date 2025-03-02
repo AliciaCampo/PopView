@@ -22,9 +22,9 @@ class CategoriesFragment : Fragment() {
 
         // Lista de categorías
         val categories = listOf(
-            "Acció", "Aventura", "Animació", "Comèdia", "Ciència ficció",
-            "Documental", "Drama", "Fantasia", "Horror", "Històrica",
-            "Misteri", "Musical", "Romàntica", "Thriller"
+            "Acción", "Aventura", "Animacióc", "Comedia", "Ciencia ficción",
+            "Documental", "Drama", "Fantasía", "Terror", "Histórica",
+            "Misterio", "Musical", "Romántica", "Thriller"
         )
 
         // Configurar adaptador
