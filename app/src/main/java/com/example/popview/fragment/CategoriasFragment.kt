@@ -22,7 +22,7 @@ class CategoriesFragment : Fragment() {
 
         // Lista de categorías
         val categories = listOf(
-            "Acción", "Aventura", "Animacióc", "Comedia", "Ciencia ficción",
+            "Acción", "Aventura", "Animación", "Comedia", "Ciencia ficción",
             "Documental", "Drama", "Fantasía", "Terror", "Histórica",
             "Misterio", "Musical", "Romántica", "Thriller"
         )
