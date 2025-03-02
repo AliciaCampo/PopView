@@ -40,9 +40,26 @@ class EditLista : AppCompatActivity() {
             editTextDescripcion.setText(listaData.descripcion)
             switchPrivada.isChecked = listaData.esPrivada
             updateDescripcionVisibility(listaData.esPrivada, editTextDescripcion)
-            listaData.titulos?.let {
-                peliculasList.addAll(it)
+            // Al obtener los datos de la lista, vamos a cargar también los títulos asociados
+            listaData?.let {
+                // Realizamos la llamada a la API para obtener los títulos de la lista
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val titols = popViewService.getTitolsFromLlista(it.id) // Suponiendo que `getTitolsFromLlista` es un método en `PopViewAPI`
+                        runOnUiThread {
+                            peliculasList.clear() // Limpiamos la lista actual
+                            peliculasList.addAll(titols) // Añadimos los títulos obtenidos
+                            adapter.notifyDataSetChanged() // Notificamos al adaptador que los datos han cambiado
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        runOnUiThread {
+                            Toast.makeText(this@EditLista, "Error al obtener los títulos.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
+
         } else {
             Toast.makeText(this, "No s'han rebut les dades de la llista.", Toast.LENGTH_SHORT).show()
         }
@@ -58,27 +75,34 @@ class EditLista : AppCompatActivity() {
             builder.setTitle("Confirmació")
             builder.setMessage("Segur que vols eliminar aquest títol de la llista?")
             builder.setPositiveButton("Confirmar") { dialog, _ ->
+                Log.d("EditLista", "Eliminando título: ${titulo.nombre} (ID: ${titulo.id})")
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         listaData?.let { lista ->
-                            popViewService.deleteTituloFromLista(lista.id, titulo.id)
+                            popViewService.deleteTituloFromLista(lista.id, titulo.id) // Llamada a la API
+                            peliculasList.remove(titulo) // Eliminación local
                             runOnUiThread {
-                                peliculasList.remove(titulo)
+                                Log.d("EditLista", "Título eliminado de la lista local")
                                 adapter.notifyDataSetChanged()
                                 Toast.makeText(this@EditLista, "Títol eliminat de la llista.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
+                        runOnUiThread {
+                            Toast.makeText(this@EditLista, "Error al eliminar el títol: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
                 dialog.dismiss()
             }
+
             builder.setNegativeButton("Cancel·lar") { dialog, _ ->
                 dialog.dismiss()
             }
             builder.create().show()
         }
+
         recyclerView.adapter = adapter
 
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
@@ -157,6 +181,7 @@ class EditLista : AppCompatActivity() {
 
         btnAñadirPelicula.setOnClickListener {
             val peliculaTitulo = editTextPelicula.text.toString().trim()
+
             if (peliculaTitulo.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -165,24 +190,37 @@ class EditLista : AppCompatActivity() {
                         val tituloExistente = titulos.find { it.nombre.equals(peliculaTitulo, ignoreCase = true) }
 
                         if (tituloExistente != null) {
+                            // Verifica que el título tiene todos los datos necesarios
+                            if (tituloExistente.id == null || tituloExistente.nombre.isNullOrEmpty()) {
+                                runOnUiThread {
+                                    Toast.makeText(this@EditLista, "El títol no és vàlid.", Toast.LENGTH_SHORT).show()
+                                }
+                                return@launch
+                            }
+
                             // Añadir el título a la lista en memoria
                             peliculasList.add(tituloExistente)
 
                             // Actualizar la lista en el servidor
                             listaData?.let { lista ->
-                                // Crear una copia actualizada de la lista con los nuevos títulos
                                 val updatedLista = lista.copy(titulos = peliculasList)
 
-                                // Actualizar la lista existente en el servidor
-                                val listaActualizada = popViewService.updateLista(lista.id, updatedLista)
-                                listaData = listaActualizada // Actualizar la referencia local
-                            }
+                                // Verifica que la lista tiene todos los datos necesarios antes de actualizar
+                                if (updatedLista.titulos.isNullOrEmpty() || updatedLista.titulo.isNullOrEmpty()) {
+                                    runOnUiThread {
+                                        Toast.makeText(this@EditLista, "La llista no té tots els camps necessaris.", Toast.LENGTH_SHORT).show()
+                                    }
+                                    return@launch
+                                }
 
-                            // Actualizar la UI en el hilo principal
-                            runOnUiThread {
-                                adapter.notifyDataSetChanged()
-                                editTextPelicula.text.clear()
-                                Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
+                                // Actualizar la lista existente en el servidor
+                                popViewService.addTituloToList(lista.id, tituloExistente.id)
+
+                                runOnUiThread {
+                                    adapter.notifyDataSetChanged()
+                                    editTextPelicula.text.clear()
+                                    Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         } else {
                             runOnUiThread {

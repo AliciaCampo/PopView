@@ -5,12 +5,14 @@ import com.example.popview.data.Lista
 import com.example.popview.data.Titulo
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import java.security.SecureRandom
 import java.security.cert.CertificateException
@@ -45,13 +47,23 @@ interface PopViewService {
     suspend fun deleteLista(@Path("llista_id") llistaId: Int)
     @DELETE("titols/{titol_id}")
     suspend fun deleteTitulo(@Path("titol_id") titolId: Int)
-    @DELETE("llistes/{llista_id}/titols/{titol_id}")
-    suspend fun deleteTituloFromLista(@Path("llista_id") llistaId: Int, @Path("titol_id") titolId: Int)
+    @POST("llistes/{llista_id}")
+    suspend fun updateLista(@Path("llista_id") id: Int, @Body lista: Lista)
+    @GET("llistes/{llista_id}/titols")
+    suspend fun getTitolsFromLlista(@Path("llista_id") llistaId: Int): List<Titulo>
     @POST("llistes/{llista_id}/titols/{titol_id}")
-    suspend fun updateLista(
+    suspend fun addTituloToList(
         @Path("llista_id") llistaId: Int,
         @Path("titol_id") titolId: Int
-    ): Unit
+    )
+    @DELETE("llistes/{llista_id}/titols/{titol_id}")
+    suspend fun deleteTituloFromLista(
+        @Path("llista_id") llistaId: Int,
+        @Path("titol_id") titolId: Int
+    )
+
+
+
 
 }
     class PopViewAPI{
