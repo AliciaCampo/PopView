@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.popview.R
 import com.example.popview.activity.ValoracionTituloActivity
 import com.example.popview.data.Item
+import com.example.popview.data.Titulo
 
 class RatingAdapter(private val itemList: List<Item>) :
     RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
@@ -30,20 +31,33 @@ class RatingAdapter(private val itemList: List<Item>) :
 
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
         val item = itemList[position]
-        holder.numRating.text = item.title
 
+        holder.numRating.text = item.title
         Glide.with(holder.itemView.context)
             .load("http://44.205.116.170/${item.imageUrl}")
             .into(holder.imageView)
-
         holder.ratingBar.rating = item.rating
 
         holder.imageView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, ValoracionTituloActivity::class.java)
-            intent.putExtra("titulo", item.title)
+
+            // Ahora se pasan todos los parámetros requeridos al objeto Titulo
+            val titulo = Titulo(
+                nombre = item.title,
+                description = item.description,  // Cambiar cuando tengas los datos reales
+                imagen = item.imageUrl,
+                rating = item.rating,
+                platforms = item.platforms,
+                comments = listOf(),  // Aquí debes pasar los comentarios si tienes, de lo contrario, pasar una lista vacía
+                edadRecomendada = item.edadRecomendad, // Cambiar a la edad recomendada si la tienes
+                genero = item.genero // Cambiar por el género real si lo tienes
+            )
+
+            intent.putExtra("titulo", titulo)
             context.startActivity(intent)
         }
     }
+
     override fun getItemCount(): Int = itemList.size
 }

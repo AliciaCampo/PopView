@@ -12,14 +12,10 @@ import com.example.popview.R
 import com.example.popview.activity.ValoracionTituloActivity
 import com.example.popview.data.Titulo
 
-class AdaptadorImagenes(
-    private val titulos: List<Titulo>,
-    private val onItemClick: (Titulo) -> Unit
-) : RecyclerView.Adapter<AdaptadorImagenes.TituloViewHolder>() {
+class AdaptadorImagenes(private val titulos: List<Titulo>) : RecyclerView.Adapter<AdaptadorImagenes.TituloViewHolder>() {
 
     class TituloViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.plantimg_imageView)
-       // val textView: TextView = itemView.findViewById(R.id.textView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TituloViewHolder {
@@ -32,11 +28,12 @@ class AdaptadorImagenes(
         Glide.with(holder.itemView.context)
             .load("http://44.205.116.170/${titulo.imagen}")
             .into(holder.imageView)
-        //holder.textView.text = titulo.nombre
+
+        // Configura el evento de clic directamente en el ViewHolder
         holder.imageView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, ValoracionTituloActivity::class.java)
-            intent.putExtra("titulo", titulo.nombre)
+            intent.putExtra("titulo", titulo)
             context.startActivity(intent)
         }
     }

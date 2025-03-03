@@ -65,13 +65,11 @@ class BuscarActivity : AppCompatActivity() {
     private fun actualizaRecyclerView(titles: List<Titulo>) {
         val recyclerViewContent = findViewById<RecyclerView>(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = GridLayoutManager(this, 2)
-        val adaptador = AdaptadorImagenes(titles) { titulo ->
-            val intent = Intent(this@BuscarActivity, ValoracionTituloActivity::class.java)
-            intent.putExtra("titulo_id", titulo.id)
-            startActivity(intent)
-        }
+        val adaptador = AdaptadorImagenes(titles) // Ya no recibe un callback
         recyclerViewContent.adapter = adaptador
     }
+
+
 
     private fun aplicarFiltros() {
         val filteredTitles = allTitles.filter { titulo ->
