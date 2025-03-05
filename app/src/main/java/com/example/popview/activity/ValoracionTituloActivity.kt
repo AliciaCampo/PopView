@@ -92,7 +92,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
             "Disney" -> R.drawable.logo_disneyplus
             "Movistar" -> R.drawable.logo_movistarplus
             "Jazztel" -> R.drawable.logo_jazzteltv
-            "3cat" -> R.drawable.logo_trescat
+            "3cat" -> R.drawable.logo_3cat
             else -> R.drawable.logo
         }
     }
