@@ -1,6 +1,5 @@
 package com.example.popview.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -47,12 +46,12 @@ class BuscarActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        val editTextBuscar = findViewById<EditText>(R.id.textBuscar)
 
+        val editTextBuscar = findViewById<EditText>(R.id.textBuscar)
         editTextBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                buscarQuery = s.toString()  // Actualiza la variable con el texto actual
-                aplicarFiltros()  // Vuelve a filtrar en cada cambio
+                buscarQuery = s.toString()
+                aplicarFiltros()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -79,18 +78,21 @@ class BuscarActivity : AppCompatActivity() {
     private fun actualizaRecyclerView(titles: List<Titulo>) {
         val recyclerViewContent = findViewById<RecyclerView>(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = GridLayoutManager(this, 2)
-        val adaptador = AdaptadorImagenes(titles) // Ya no recibe un callback
+        val adaptador = AdaptadorImagenes(titles)
         recyclerViewContent.adapter = adaptador
     }
 
-
-
     private fun aplicarFiltros() {
-        val filteredTitles = allTitles.filter { titulo ->
-            // La búsqueda debe aplicarse siempre
-            val busquedaSeleccionada = buscarQuery.isEmpty() || titulo.nombre.contains(buscarQuery, ignoreCase = true)
+        val queryLower = buscarQuery.lowercase().trim()
 
-            // Aplicación de filtros (si hay filtros seleccionados)
+        val filteredTitles = allTitles.filter { titulo ->
+            val tituloLower = titulo.nombre.lowercase().trim()
+            val similarityScore = similarity(tituloLower, queryLower)
+
+            println("Comparando: '$tituloLower' con '$queryLower' → Similaridad: $similarityScore")
+
+            val busquedaSeleccionada = queryLower.isEmpty() || similarityScore >= 60.0
+
             val filtroSeleccionado = if (seleccionados.any { it }) {
                 (seleccionados[0] && (titulo.edadRecomendada ?: 0) >= 12) ||
                         (seleccionados[1] && (titulo.edadRecomendada ?: 0) >= 16) ||
@@ -102,24 +104,30 @@ class BuscarActivity : AppCompatActivity() {
                         (seleccionados[7] && titulo.genero == "Ciencia ficción") ||
                         (seleccionados[8] && titulo.genero == "Terror")
             } else {
-                // Si no hay filtros seleccionados, se aceptan todos los títulos
                 true
             }
 
-            // Se incluyen solo los títulos que pasen la búsqueda y los filtros
             busquedaSeleccionada && filtroSeleccionado
         }
 
         actualizaRecyclerView(filteredTitles)
     }
 
+    private fun similarity(s1: String, s2: String): Double {
+        val maxLength = maxOf(s1.length, s2.length)
+        if (maxLength == 0) return 100.0  // Si ambas cadenas están vacías, son 100% iguales
 
-    // Función para calcular la distancia de Levenshtein
+        val distance = levenshteinDistance(s1, s2)
+        val similarityPercentage = (1.0 - distance.toDouble() / maxLength) * 100
+
+        return similarityPercentage
+    }
+
     private fun levenshteinDistance(s1: String, s2: String): Int {
         val dp = Array(s1.length + 1) { IntArray(s2.length + 1) }
 
-        for (i in s1.indices) dp[i][0] = i
-        for (j in s2.indices) dp[0][j] = j
+        for (i in 0..s1.length) dp[i][0] = i
+        for (j in 0..s2.length) dp[0][j] = j
 
         for (i in 1..s1.length) {
             for (j in 1..s2.length) {
@@ -132,15 +140,5 @@ class BuscarActivity : AppCompatActivity() {
         }
 
         return dp[s1.length][s2.length]
-    }
-
-    // Función para calcular la similitud (0 a 100%)
-    private fun similarity(s1: String, s2: String): Double {
-        val maxLength = maxOf(s1.length, s2.length)
-        return if (maxLength > 0) {
-            (1.0 - levenshteinDistance(s1.lowercase(), s2.lowercase()).toDouble() / maxLength) * 100
-        } else {
-            0.0
-        }
     }
 }
