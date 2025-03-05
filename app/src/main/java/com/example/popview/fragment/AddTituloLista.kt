@@ -20,6 +20,7 @@ import com.example.popview.activity.CrearListaActivity
 import com.example.popview.adapter.ListaFragmentAddapter
 import com.example.popview.data.ListItem
 import com.example.popview.service.PopViewAPI
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,6 +30,7 @@ class AddTituloLista : DialogFragment() {
 
     private lateinit var itemList: MutableList<ListItem>
     private lateinit var adapter: ListaFragmentAddapter
+    private var tituloId: Int = -1
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
@@ -38,7 +40,11 @@ class AddTituloLista : DialogFragment() {
         // Configuración del RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLists)
         itemList = mutableListOf()  // Lista vacía que se llenará con Retrofit
-        adapter = ListaFragmentAddapter(itemList)
+        adapter = ListaFragmentAddapter(itemList) { selectedList ->
+            // Cuando se hace clic en una lista, se gestiona el agregar/quitar el título
+            toggleTituloInList(selectedList)
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
@@ -75,16 +81,79 @@ class AddTituloLista : DialogFragment() {
     private fun obtenerListas() {
         lifecycleScope.launch {
             try {
+                // Obtener todas las listas y los títulos
                 val response = withContext(Dispatchers.IO) {
                     PopViewAPI().API().getAllLlistes()  // Llamada a la API
                 }
-                itemList = response.map { lista -> ListItem(lista.titulo, false) }.toMutableList()
-                adapter.updateList(itemList)  // Actualiza el RecyclerView
+
+                // Obtener el id del título actual
+                tituloId = arguments?.getInt("tituloId", -1) ?: -1
+                if (tituloId == -1) {
+                    Toast.makeText(requireContext(), "Error: No s'ha trobat el títol.", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+
+                // Obtener los títulos de todas las listas
+                val allListsWithTitles = mutableListOf<ListItem>()
+                for (lista in response) {
+                    val titulosEnLista = PopViewAPI().API().getTitolsFromLlista(lista.id)
+                    val isTituloInList = titulosEnLista.any { it.id == tituloId }
+                    allListsWithTitles.add(
+                        ListItem(
+                            id = lista.id,
+                            name = lista.titulo,
+                            isChecked = isTituloInList
+                        )
+                    )
+                }
+
+                // Actualizar la lista en el RecyclerView
+                itemList = allListsWithTitles
+                adapter.updateList(itemList)
+
             } catch (e: Exception) {
                 Log.e("API_ERROR", "Error al obtenir les  llistes: ${e.message}")
                 Toast.makeText(requireContext(), "Error al obtenir les llistes", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // Función para alternar entre agregar y eliminar el título en la lista
+    private fun toggleTituloInList(listaSeleccionada: ListItem) {
+        lifecycleScope.launch {
+            try {
+                val popViewService = PopViewAPI().API()
+
+                // Verificamos si el título ya está en la lista
+                if (listaSeleccionada.isChecked) {
+                    // Si está en la lista, lo eliminamos
+                    popViewService.deleteTituloFromLista(listaSeleccionada.id, tituloId)
+                } else {
+                    // Si no está, lo agregamos
+                    popViewService.addTituloToList(listaSeleccionada.id, tituloId)
+                }
+
+                // Después de agregar o eliminar, actualizamos el estado en la UI
+                updateListCheckedState(listaSeleccionada)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(requireContext(), "Error al gestionar el títol: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Función para actualizar el estado de la lista de verificación
+    private fun updateListCheckedState(listaSeleccionada: ListItem) {
+        // Iteramos sobre la lista de elementos para buscar el título y actualizar su estado
+        itemList.forEach { item ->
+            if (item.id == listaSeleccionada.id) {
+                item.isChecked = !item.isChecked  // Alternamos el estado de la casilla
+            }
+        }
+
+        // Actualizamos el RecyclerView para reflejar los cambios
+        adapter.updateList(itemList)
     }
 
     // Función para filtrar las listas por nombre usando similitud

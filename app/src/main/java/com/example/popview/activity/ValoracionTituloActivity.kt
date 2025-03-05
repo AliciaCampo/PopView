@@ -39,8 +39,13 @@ class ValoracionTituloActivity : AppCompatActivity() {
 
         iconAnadirLista.setOnClickListener {
             val dialog = AddTituloLista()
+            val bundle = Bundle().apply {
+                putInt("tituloId", titulo.id)  // Pasa el id del título
+            }
+            dialog.arguments = bundle
             dialog.show(supportFragmentManager, "AddTituloLista")
         }
+
 
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {

@@ -118,17 +118,22 @@ class EditLista : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        popViewService.createLista(updatedLista)
+                        // Actualizar la lista existente en el servidor
+                        popViewService.updateLista(lista.id, updatedLista)
                         runOnUiThread {
                             Toast.makeText(this@EditLista, "Llista desada amb èxit.", Toast.LENGTH_SHORT).show()
                             finish()
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
+                        runOnUiThread {
+                            Toast.makeText(this@EditLista, "Error al desar la llista: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
         }
+
 
         val btnEliminar = findViewById<ImageView>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
