@@ -53,9 +53,6 @@ class EditLista : AppCompatActivity() {
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        runOnUiThread {
-                            Toast.makeText(this@EditLista, "Error al obtener los títulos.", Toast.LENGTH_SHORT).show()
-                        }
                     }
                 }
             }
