@@ -35,29 +35,32 @@ class AddTituloLista : DialogFragment() {
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.activity_add_titulo_lista, null)
 
+        // Configuración del RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLists)
-        itemList = mutableListOf()
+        itemList = mutableListOf()  // Lista vacía que se llenará con Retrofit
         adapter = ListaFragmentAddapter(itemList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        // Llamada a la API para obtener las listas
         obtenerListas()
 
+        // Campo de búsqueda
         val searchEditText = view.findViewById<EditText>(R.id.textBuscar)
         searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val query = s.toString().trim()
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = charSequence.toString()
                 filtrarListas(query)
             }
-
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(editable: Editable?) {}
         })
 
+        // Botón de cancelar
         val bntCancelar = view.findViewById<Button>(R.id.btnCancel)
         bntCancelar.setOnClickListener { dismiss() }
 
+        // LinearLayout para crear una nueva lista
         val linearLayout = view.findViewById<LinearLayout>(R.id.linearLayout)
         linearLayout.setOnClickListener {
             val intent = Intent(requireContext(), CrearListaActivity::class.java)
@@ -68,41 +71,35 @@ class AddTituloLista : DialogFragment() {
         return builder.create()
     }
 
+    // Función para obtener las listas desde la API usando Retrofit
     private fun obtenerListas() {
         lifecycleScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    PopViewAPI().API().getAllLlistes()
+                    PopViewAPI().API().getAllLlistes()  // Llamada a la API
                 }
                 itemList = response.map { lista -> ListItem(lista.titulo, false) }.toMutableList()
-                adapter.updateList(itemList)
+                adapter.updateList(itemList)  // Actualiza el RecyclerView
             } catch (e: Exception) {
-                Log.e("API_ERROR", "Error al obtener las listas: ${e.message}")
-                Toast.makeText(requireContext(), "Error al obtener las listas", Toast.LENGTH_SHORT).show()
+                Log.e("API_ERROR", "Error al obtenir les  llistes: ${e.message}")
+                Toast.makeText(requireContext(), "Error al obtenir les llistes", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    // Función para filtrar las listas por nombre usando similitud
     private fun filtrarListas(query: String) {
-        if (query.isEmpty()) {
-            adapter.updateList(itemList)  // Si el usuario borra el texto, mostramos todos los elementos
-            return
-        }
-
         val filteredItems = itemList.filter { item ->
-            val similarityScore = similarity(item.name, query)
-            Log.d("SEARCH", "Comparando '${item.name}' con '$query' → Similitud: $similarityScore%")
-            similarityScore >= 60.0
+            similarity(item.name, query) >= 60.0  // Umbral de 60% de similitud
         }
-
-        adapter.updateList(filteredItems)
+        adapter.updateList(filteredItems) // Actualiza la lista en el RecyclerView
     }
 
+    // Función para calcular la distancia de Levenshtein
     private fun levenshteinDistance(s1: String, s2: String): Int {
         val dp = Array(s1.length + 1) { IntArray(s2.length + 1) }
-
-        for (i in 0..s1.length) dp[i][0] = i
-        for (j in 0..s2.length) dp[0][j] = j
+        for (i in s1.indices) dp[i][0] = i
+        for (j in s2.indices) dp[0][j] = j
 
         for (i in 1..s1.length) {
             for (j in 1..s2.length) {
@@ -113,18 +110,16 @@ class AddTituloLista : DialogFragment() {
                 }
             }
         }
-
         return dp[s1.length][s2.length]
     }
 
+    // Función para calcular la similitud entre dos cadenas
     private fun similarity(s1: String, s2: String): Double {
-        val s1Lower = s1.lowercase().trim()
-        val s2Lower = s2.lowercase().trim()
-        val maxLength = maxOf(s1Lower.length, s2Lower.length)
-
-        if (maxLength == 0) return 100.0  // Si ambas cadenas están vacías, se consideran 100% similares.
-
-        val distance = levenshteinDistance(s1Lower, s2Lower)
-        return (1.0 - distance.toDouble() / maxLength) * 100
+        val maxLength = maxOf(s1.length, s2.length)
+        return if (maxLength > 0) {
+            (1.0 - levenshteinDistance(s1.lowercase(), s2.lowercase()).toDouble() / maxLength) * 100
+        } else {
+            0.0
+        }
     }
 }
