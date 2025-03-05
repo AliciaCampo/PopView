@@ -46,7 +46,7 @@ class BuscarActivity : AppCompatActivity() {
         }
 
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
-        val filtros = arrayOf("+12", "+16", "+18", "Sèrie", "Pel·lícula", "Acció", "Fantasía", "Superherois", "Comèdia")
+        val filtros = arrayOf("+12", "+16", "+18", "Acción", "Aventura", "Animación", "Fantasía", "Ciencia ficción", "Terror")
         seleccionados = BooleanArray(filtros.size) { false }
 
         imageFiltro.setOnClickListener {
@@ -82,12 +82,12 @@ class BuscarActivity : AppCompatActivity() {
                     (seleccionados[0] && (titulo.edadRecomendada ?: 0) >= 12) ||
                     (seleccionados[1] && (titulo.edadRecomendada ?: 0) >= 16) ||
                     (seleccionados[2] && (titulo.edadRecomendada ?: 0) >= 18) ||
-                    (seleccionados[3] && titulo.genero == "Sèrie") ||
-                    (seleccionados[4] && titulo.genero == "Pel·lícula") ||
-                    (seleccionados[5] && titulo.genero == "Acció") ||
+                    (seleccionados[3] && titulo.genero == "Acción") ||
+                    (seleccionados[4] && titulo.genero == "Aventura") ||
+                    (seleccionados[5] && titulo.genero == "Animación") ||
                     (seleccionados[6] && titulo.genero == "Fantasía") ||
-                    (seleccionados[7] && titulo.genero == "Superherois") ||
-                    (seleccionados[8] && titulo.genero == "Comèdia"))
+                    (seleccionados[7] && titulo.genero == "Ciencia ficción") ||
+                    (seleccionados[8] && titulo.genero == "Terror"))
 
             // Se incluyen solo los títulos que pasen ambos filtros
             busquedaSeleccionada && filtroSeleccionado
