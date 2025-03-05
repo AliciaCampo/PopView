@@ -1,6 +1,5 @@
 package com.example.popview.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.popview.R
 import com.example.popview.adapter.ValoracionTituloAdapter
-import com.example.popview.data.Item
 import com.example.popview.data.Titulo
 import com.example.popview.fragment.AddTituloLista
 import kotlinx.coroutines.launch
@@ -89,10 +87,12 @@ class ValoracionTituloActivity : AppCompatActivity() {
         return when (platform) {
             "Netflix" -> R.drawable.logo_netflix
             "Amazon Prime" -> R.drawable.logo_amazon_prime
-            "HBO" -> R.drawable.logo_hbo
+            "HBO Max" -> R.drawable.logo_hbo
             "Disney+" -> R.drawable.logo_disneyplus
+            "Disney" -> R.drawable.logo_disneyplus
             "Movistar" -> R.drawable.logo_movistarplus
             "Jazztel" -> R.drawable.logo_jazzteltv
+            "3cat" -> R.drawable.logo_trescat
             else -> R.drawable.logo
         }
     }
