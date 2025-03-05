@@ -2,6 +2,9 @@ package com.example.popview.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -22,7 +25,7 @@ import kotlin.math.min
 class BuscarActivity : AppCompatActivity() {
     private lateinit var popViewService: PopViewService
     private lateinit var allTitles: List<Titulo>
-    private val buscarQuery by lazy { intent.getStringExtra("SEARCH_QUERY") ?: "" }
+    private var buscarQuery: String = ""
     private lateinit var seleccionados: BooleanArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,17 @@ class BuscarActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+        val editTextBuscar = findViewById<EditText>(R.id.textBuscar)
+
+        editTextBuscar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                buscarQuery = s.toString()  // Actualiza la variable con el texto actual
+                aplicarFiltros()  // Vuelve a filtrar en cada cambio
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         val imageFiltro = findViewById<ImageView>(R.id.imageFiltro)
         val filtros = arrayOf("+12", "+16", "+18", "Acción", "Aventura", "Animación", "Fantasía", "Ciencia ficción", "Terror")
@@ -73,28 +87,32 @@ class BuscarActivity : AppCompatActivity() {
 
     private fun aplicarFiltros() {
         val filteredTitles = allTitles.filter { titulo ->
-            // Aplicamos la búsqueda difusa con similitud mayor al 60%
-            val similitud = similarity(titulo.nombre, buscarQuery)
-            val busquedaSeleccionada = similitud >= 60.0
+            // La búsqueda debe aplicarse siempre
+            val busquedaSeleccionada = buscarQuery.isEmpty() || titulo.nombre.contains(buscarQuery, ignoreCase = true)
 
-            // Aplicación de filtros
-            val filtroSeleccionado = (!seleccionados.any { it } ||
-                    (seleccionados[0] && (titulo.edadRecomendada ?: 0) >= 12) ||
-                    (seleccionados[1] && (titulo.edadRecomendada ?: 0) >= 16) ||
-                    (seleccionados[2] && (titulo.edadRecomendada ?: 0) >= 18) ||
-                    (seleccionados[3] && titulo.genero == "Acción") ||
-                    (seleccionados[4] && titulo.genero == "Aventura") ||
-                    (seleccionados[5] && titulo.genero == "Animación") ||
-                    (seleccionados[6] && titulo.genero == "Fantasía") ||
-                    (seleccionados[7] && titulo.genero == "Ciencia ficción") ||
-                    (seleccionados[8] && titulo.genero == "Terror"))
+            // Aplicación de filtros (si hay filtros seleccionados)
+            val filtroSeleccionado = if (seleccionados.any { it }) {
+                (seleccionados[0] && (titulo.edadRecomendada ?: 0) >= 12) ||
+                        (seleccionados[1] && (titulo.edadRecomendada ?: 0) >= 16) ||
+                        (seleccionados[2] && (titulo.edadRecomendada ?: 0) >= 18) ||
+                        (seleccionados[3] && titulo.genero == "Acción") ||
+                        (seleccionados[4] && titulo.genero == "Aventura") ||
+                        (seleccionados[5] && titulo.genero == "Animación") ||
+                        (seleccionados[6] && titulo.genero == "Fantasía") ||
+                        (seleccionados[7] && titulo.genero == "Ciencia ficción") ||
+                        (seleccionados[8] && titulo.genero == "Terror")
+            } else {
+                // Si no hay filtros seleccionados, se aceptan todos los títulos
+                true
+            }
 
-            // Se incluyen solo los títulos que pasen ambos filtros
+            // Se incluyen solo los títulos que pasen la búsqueda y los filtros
             busquedaSeleccionada && filtroSeleccionado
         }
 
         actualizaRecyclerView(filteredTitles)
     }
+
 
     // Función para calcular la distancia de Levenshtein
     private fun levenshteinDistance(s1: String, s2: String): Int {
