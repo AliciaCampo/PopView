@@ -28,7 +28,7 @@
                     android:id="@+id/imagenAvatar"
                     android:layout_width="175dp"
                     android:layout_height="175dp"
-                    android:src="@drawable/avataruser" />
+                    android:src="@drawable/avataruser1" />
 
                 <TextView
                     android:id="@+id/user"

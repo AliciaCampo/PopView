@@ -1,6 +1,6 @@
 package com.example.popview.service
 
-import com.example.popview.clase.Usuario
+import com.example.popview.data.Usuario
 import com.example.popview.data.Lista
 import com.example.popview.data.Titulo
 import com.google.gson.GsonBuilder

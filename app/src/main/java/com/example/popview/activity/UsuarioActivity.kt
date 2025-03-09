@@ -41,6 +41,13 @@ class UsuarioActivity : AppCompatActivity() {
         }
         // Cargar las listas del usuario desde el servidor
         cargarListasUsuario()
+        val userTextView = findViewById<TextView>(R.id.user)
+        userTextView.setOnClickListener {
+            val intent = Intent(this, DetalleUsuarioActivity::class.java)
+            intent.putExtra("usuarioId", 5) // ID fijo
+            startActivity(intent)
+        }
+
     }
     private fun cargarListasUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -82,6 +89,8 @@ class UsuarioActivity : AppCompatActivity() {
                 // ID estático del usuario
                 val usuarioId = 5
                 val usuario = popViewService.getUsuari(usuarioId)
+                Log.d("UsuarioActivity", "Usuario obtenido: ${usuario.nombre}") // Verificar si el nombre es correcto
+
                 runOnUiThread {
                     val userTextView = findViewById<TextView>(R.id.user)
                     userTextView.text = usuario.nombre
@@ -94,4 +103,5 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
+
 }
