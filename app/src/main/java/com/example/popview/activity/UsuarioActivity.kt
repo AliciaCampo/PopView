@@ -25,6 +25,7 @@ class UsuarioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_usuario)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        cargarDatosUsuario()
         // Pasar el manejador de clics al adaptador
         listasAdapter = ListasAdapter(listaDeListas) { lista ->
             // Manejar el clic en un elemento de la lista
@@ -78,33 +79,17 @@ class UsuarioActivity : AppCompatActivity() {
     private fun cargarDatosUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Si tienes el ID del usuario en SharedPreferences o en Intent:
-                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                val usuarioId = sharedPreferences.getInt("usuarioId", -1)
-
-                if (usuarioId != -1) {
-                    val usuario = popViewService.getUsuari(usuarioId)
-                    runOnUiThread {
-                        val userTextView = findViewById<TextView>(R.id.user)
-                        userTextView.text = usuario.nombre
-
-                        // Guardar en SharedPreferences para la próxima vez
-                        with(sharedPreferences.edit()) {
-                            putString("nombreUsuario", usuario.nombre)
-                            apply()
-                        }
-                    }
-                } else {
-                    Log.e("UsuarioActivity", "ID de usuario no encontrado en SharedPreferences")
+                // ID estático del usuario
+                val usuarioId = 5
+                val usuario = popViewService.getUsuari(usuarioId)
+                runOnUiThread {
+                    val userTextView = findViewById<TextView>(R.id.user)
+                    userTextView.text = usuario.nombre
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Si falla, intenta cargar desde SharedPreferences
-                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                val nombreUsuario = sharedPreferences.getString("nombreUsuario", "Usuario por defecto")
                 runOnUiThread {
-                    val userTextView = findViewById<TextView>(R.id.user)
-                    userTextView.text = nombreUsuario
+                    Log.e("UsuarioActivity", "Error al obtener el usuario: ${e.message}")
                 }
             }
         }
