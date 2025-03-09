@@ -46,7 +46,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "AddTituloLista")
         }
 
-
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
             finish()
@@ -54,6 +53,18 @@ class ValoracionTituloActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Configurar el botón desplegable
+        val toggleRatingButton: TextView = findViewById(R.id.toggleRatingButton)
+        val userRatingBar: RatingBar = findViewById(R.id.userRatingBar)
+
+        toggleRatingButton.setOnClickListener {
+            if (userRatingBar.visibility == View.VISIBLE) {
+                userRatingBar.visibility = View.GONE
+            } else {
+                userRatingBar.visibility = View.VISIBLE
+            }
+        }
 
         lifecycleScope.launch {
             try {
@@ -72,8 +83,8 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 )
                 val platformsList = titulo.platforms.split(", ").map { it.trim() }
                 platformIcons.forEachIndexed { index, imageView ->
-                    if (index < platformsList.size) { // Usar platformsList.size
-                        val platform = platformsList[index] // Usar platformsList[index]
+                    if (index < platformsList.size) {
+                        val platform = platformsList[index]
                         imageView.visibility = View.VISIBLE
                         imageView.setImageResource(getPlatformIcon(platform))
                     } else {
@@ -88,6 +99,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
         }
     }
+
     fun getPlatformIcon(platform: String): Int {
         return when (platform) {
             "Netflix" -> R.drawable.logo_netflix
