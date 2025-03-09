@@ -1,6 +1,6 @@
 package com.example.popview.data
 
-import com.example.popview.clase.Usuario
+import com.example.popview.data.Usuario
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
