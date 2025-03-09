@@ -102,4 +102,7 @@
         <item>Clar</item>
         <item>Fosc</item>
     </string-array>
+    <string-array name="rating_options">
+        <item>Calificar</item>
+    </string-array>
 </resources>
