@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -73,5 +74,39 @@ class UsuarioActivity : AppCompatActivity() {
 
     companion object {
         const val CREAR_LISTA_REQUEST_CODE = 1
+    }
+    private fun cargarDatosUsuario() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Si tienes el ID del usuario en SharedPreferences o en Intent:
+                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                val usuarioId = sharedPreferences.getInt("usuarioId", -1)
+
+                if (usuarioId != -1) {
+                    val usuario = popViewService.getUsuari(usuarioId)
+                    runOnUiThread {
+                        val userTextView = findViewById<TextView>(R.id.user)
+                        userTextView.text = usuario.nombre
+
+                        // Guardar en SharedPreferences para la próxima vez
+                        with(sharedPreferences.edit()) {
+                            putString("nombreUsuario", usuario.nombre)
+                            apply()
+                        }
+                    }
+                } else {
+                    Log.e("UsuarioActivity", "ID de usuario no encontrado en SharedPreferences")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // Si falla, intenta cargar desde SharedPreferences
+                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                val nombreUsuario = sharedPreferences.getString("nombreUsuario", "Usuario por defecto")
+                runOnUiThread {
+                    val userTextView = findViewById<TextView>(R.id.user)
+                    userTextView.text = nombreUsuario
+                }
+            }
+        }
     }
 }
