@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.BuscarListasActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewLupa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="?android:attr/actionModeWebSearchDrawable"
+            app:tint="@color/md_theme_primaryContainer" />
+
+        <EditText
+            android:id="@+id/textBuscar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_search_background"
+            android:ems="12"
+            android:fontFamily="@font/oswald_light"
+            android:hint="@string/buscar"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColor="@color/md_theme_primaryContainer"
+            android:textColorHint="@color/md_theme_primary" />
+
+        <ImageView
+            android:id="@+id/imageFiltro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/filtro"
+            android:onClick="mostrarDialogoFiltros"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutBuscar"
+        android:padding="16dp"
+        android:layout_marginBottom="70dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_fila_imagenes"
+        ></androidx.recyclerview.widget.RecyclerView>
+    <fragment
+        android:name="com.example.popview.fragment.barramenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -63,7 +64,15 @@ interface PopViewService {
         @Path("llista_id") llistaId: Int,
         @Path("titol_id") titolId: Int
     )
+    // Nuevos métodos de búsqueda
+    @GET("buscar/usuarios")
+    suspend fun buscarUsuarios(@Query("query") query: String): List<Usuario>
 
+    @GET("buscar/listas")
+    suspend fun buscarListasPublicas(@Query("query") query: String): List<Lista>
+
+    @GET("buscar/todo")
+    suspend fun buscarTodo(@Query("query") query: String): List<Any>
 
 
 

@@ -63,6 +63,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="180dp"
                     android:drawableEnd="@drawable/icon" />
+                <Button
+                    android:id="@+id/btnBuscarLista"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="-140dp"
+                    android:drawableEnd="@drawable/search" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

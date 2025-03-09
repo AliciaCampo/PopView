@@ -69,12 +69,12 @@ class CrearListaActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
-                            Toast.makeText(this@CrearListaActivity, "Error al crear la lista", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@CrearListaActivity, "Error al crear la lista: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } else {
-                Toast.makeText(this, "El títol no pot estar buit.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "El título no puede estar vacío.", Toast.LENGTH_SHORT).show()
             }
         }
     }

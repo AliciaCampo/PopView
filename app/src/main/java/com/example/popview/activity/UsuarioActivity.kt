@@ -20,6 +20,8 @@ class UsuarioActivity : AppCompatActivity() {
     private val listaDeListas = mutableListOf<Lista>()
     private lateinit var listasAdapter: ListasAdapter
     private val popViewService = PopViewAPI().API()
+    private var usuarioId: Int = 5 // ID estático del usuario
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario)
@@ -37,22 +39,28 @@ class UsuarioActivity : AppCompatActivity() {
         val btnCrearLista = findViewById<Button>(R.id.btnCrearLista)
         btnCrearLista.setOnClickListener {
             val intent = Intent(this, CrearListaActivity::class.java)
+            intent.putExtra("usuarioId", usuarioId) // Pasar el ID del usuario
             startActivityForResult(intent, CREAR_LISTA_REQUEST_CODE)
+        }
+        val btnBuscarLista = findViewById<Button>(R.id.btnBuscarLista)
+        btnBuscarLista.setOnClickListener {
+            val intent = Intent(this, BuscarListasActivity::class.java)
+            startActivity(intent)
         }
         // Cargar las listas del usuario desde el servidor
         cargarListasUsuario()
         val userTextView = findViewById<TextView>(R.id.user)
         userTextView.setOnClickListener {
             val intent = Intent(this, DetalleUsuarioActivity::class.java)
-            intent.putExtra("usuarioId", 5) // ID fijo
+            intent.putExtra("usuarioId", usuarioId) // ID fijo
             startActivity(intent)
         }
-
     }
+
     private fun cargarListasUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val listas = popViewService. getAllLlistes()
+                val listas = popViewService.getAllLlistes()
                 Log.d("UsuarioActivity", "Listas recibidas: ${listas.size}")
                 for (lista in listas) {
                     Log.d("UsuarioActivity", "Lista recibida: ${lista.titulo}, ID: ${lista.id}")
@@ -83,11 +91,10 @@ class UsuarioActivity : AppCompatActivity() {
     companion object {
         const val CREAR_LISTA_REQUEST_CODE = 1
     }
+
     private fun cargarDatosUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // ID estático del usuario
-                val usuarioId = 5
                 val usuario = popViewService.getUsuari(usuarioId)
                 Log.d("UsuarioActivity", "Usuario obtenido: ${usuario.nombre}") // Verificar si el nombre es correcto
 
@@ -103,5 +110,4 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
-
 }
