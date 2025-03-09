@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ class UsuarioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_usuario)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        cargarDatosUsuario()
         // Pasar el manejador de clics al adaptador
         listasAdapter = ListasAdapter(listaDeListas) { lista ->
             // Manejar el clic en un elemento de la lista
@@ -43,7 +45,7 @@ class UsuarioActivity : AppCompatActivity() {
     private fun cargarListasUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val listas = popViewService.getAllLlistes()
+                val listas = popViewService. getAllLlistes()
                 Log.d("UsuarioActivity", "Listas recibidas: ${listas.size}")
                 for (lista in listas) {
                     Log.d("UsuarioActivity", "Lista recibida: ${lista.titulo}, ID: ${lista.id}")
@@ -73,5 +75,23 @@ class UsuarioActivity : AppCompatActivity() {
 
     companion object {
         const val CREAR_LISTA_REQUEST_CODE = 1
+    }
+    private fun cargarDatosUsuario() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // ID estático del usuario
+                val usuarioId = 5
+                val usuario = popViewService.getUsuari(usuarioId)
+                runOnUiThread {
+                    val userTextView = findViewById<TextView>(R.id.user)
+                    userTextView.text = usuario.nombre
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                runOnUiThread {
+                    Log.e("UsuarioActivity", "Error al obtener el usuario: ${e.message}")
+                }
+            }
+        }
     }
 }

@@ -25,6 +25,8 @@ import javax.net.ssl.X509TrustManager
 interface PopViewService {
     @GET("usuaris/{usuari_id}")
     suspend fun getUsuari(@Path("usuari_id") usuariId: Int): Usuario
+    @PUT("usuaris/{usuari_id}")
+    suspend fun updateUsuari(@Path("usuari_id") usuariId: Int, @Body usuario: Usuario): Response
     @GET("usuaris/")
     suspend fun getAllUsuaris(): List<Usuario>
     @GET("llistes/{llista_id}")
@@ -47,7 +49,7 @@ interface PopViewService {
     suspend fun deleteLista(@Path("llista_id") llistaId: Int)
     @DELETE("titols/{titol_id}")
     suspend fun deleteTitulo(@Path("titol_id") titolId: Int)
-    @POST("llistes/{llista_id}")
+    @PUT("llistes/{llista_id}")
     suspend fun updateLista(@Path("llista_id") id: Int, @Body lista: Lista)
     @GET("llistes/{llista_id}/titols")
     suspend fun getTitolsFromLlista(@Path("llista_id") llistaId: Int): List<Titulo>
