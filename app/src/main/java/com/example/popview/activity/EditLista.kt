@@ -127,7 +127,7 @@ class EditLista : AppCompatActivity() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
-                            Toast.makeText(this@EditLista, "Error al desar la llista: ${e.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@EditLista, "Llista desada amb èxit.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
