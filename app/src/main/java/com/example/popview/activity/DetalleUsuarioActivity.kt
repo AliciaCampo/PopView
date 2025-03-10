@@ -1,5 +1,6 @@
 package com.example.popview.activity
 
+import AvatarAdapter
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
@@ -7,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +18,10 @@ import com.example.popview.service.PopViewAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class DetalleUsuarioActivity : AppCompatActivity() {
+    private var avatarDialog: AlertDialog? = null
     private val popViewService = PopViewAPI().API()
     private var usuarioId: Int = -1
     private var imagenSeleccionada = "avataruser1" // Valor por defecto
@@ -105,16 +109,39 @@ class DetalleUsuarioActivity : AppCompatActivity() {
 
     // Mostrar diálogo para seleccionar avatar
     private fun mostrarDialogoSeleccionAvatar() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Selecciona una imagen de perfil")
+        val avatars = listOf(
+            R.drawable.avataruser1,
+            R.drawable.avataruser2,
+            R.drawable.avataruser3,
+            R.drawable.avataruser4,
+            R.drawable.avataruser5,
+            R.drawable.avataruser6
+        )
 
-        builder.setItems(avatars) { _, which ->
-            imagenSeleccionada = avatars[which]
-            cargarImagenPerfil(imagenSeleccionada)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_avatar_selection, null)
+        val gridView = dialogView.findViewById<GridView>(R.id.gridViewAvatars)
+
+        val adapter = AvatarAdapter(this, avatars) { selectedAvatar ->
+            // ✅ Actualizar imagen de perfil
+            imageView.setImageResource(selectedAvatar)
+            // ✅ Guardar el nombre del avatar seleccionado
+            imagenSeleccionada = avatarResources.entries.first { it.value == selectedAvatar }.key
+            // ✅ Cierra el diálogo
+            avatarDialog?.dismiss()
         }
-        builder.setNegativeButton("Cancelar", null)
-        builder.show()
+
+        gridView.adapter = adapter
+
+        avatarDialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setTitle("Selecciona una imagen de perfil")
+            .setNegativeButton("Cancelar", null)
+            .create()
+
+        avatarDialog?.show()
     }
+
+
     // Cargar imagen de perfil desde los recursos locales
     private fun cargarImagenPerfil(nombreImagen: String) {
         val resourceId = avatarResources[nombreImagen] ?: R.drawable.avataruser1
@@ -162,9 +189,7 @@ class DetalleUsuarioActivity : AppCompatActivity() {
                 )
 
                 // Llamar a la API para actualizar el usuario
-                val response = popViewService.updateUsuari(usuarioId, usuarioActualizado)
-
-                // Si la actualización fue exitosa, cerrar la actividad
+                val response: Response<Void> = popViewService.updateUsuari(usuarioId, usuarioActualizado)
                 if (response.isSuccessful) {
                     runOnUiThread {
                         finish()
@@ -174,6 +199,17 @@ class DetalleUsuarioActivity : AppCompatActivity() {
                         showError("Error al actualizar los datos del usuario. Código: ${response.code()}")
                     }
                 }
+                // Si la actualización fue exitosa, cerrar la actividad
+              /*
+                if (response.isSuccessful) {
+                    runOnUiThread {
+                        finish()
+                    }
+                } else {
+                    runOnUiThread {
+                        showError("Error al actualizar los datos del usuario. Código: ${response.code()}")
+                    }
+                }*/
             } catch (e: Exception) {
                 e.printStackTrace()
                 runOnUiThread {

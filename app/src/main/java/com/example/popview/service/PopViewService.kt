@@ -5,7 +5,8 @@ import com.example.popview.data.Lista
 import com.example.popview.data.Titulo
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import retrofit2.Response
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -27,7 +28,7 @@ interface PopViewService {
     @GET("usuaris/{usuari_id}")
     suspend fun getUsuari(@Path("usuari_id") usuariId: Int): Usuario
     @PUT("usuaris/{usuari_id}")
-    suspend fun updateUsuari(@Path("usuari_id") usuariId: Int, @Body usuario: Usuario): Response
+    suspend fun updateUsuari(@Path("usuari_id") usuariId: Int, @Body usuario: Usuario): Response<Void>
     @GET("usuaris/")
     suspend fun getAllUsuaris(): List<Usuario>
     @GET("llistes/{llista_id}")
@@ -73,7 +74,8 @@ interface PopViewService {
 
     @GET("buscar/todo")
     suspend fun buscarTodo(@Query("query") query: String): List<Any>
-
+    @GET("usuaris/{usuari_id}/llistes")
+    suspend fun getLlistesByUsuari(@Path("usuari_id") usuariId: Int): List<Lista>
 
 
 }
