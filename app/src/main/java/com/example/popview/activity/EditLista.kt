@@ -77,12 +77,15 @@ class EditLista : AppCompatActivity() {
                     try {
                         listaData?.let { lista ->
                             popViewService.deleteTituloFromLista(lista.id, titulo.id) // Llamada a la API
-                            peliculasList.remove(titulo) // Eliminación local
-                            runOnUiThread {
-                                Log.d("EditLista", "Título eliminado de la lista local")
-                                adapter.notifyDataSetChanged()
-                                Toast.makeText(this@EditLista, "Títol eliminat de la llista.", Toast.LENGTH_SHORT).show()
+                            val position = peliculasList.indexOf(titulo)
+                            if (position != -1) {
+                                peliculasList.removeAt(position)
+                                runOnUiThread {
+                                    adapter.notifyItemRemoved(position)
+                                    Toast.makeText(this@EditLista, "Títol eliminat de la llista.", Toast.LENGTH_SHORT).show()
+                                }
                             }
+
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -201,8 +204,13 @@ class EditLista : AppCompatActivity() {
                             }
 
                             // Añadir el título a la lista en memoria
+                            val position = peliculasList.size
                             peliculasList.add(tituloExistente)
-
+                            runOnUiThread {
+                                adapter.notifyItemInserted(position)
+                                editTextPelicula.text.clear()
+                                Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
+                            }
                             // Actualizar la lista en el servidor
                             listaData?.let { lista ->
                                 val updatedLista = lista.copy(titulos = peliculasList)
