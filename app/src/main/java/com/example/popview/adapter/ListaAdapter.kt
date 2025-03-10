@@ -1,5 +1,6 @@
 package com.example.popview.adapter
 
+import android.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,18 +45,29 @@ class ListasAdapter(
         }
 
         holder.itemView.setOnLongClickListener {
-            Log.d("ListasAdapter", "Long click on item at position $position")
-            listas.removeAt(position)
-            notifyItemRemoved(position)
+            AlertDialog.Builder(it.context)
+                .setTitle("Confirma l'eliminació")
+                .setMessage("Estàs segur que vols esborrar aquesta llista?")
+                .setPositiveButton("Sí") { dialog, _ ->
+                    // Eliminar de la llista local i notificar a l'adapter
+                    listas.removeAt(position)
+                    notifyItemRemoved(position)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    popViewService.deleteLista(lista.id)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    Log.e("ListasAdapter", "Error deleting lista: ${e.message}")
+                    // Crida a l'API per eliminar la llista
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            popViewService.deleteLista(lista.id)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            Log.e("ListasAdapter", "Error eliminant la llista: ${e.message}")
+                        }
+                    }
+                    dialog.dismiss()
                 }
-            }
+                .setNegativeButton("Cancel·lar") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
             true
         }
     }
