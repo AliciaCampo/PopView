@@ -9,7 +9,7 @@ data class Lista(
     @SerializedName("titol") val titulo: String,
     @SerializedName("descripcio") val descripcion: String?,
     @SerializedName("privada") val esPrivada: Boolean,
-    @SerializedName("usuarioId") val usuarioId: Int,
+    @SerializedName("usuari_id") val usuarioId: Int,
     @SerializedName("titols") val titulos: MutableList<Titulo> = mutableListOf()
 ) : Serializable
 

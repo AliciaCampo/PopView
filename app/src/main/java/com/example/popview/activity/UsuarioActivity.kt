@@ -30,6 +30,7 @@ class UsuarioActivity : AppCompatActivity() {
     private val updateRunnable = object : Runnable {
         override fun run() {
             cargarDatosUsuario()
+            cargarListasUsuario()
             handler.postDelayed(this, updateInterval)
         }
     }
@@ -47,6 +48,8 @@ class UsuarioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_usuario)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Iniciar la actualización periódica
         handler.post(updateRunnable)
 
         listasAdapter = ListasAdapter(listaDeListas) { lista ->
@@ -69,8 +72,6 @@ class UsuarioActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        cargarListasUsuario()
-
         val userTextView = findViewById<TextView>(R.id.user)
         userTextView.setOnClickListener {
             val intent = Intent(this, DetalleUsuarioActivity::class.java)
@@ -86,9 +87,6 @@ class UsuarioActivity : AppCompatActivity() {
             try {
                 val listas = popViewService.getLlistesByUsuari(usuarioId)
                 Log.d("UsuarioActivity", "Listas recibidas: ${listas.size}")
-                for (lista in listas) {
-                    Log.d("UsuarioActivity", "Lista recibida: ${lista.titulo}, ID: ${lista.id}")
-                }
                 runOnUiThread {
                     listaDeListas.clear()
                     listaDeListas.addAll(listas)
@@ -138,6 +136,7 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         // Detener la actualización periódica cuando la actividad se destruye
