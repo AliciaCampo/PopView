@@ -39,6 +39,7 @@ class BuscarListasActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewContent)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        //pasar la información de la lista a una nueva actividad que solo muestra los titulos
         adapter = ListasAdapter()
         recyclerView.adapter = adapter
         findViewById<EditText>(R.id.textBuscar).setOnEditorActionListener { _, actionId, _ ->

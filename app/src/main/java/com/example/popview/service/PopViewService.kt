@@ -35,6 +35,8 @@ interface PopViewService {
     suspend fun getLlista(@Path("llista_id") llistaId: Int): Lista
     @GET("llistes/")
     suspend fun getAllLlistes(): List<Lista>
+    @GET("llistes/publicas")
+    suspend fun getAllLlistesPublicas(): List<Lista>
     @GET("titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
     @GET("titols/")
