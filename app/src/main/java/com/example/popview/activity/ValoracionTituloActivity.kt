@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
@@ -63,6 +64,20 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 userRatingBar.visibility = View.GONE
             } else {
                 userRatingBar.visibility = View.VISIBLE
+            }
+        }
+
+        // Configurar la sección de comentarios expandible
+        val toggleCommentsSection: LinearLayout = findViewById(R.id.toggleCommentsSection)
+        val arrowIcon: ImageView = findViewById(R.id.arrowIcon)
+
+        toggleCommentsSection.setOnClickListener {
+            if (recyclerView.visibility == View.GONE) {
+                recyclerView.visibility = View.VISIBLE
+                arrowIcon.setImageResource(android.R.drawable.arrow_up_float)
+            } else {
+                recyclerView.visibility = View.GONE
+                arrowIcon.setImageResource(android.R.drawable.arrow_down_float)
             }
         }
 
