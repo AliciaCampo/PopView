@@ -94,7 +94,7 @@ interface PopViewService {
         @Path("titol_id") titolId: Int
     ): List<Comentario>
 
-    @GET("titols/{titol_id}/comentaris/")
+    @GET("titols/{titol_id}/comentarios/")
     suspend fun obtenerTodosLosComentarios(
         @Path("titol_id") titolId: Int
     ): Response<List<Comentario>>

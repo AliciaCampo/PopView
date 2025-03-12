@@ -27,28 +27,30 @@ class ValoracionTituloActivity : AppCompatActivity() {
     private lateinit var comentarioAdapter: ComentariosAdapter
     private val api = PopViewAPI().API()
     private val currentUserId = 5 // Supongamos que el ID del usuario actual es 5
-    private var titolId: Int = 0
     private var comentarios: List<Comentario> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_valoracion_titulo)
+
+        // Obtener el objeto Titulo del Intent
         val titulo = intent.getSerializableExtra("titulo") as? Titulo
         if (titulo == null) {
             Toast.makeText(this, "Título no válido", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
-        titolId = intent.getIntExtra("tituloId", 0)
+
         val imageView = findViewById<ImageView>(R.id.imageContent)
         val textTitle = findViewById<TextView>(R.id.textTitle)
         val textDescription = findViewById<TextView>(R.id.textDescription)
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val iconAnadirLista = findViewById<ImageView>(R.id.añadirTittulo)
+
         iconAnadirLista.setOnClickListener {
             val dialog = AddTituloLista()
             val bundle = Bundle().apply {
-                putInt("tituloId", titulo.id)  // Pasa el id del título
+                putInt("tituloId", titulo.id)  // Usar titulo.id directamente
             }
             dialog.arguments = bundle
             dialog.show(supportFragmentManager, "AddTituloLista")
@@ -68,11 +70,12 @@ class ValoracionTituloActivity : AppCompatActivity() {
             val comentarioText = editTextComment.text.toString()
             val rating = ratingBar.rating
             if (comentarioText.isNotEmpty()) {
-                enviarComentario(comentarioText, rating)
+                enviarComentario(comentarioText, rating, titulo.id)  // Pasar titulo.id
             } else {
                 Toast.makeText(this, "El comentario no puede estar vacío", Toast.LENGTH_SHORT).show()
             }
         }
+
         lifecycleScope.launch {
             try {
                 textTitle.text = titulo.nombre
@@ -81,7 +84,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 Glide.with(this@ValoracionTituloActivity)
                     .load("http://44.205.116.170/${titulo.imagen}")
                     .into(imageView)
-
 
                 val platformIcons = listOf(
                     findViewById<ImageView>(R.id.platformIcon1),
@@ -100,22 +102,23 @@ class ValoracionTituloActivity : AppCompatActivity() {
                     }
                 }
 
-                // Cargar comentarios
-                cargarComentarios()
+                // Cargar comentarios usando titulo.id
+                cargarComentarios(titulo.id)
 
             } catch (e: Exception) {
                 Toast.makeText(this@ValoracionTituloActivity, "Error al cargar datos", Toast.LENGTH_SHORT).show()
             }
         }
     }
-    private fun enviarComentario(comentarioText: String, rating: Float) {
+
+    private fun enviarComentario(comentarioText: String, rating: Float, titolId: Int) {
         lifecycleScope.launch {
             try {
                 val nuevoComentario = Comentario(usuari_id = currentUserId, comentaris = comentarioText, rating = rating)
                 val response = api.agregarComentario(currentUserId, titolId, nuevoComentario)
                 if (response.isSuccessful) {
                     Toast.makeText(this@ValoracionTituloActivity, "Comentario enviado", Toast.LENGTH_SHORT).show()
-                    cargarComentarios()
+                    cargarComentarios(titolId)
                 } else {
                     Toast.makeText(this@ValoracionTituloActivity, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
                 }
@@ -124,9 +127,11 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
         }
     }
-    private fun cargarComentarios() {
+
+    private fun cargarComentarios(titolId: Int) {
         lifecycleScope.launch {
             try {
+                Log.d("ValoracionTituloActivity", "Solicitando comentarios para titolId: $titolId")
                 val response = api.obtenerTodosLosComentarios(titolId)
                 if (response.isSuccessful) {
                     comentarios = response.body() ?: emptyList()
@@ -137,10 +142,10 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 comentarioAdapter = ComentariosAdapter(
                     comentarios = comentarios,
                     onEditClick = { comentario ->
-                        editarComentario(comentario)
+                        editarComentario(comentario, titolId)
                     },
                     onDeleteClick = { comentario ->
-                        eliminarComentario(comentario)
+                        eliminarComentario(comentario, titolId)
                     },
                     currentUserId = currentUserId
                 )
@@ -150,37 +155,35 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
         }
     }
-    private fun editarComentario(comentario: Comentario) {
+
+    private fun editarComentario(comentario: Comentario, titolId: Int) {
         lifecycleScope.launch {
             try {
-                // Aquí puedes modificar los datos del comentario antes de enviarlo
                 val comentarioModificado = comentario.copy(comentaris = "Nuevo texto de comentario")
                 val response = api.modificarComentario(currentUserId, titolId, comentarioModificado)
                 if (response.isSuccessful) {
-                    // Actualizar la lista de comentarios en el adaptador
-                    cargarComentarios()
+                    cargarComentarios(titolId)
                 }
             } catch (e: Exception) {
-                // Manejar el error al editar el comentario
+                Log.e("ValoracionTituloActivity", "Error al editar comentario: ${e.message}")
             }
         }
     }
 
-    private fun eliminarComentario(comentario: Comentario) {
+    private fun eliminarComentario(comentario: Comentario, titolId: Int) {
         lifecycleScope.launch {
             try {
                 val response = api.eliminarComentario(currentUserId, titolId)
                 if (response.isSuccessful) {
-                    // Actualizar la lista de comentarios en el adaptador
-                    cargarComentarios()
+                    cargarComentarios(titolId)
                 }
             } catch (e: Exception) {
-                // Manejar el error al eliminar el comentario
+                Log.e("ValoracionTituloActivity", "Error al eliminar comentario: ${e.message}")
             }
         }
     }
 
-    fun getPlatformIcon(platform: String): Int {
+    private fun getPlatformIcon(platform: String): Int {
         return when (platform) {
             "Netflix" -> R.drawable.logo_netflix
             "Amazon Prime" -> R.drawable.logo_amazon_prime
