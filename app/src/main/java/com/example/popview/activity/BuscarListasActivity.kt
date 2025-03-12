@@ -40,31 +40,36 @@ class BuscarListasActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewContent)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         listasAdapter = ListasAdapter(listaDeListas) { lista ->
             val intent = Intent(this, DetalleListaPublicaActivity::class.java)
             intent.putExtra("lista", lista)
             startActivity(intent)
         }
         recyclerView.adapter = listasAdapter
-
         val editTextBuscar = findViewById<EditText>(R.id.textBuscar)
         editTextBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 buscarQuery = s.toString()
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
         lifecycleScope.launch {
             try {
-                val listas = popViewService.getAllLlistesPublicas()
-                Log.d("BuscarListasActivity", "Listas recibidas: $listas")
+                val listasPublicas = popViewService.getAllLlistesPublicas()
+                Log.d("BuscarListasActivity", "Listas recibidas: $listasPublicas")
                 runOnUiThread {
                     listaDeListas.clear()
-                    listaDeListas.addAll(listas)
+                    listaDeListas.addAll(listasPublicas.map { listaPublica ->
+                        Lista(
+                            id = listaPublica.id,
+                            titulo = listaPublica.titol, // Aquí es titol
+                            descripcion = listaPublica.descripcion,
+                            esPrivada = listaPublica.esPrivada,
+                            usuarioId = 0, // Valor por defecto si no lo devuelve la API
+                            titulos = listaPublica.titulos
+                        )
+                    })
                     listasAdapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
@@ -72,7 +77,5 @@ class BuscarListasActivity : AppCompatActivity() {
                 Log.e("BuscarListasActivity", "Error al obtener listas públicas: ${e.message}")
             }
         }
-
     }
-
 }

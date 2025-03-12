@@ -3,6 +3,7 @@ package com.example.popview.service
 import com.example.popview.data.Comentario
 import com.example.popview.data.Usuario
 import com.example.popview.data.Lista
+import com.example.popview.data.ListaPublica
 import com.example.popview.data.Titulo
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -37,7 +38,7 @@ interface PopViewService {
     @GET("llistes/")
     suspend fun getAllLlistes(): List<Lista>
     @GET("llistes/publicas")
-    suspend fun getAllLlistesPublicas(): List<Lista>
+    suspend fun getAllLlistesPublicas(): List<ListaPublica>
     @GET("titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
     @GET("titols/")
