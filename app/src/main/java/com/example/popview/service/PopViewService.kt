@@ -1,5 +1,6 @@
 package com.example.popview.service
 
+import com.example.popview.data.Comentario
 import com.example.popview.data.Usuario
 import com.example.popview.data.Lista
 import com.example.popview.data.Titulo
@@ -78,6 +79,38 @@ interface PopViewService {
     suspend fun buscarTodo(@Query("query") query: String): List<Any>
     @GET("usuaris/{usuari_id}/llistes")
     suspend fun getLlistesByUsuari(@Path("usuari_id") usuariId: Int): List<Lista>
+    //comentarios y rating
+    @POST("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
+    suspend fun agregarComentario(
+        @Path("usuari_id") usuariId: Int,
+        @Path("titol_id") titolId: Int,
+        @Body comentario: Comentario
+    ): Response<Void>
+
+    @GET("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
+    suspend fun obtenerComentarios(
+        @Path("usuari_id") usuariId: Int,
+        @Path("titol_id") titolId: Int
+    ): List<Comentario>
+
+    @GET("titols/{titol_id}/comentarios/")
+    suspend fun obtenerTodosLosComentarios(
+        @Path("titol_id") titolId: Int
+    ): List<Comentario>
+
+    @PUT("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
+    suspend fun modificarComentario(
+        @Path("usuari_id") usuariId: Int,
+        @Path("titol_id") titolId: Int,
+        @Body comentario: Comentario
+    ): Response<Void>
+
+    @DELETE("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
+    suspend fun eliminarComentario(
+        @Path("usuari_id") usuariId: Int,
+        @Path("titol_id") titolId: Int
+    ): Response<Void>
+
 
 
 }
