@@ -125,103 +125,12 @@
                     android:theme="@style/Widget.AppCompat.RatingBar.Small" />
             </LinearLayout>
 
-            <!-- Botón para desplegar el RatingBar con estilo mejorado -->
-            <TextView
-                android:id="@+id/toggleRatingButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="Calificar"
-                android:gravity="center"
-                android:background="@drawable/rounded_button_background"
-                android:padding="14dp"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true"/>
-
-            <!-- RatingBar para la valoración del usuario -->
-            <RatingBar
-                android:id="@+id/userRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:numStars="4"
-                android:stepSize="0.5"
-                android:visibility="gone"
-                android:isIndicator="false"
-                android:theme="@style/Widget.AppCompat.RatingBar.Small" />
-
-            <!-- Sección para añadir un comentario -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:background="@android:color/darker_gray">
-
-                <!-- Campo de texto para escribir el comentario -->
-                <EditText
-                    android:id="@+id/editTextComment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Afegir un comentari..."
-                    android:padding="10dp"
-                    android:background="@android:color/white"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <!-- Botón para enviar el comentario -->
-                <Button
-                    android:id="@+id/buttonSendComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Enviar"
-                    android:padding="10dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@color/md_theme_primaryContainer"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Texto y flecha para expandir/contraer comentarios -->
-            <LinearLayout
-                android:id="@+id/toggleCommentsSection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackground">
-
-                <ImageView
-                    android:id="@+id/arrowIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:contentDescription="Flecha" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Comentaris"
-                    android:textSize="18sp"
-                    android:textColor="@color/md_theme_primaryContainer"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-
             <!-- RecyclerView para comentarios dinámicos -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"
                 tools:listitem="@layout/item_valoracion_titulo" />
 
         </LinearLayout>

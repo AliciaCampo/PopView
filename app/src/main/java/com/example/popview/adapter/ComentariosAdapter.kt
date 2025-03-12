@@ -1,35 +1,41 @@
 package com.example.popview.adapter
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
-
-class ComentariosAdapter(private val comentarios: List<String>) :
-    RecyclerView.Adapter<ComentariosAdapter.ComentarioViewHolder>() {
-
+import com.example.popview.data.Comentario
+class ComentariosAdapter(
+    private val comentarios: List<Comentario>,
+    private val onEditClick: (Comentario) -> Unit,
+    private val onDeleteClick: (Comentario) -> Unit,
+    private val currentUserId: Int
+) : RecyclerView.Adapter<ComentariosAdapter.ComentarioViewHolder>() {
+    class ComentarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textDescription: TextView = itemView.findViewById(R.id.textDescription)
+        val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
+        val buttonEdit: ImageButton = itemView.findViewById(R.id.buttonEdit)
+        val buttonDelete: ImageButton = itemView.findViewById(R.id.buttonDelete)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComentarioViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_comentario,
-            parent,
-            false
-        )
-        return ComentarioViewHolder(view)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_valoracion_titulo, parent, false)
+        return ComentarioViewHolder(itemView)
     }
-
     override fun onBindViewHolder(holder: ComentarioViewHolder, position: Int) {
-        holder.bind(comentarios[position])
-    }
-
-    override fun getItemCount() = comentarios.size
-
-    class ComentarioViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val textComentario: TextView = view.findViewById(R.id.textComentario)
-
-        fun bind(comentario: String) {
-            textComentario.text = comentario
+        val comentario = comentarios[position]
+        holder.textDescription.text = comentario.comentaris
+        holder.ratingBar.rating = comentario.rating
+        if (currentUserId == 5) {
+            holder.buttonEdit.setOnClickListener { onEditClick(comentario) }
+            holder.buttonDelete.setOnClickListener { onDeleteClick(comentario) }
+        } else {
+            holder.buttonEdit.visibility = View.GONE
+            holder.buttonDelete.visibility = View.GONE
         }
     }
+    override fun getItemCount() = comentarios.size
 }

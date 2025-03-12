@@ -30,18 +30,8 @@
         app:layout_constraintStart_toEndOf="@id/imageContent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Título del contenido -->
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/md_theme_primaryContainer"
-            tools:text="Título de ejemplo" />
-
+        app:layout_constraintEnd_toStartOf="@id/buttonContainer"
+        android:layout_marginEnd="16dp">
         <!-- Descripción del contenido -->
         <TextView
             android:id="@+id/textDescription"
@@ -50,7 +40,7 @@
             android:layout_marginTop="8dp"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            tools:text="Descripción de ejemplo para el contenido de esta tarjeta." />
+            tools:text="Descripción de ejemplo " />
 
         <!-- RatingBar para puntuación -->
         <RatingBar
@@ -63,6 +53,46 @@
             android:isIndicator="true"
             android:theme="@style/Widget.AppCompat.RatingBar.Small"
             tools:rating="4.0" />
+    </LinearLayout>
+
+    <!-- Contenedor para los botones de acción -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Botón de Editar -->
+        <ImageButton
+            android:id="@+id/buttonEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit"
+            android:contentDescription="Editar"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Botón de Eliminar -->
+        <ImageButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/borrar"
+            android:contentDescription="Eliminar"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Botón de Enviar -->
+        <ImageButton
+            android:id="@+id/buttonSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_circle"
+            android:contentDescription="Enviar"
+            android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

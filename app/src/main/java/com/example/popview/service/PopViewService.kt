@@ -93,19 +93,20 @@ interface PopViewService {
         @Path("titol_id") titolId: Int
     ): List<Comentario>
 
-    @GET("titols/{titol_id}/comentarios/")
+    @GET("titols/{titol_id}/comentaris/")
     suspend fun obtenerTodosLosComentarios(
         @Path("titol_id") titolId: Int
-    ): List<Comentario>
+    ): Response<List<Comentario>>
 
-    @PUT("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
+
+    @PUT("usuaris/{usuari_id}/titols/{titol_id}/comentaris/")
     suspend fun modificarComentario(
         @Path("usuari_id") usuariId: Int,
         @Path("titol_id") titolId: Int,
         @Body comentario: Comentario
     ): Response<Void>
 
-    @DELETE("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
+    @DELETE("usuaris/{usuari_id}/titols/{titol_id}/comentaris/")
     suspend fun eliminarComentario(
         @Path("usuari_id") usuariId: Int,
         @Path("titol_id") titolId: Int
