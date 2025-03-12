@@ -3,6 +3,7 @@ package com.example.popview.activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -60,7 +61,18 @@ class ValoracionTituloActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        val editTextComment = findViewById<EditText>(R.id.editTextComment)
+        val buttonSend = findViewById<ImageButton>(R.id.buttonSend)
 
+        buttonSend.setOnClickListener {
+            val comentarioText = editTextComment.text.toString()
+            val rating = ratingBar.rating
+            if (comentarioText.isNotEmpty()) {
+                enviarComentario(comentarioText, rating)
+            } else {
+                Toast.makeText(this, "El comentario no puede estar vacío", Toast.LENGTH_SHORT).show()
+            }
+        }
         lifecycleScope.launch {
             try {
                 textTitle.text = titulo.nombre
@@ -69,6 +81,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 Glide.with(this@ValoracionTituloActivity)
                     .load("http://44.205.116.170/${titulo.imagen}")
                     .into(imageView)
+
 
                 val platformIcons = listOf(
                     findViewById<ImageView>(R.id.platformIcon1),
@@ -92,6 +105,22 @@ class ValoracionTituloActivity : AppCompatActivity() {
 
             } catch (e: Exception) {
                 Toast.makeText(this@ValoracionTituloActivity, "Error al cargar datos", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun enviarComentario(comentarioText: String, rating: Float) {
+        lifecycleScope.launch {
+            try {
+                val nuevoComentario = Comentario(usuari_id = currentUserId, comentaris = comentarioText, rating = rating)
+                val response = api.agregarComentario(currentUserId, titolId, nuevoComentario)
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ValoracionTituloActivity, "Comentario enviado", Toast.LENGTH_SHORT).show()
+                    cargarComentarios()
+                } else {
+                    Toast.makeText(this@ValoracionTituloActivity, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("ValoracionTituloActivity", "Error al enviar comentario: ${e.message}")
             }
         }
     }

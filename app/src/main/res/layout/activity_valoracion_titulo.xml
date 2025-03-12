@@ -124,7 +124,76 @@
                     android:stepSize="0.5"
                     android:theme="@style/Widget.AppCompat.RatingBar.Small" />
             </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
+                <!-- Imagen principal del contenido -->
+                <ImageView
+                    android:id="@+id/imageContentComment"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/account"
+                    android:scaleType="centerCrop"
+                    app:tint="@color/md_theme_primary"
+                    android:contentDescription="icono perfil"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:src="@drawable/account" />
+
+                <!-- Cuadro de texto para escribir comentarios -->
+                <EditText
+                    android:id="@+id/editTextComment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:hint="Escribe un comentario"
+                    app:layout_constraintStart_toEndOf="@id/imageContentComment"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/textDescriptionComment" />
+
+                <!-- Descripción del contenido -->
+                <TextView
+                    android:id="@+id/textDescriptionComment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    app:layout_constraintStart_toEndOf="@id/imageContentComment"
+                    app:layout_constraintTop_toBottomOf="@id/editTextComment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Descripción de ejemplo" />
+
+                <!-- RatingBar para puntuación -->
+                <RatingBar
+                    android:id="@+id/ratingBarComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:numStars="4"
+                    android:stepSize="0.5"
+                    android:isIndicator="false"
+                    android:theme="@style/Widget.AppCompat.RatingBar.Small"
+                    app:layout_constraintStart_toEndOf="@id/imageContentComment"
+                    app:layout_constraintTop_toBottomOf="@id/textDescriptionComment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:rating="0.0" />
+                <ImageButton
+                    android:id="@+id/buttonSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/add_circle"
+                    android:contentDescription="Enviar"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintStart_toEndOf="@id/imageContentComment"
+                    app:layout_constraintTop_toBottomOf="@id/textDescriptionComment"
+                    app:layout_constraintBottom_toBottomOf="@id/ratingBarComment" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <!-- RecyclerView para comentarios dinámicos -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -134,5 +203,6 @@
                 tools:listitem="@layout/item_valoracion_titulo" />
 
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
