@@ -50,7 +50,7 @@
             android:layout_marginTop="8dp"
             android:numStars="4"
             android:stepSize="0.5"
-            android:isIndicator="true"
+            android:isIndicator="false"
             android:theme="@style/Widget.AppCompat.RatingBar.Small"
             tools:rating="4.0" />
     </LinearLayout>
@@ -85,14 +85,6 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_marginBottom="8dp" />
 
-        <!-- Botón de Enviar -->
-        <ImageButton
-            android:id="@+id/buttonSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add_circle"
-            android:contentDescription="Enviar"
-            android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

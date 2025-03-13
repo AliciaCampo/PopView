@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -140,15 +141,21 @@ class ValoracionTituloActivity : AppCompatActivity() {
                     Log.e("ValoracionTituloActivity", "Error: ${response.errorBody()?.string()}")
                 }
                 comentarioAdapter = ComentariosAdapter(
-                    comentarios = comentarios,
-                    onEditClick = { comentario ->
-                        editarComentario(comentario, titolId)
+                    comentarios = comentarios.toMutableList(), // Convertir a MutableList
+                    onEditClick = { comentarios ->
+                        mostrarDialogoEdicion(comentarios, titolId)
                     },
                     onDeleteClick = { comentario ->
-                        eliminarComentario(comentario, titolId)
+                        mostrarConfirmacionEliminacion(comentario, titolId)
+                    },
+                    onSendClick = { comentario ->
+                        // Define qué acción debe realizar el botón "Enviar"
+                        enviarComentario(comentario.comentaris, comentario.rating, titolId)
                     },
                     currentUserId = currentUserId
                 )
+
+
                 recyclerView.adapter = comentarioAdapter
             } catch (e: Exception) {
                 Log.e("ValoracionTituloActivity", "Error al cargar comentarios: ${e.message}")
@@ -182,7 +189,45 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
         }
     }
+    private fun mostrarConfirmacionEliminacion(comentario: Comentario, titolId: Int) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Estás seguro de que deseas eliminar este comentario?")
+            .setCancelable(false)
+            .setPositiveButton("Sí") { dialog, id ->
+                eliminarComentario(comentario, titolId)
+            }
+            .setNegativeButton("No") { dialog, id ->
+                dialog.dismiss()  // Cierra el dialogo sin hacer nada
+            }
+        val alert = builder.create()
+        alert.show()
+    }
+    private fun mostrarDialogoEdicion(comentario: Comentario, titolId: Int) {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_editar_comentario, null)
 
+        val editText = dialogView.findViewById<EditText>(R.id.editTextComentario)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBarComentario)
+
+        editText.setText(comentario.comentaris)
+        ratingBar.rating = comentario.rating
+
+        builder.setView(dialogView)
+            .setCancelable(false)
+            .setPositiveButton("Confirmar") { dialog, id ->
+                val nuevoComentarioTexto = editText.text.toString()
+                val nuevoRating = ratingBar.rating
+                val comentarioModificado = comentario.copy(comentaris = nuevoComentarioTexto, rating = nuevoRating)
+                editarComentario(comentarioModificado, titolId)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                dialog.dismiss()
+            }
+
+        val alert = builder.create()
+        alert.show()
+    }
     private fun getPlatformIcon(platform: String): Int {
         return when (platform) {
             "Netflix" -> R.drawable.logo_netflix

@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
 import com.example.popview.data.Comentario
 class ComentariosAdapter(
-    private val comentarios: List<Comentario>,
+    private val comentarios: MutableList<Comentario>,
     private val onEditClick: (Comentario) -> Unit,
     private val onDeleteClick: (Comentario) -> Unit,
+    private val onSendClick: (Comentario) -> Unit,
     private val currentUserId: Int
 ) : RecyclerView.Adapter<ComentariosAdapter.ComentarioViewHolder>() {
     class ComentarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +30,9 @@ class ComentariosAdapter(
         val comentario = comentarios[position]
         holder.textDescription.text = comentario.comentaris
         holder.ratingBar.rating = comentario.rating
-        if (currentUserId == 5) {
+        if (comentario.usuari_id == currentUserId) {
+            holder.buttonEdit.visibility = View.VISIBLE
+            holder.buttonDelete.visibility = View.VISIBLE
             holder.buttonEdit.setOnClickListener { onEditClick(comentario) }
             holder.buttonDelete.setOnClickListener { onDeleteClick(comentario) }
         } else {
