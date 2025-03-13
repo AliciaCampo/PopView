@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,7 +26,6 @@ class BuscarListasActivity : AppCompatActivity() {
     private val listaDeListas = mutableListOf<Lista>()
     private lateinit var listasAdapter: ListasAdapter
     private val popViewService = PopViewAPI().API()
-    private var buscarQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,35 +46,60 @@ class BuscarListasActivity : AppCompatActivity() {
             startActivity(intent)
         }
         recyclerView.adapter = listasAdapter
+
         val editTextBuscar = findViewById<EditText>(R.id.textBuscar)
         editTextBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                buscarQuery = s.toString()
+                val buscarQuery = s.toString()
+                if (buscarQuery.isNotEmpty()) {
+                    buscarListas(buscarQuery)
+                } else {
+                    // Si el campo de búsqueda está vacío, limpia la lista o carga todas las listas públicas
+                    listaDeListas.clear()
+                    listasAdapter.notifyDataSetChanged()
+                }
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+
+        // Opcional: Cargar todas las listas públicas al inicio (si el backend lo permite)
+        buscarListas("")
+    }
+
+    private fun buscarListas(query: String) {
         lifecycleScope.launch {
             try {
-                val listasPublicas = popViewService.getAllLlistesPublicas()
+                // Usar buscarListasPublicas en lugar de getAllLlistesPublicas
+                val listasPublicas = popViewService.buscarListasPublicas(query)
                 Log.d("BuscarListasActivity", "Listas recibidas: $listasPublicas")
                 runOnUiThread {
                     listaDeListas.clear()
-                    listaDeListas.addAll(listasPublicas.map { listaPublica ->
-                        Lista(
-                            id = listaPublica.id,
-                            titulo = listaPublica.titol, // Aquí es titol
-                            descripcion = listaPublica.descripcion,
-                            esPrivada = listaPublica.esPrivada,
-                            usuarioId = 0, // Valor por defecto si no lo devuelve la API
-                            titulos = listaPublica.titulos
-                        )
-                    })
+                    listaDeListas.addAll(listasPublicas)
                     listasAdapter.notifyDataSetChanged()
+                }
+            } catch (e: retrofit2.HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                Log.e("BuscarListasActivity", "Error al obtener listas públicas: ${e.message}")
+                Log.e("BuscarListasActivity", "Cuerpo del error: $errorBody")
+                runOnUiThread {
+                    Toast.makeText(
+                        this@BuscarListasActivity,
+                        "Error al buscar listas: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                Log.e("BuscarListasActivity", "Error al obtener listas públicas: ${e.message}")
+                Log.e("BuscarListasActivity", "Error inesperado: ${e.message}")
+                runOnUiThread {
+                    Toast.makeText(
+                        this@BuscarListasActivity,
+                        "Error inesperado: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }

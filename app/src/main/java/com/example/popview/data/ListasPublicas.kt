@@ -8,5 +8,5 @@ data class ListaPublica(
     @SerializedName("titol") val titol: String = "",
     @SerializedName("descripcio") val descripcion: String? = null,
     @SerializedName("privada") val esPrivada: Boolean = false,
-    @SerializedName("titols") val titulos: MutableList<Titulo> = mutableListOf()
+    @SerializedName("titols") val titulos: List<String> = emptyList() // Cambiado a List<String>
 ) : Serializable

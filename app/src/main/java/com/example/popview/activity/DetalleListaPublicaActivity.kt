@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
 import com.example.popview.adapter.TitulosListasPublicasAdapter
 import com.example.popview.data.Lista
+import com.example.popview.data.ListaPublica
 
 class DetalleListaPublicaActivity : AppCompatActivity() {
 
@@ -15,9 +16,9 @@ class DetalleListaPublicaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_lista_publica)
 
-        val lista = intent.getSerializableExtra("lista") as? Lista
+        val lista = intent.getSerializableExtra("lista") as? ListaPublica
         lista?.let {
-            findViewById<TextView>(R.id.tituloLista).text = it.titulo
+            findViewById<TextView>(R.id.tituloLista).text = it.titol
 
             val titulosRecyclerView = findViewById<RecyclerView>(R.id.recyclerViewTitulos)
             titulosRecyclerView.layoutManager = LinearLayoutManager(this)

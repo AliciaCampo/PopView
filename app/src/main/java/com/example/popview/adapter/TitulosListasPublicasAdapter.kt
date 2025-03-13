@@ -6,20 +6,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
-import com.example.popview.data.Titulo
-class TitulosListasPublicasAdapter(private val titulos: List<Titulo>) :
-    RecyclerView.Adapter<TitulosListasPublicasAdapter.ViewHolder>() {
+
+class TitulosListasPublicasAdapter(
+    private val titulos: List<String>
+) : RecyclerView.Adapter<TitulosListasPublicasAdapter.ViewHolder>() {
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textViewTitulo: TextView = itemView.findViewById(R.id.textViewTitulo)
-        private val textViewDescripcion: TextView = itemView.findViewById(R.id.textViewDescripcion)
-        fun bind(titulo: Titulo) {
-            textViewTitulo.text = titulo.nombre
-            textViewDescripcion.text = titulo.description
+
+        fun bind(titulo: String) {
+            textViewTitulo.text = titulo
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_titulo_lista_publica, parent, false)
+            .inflate(R.layout.item_titulo, parent, false) // Asegúrate de usar el layout correcto
         return ViewHolder(view)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
