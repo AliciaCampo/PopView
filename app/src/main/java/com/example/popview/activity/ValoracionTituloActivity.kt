@@ -30,6 +30,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
     private val currentUserId = 5 // Supongamos que el ID del usuario actual es 5
     private var comentarios: List<Comentario> = emptyList()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_valoracion_titulo)
@@ -179,11 +180,14 @@ class ValoracionTituloActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val response = api.eliminarComentario(currentUserId, titolId)
+                // Notificar al adaptador que los datos han cambiado
+                comentarioAdapter.updateComentarios(comentarios.toMutableList())
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
                 } else {
                     val errorMessage = "Error al eliminar comentario: ${response.code()} ${response.errorBody()?.string()}"
                     Log.e("ValoracionTituloActivity", errorMessage)
+                    comentarioAdapter.updateComentarios(comentarios.toMutableList())
                     Toast.makeText(this@ValoracionTituloActivity, "Error al eliminar comentario", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {

@@ -12,7 +12,7 @@ import com.example.popview.R
 import com.example.popview.data.Comentario
 
 class ComentariosAdapter(
-    private val comentarios: MutableList<Comentario>,
+    private var comentarios: MutableList<Comentario>,
     private val onEditClick: (Comentario) -> Unit,
     private val onDeleteClick: (Comentario) -> Unit,
     private val onSendClick: (Comentario) -> Unit,
@@ -30,6 +30,10 @@ class ComentariosAdapter(
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_valoracion_titulo, parent, false)
         return ComentarioViewHolder(itemView)
+    }
+    fun updateComentarios(nuevosComentarios: MutableList<Comentario>) {
+        this.comentarios = nuevosComentarios
+        notifyDataSetChanged()  // Notifica que los datos han cambiado
     }
 
     override fun onBindViewHolder(holder: ComentarioViewHolder, position: Int) {
