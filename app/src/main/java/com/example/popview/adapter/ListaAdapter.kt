@@ -19,31 +19,23 @@ class ListasAdapter(
     private val listas: MutableList<Lista>,
     private val onItemClicked: (Lista) -> Unit
 ) : RecyclerView.Adapter<ListasAdapter.ListaViewHolder>() {
-
     private val popViewService = PopViewAPI().API()
-
     class ListaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titulo: TextView = view.findViewById(R.id.textTitulo)
         val estado: TextView = view.findViewById(R.id.textEstado) // TextView para mostrar el estado
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_lista, parent, false)
         return ListaViewHolder(view)
     }
-
     override fun onBindViewHolder(holder: ListaViewHolder, position: Int) {
         val lista = listas[position]
-        Log.d("ListasAdapter", "Binding item at position $position with title ${lista.titulo}")
         holder.titulo.text = lista.titulo
-
         val estadoText = if (lista.esPrivada) "Privada" else "Pública"
         holder.estado.text = estadoText
-
         holder.itemView.setOnClickListener {
             onItemClicked(lista)
         }
-
         holder.itemView.setOnLongClickListener {
             AlertDialog.Builder(it.context)
                 .setTitle("Confirma l'eliminació")
@@ -59,7 +51,6 @@ class ListasAdapter(
                             popViewService.deleteLista(lista.id)
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            Log.e("ListasAdapter", "Error eliminant la llista: ${e.message}")
                         }
                     }
                     dialog.dismiss()
