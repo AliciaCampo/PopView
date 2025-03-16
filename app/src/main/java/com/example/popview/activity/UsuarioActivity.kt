@@ -42,55 +42,45 @@ class UsuarioActivity : AppCompatActivity() {
         "avataruser5" to R.drawable.avataruser5,
         "avataruser6" to R.drawable.avataruser6
     )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewListas)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         // Iniciar la actualización periódica
         handler.post(updateRunnable)
-
         listasAdapter = ListasAdapter(listaDeListas) { lista ->
             val intent = Intent(this, EditLista::class.java)
             intent.putExtra("lista", lista)
             startActivity(intent)
         }
         recyclerView.adapter = listasAdapter
-
         val btnCrearLista = findViewById<Button>(R.id.btnCrearLista)
         btnCrearLista.setOnClickListener {
             val intent = Intent(this, CrearListaActivity::class.java)
             intent.putExtra("usuarioId", usuarioId)
             startActivityForResult(intent, CREAR_LISTA_REQUEST_CODE)
         }
-
         val btnBuscarLista = findViewById<Button>(R.id.btnBuscarLista)
         btnBuscarLista.setOnClickListener {
             val intent = Intent(this, BuscarListasActivity::class.java)
             startActivity(intent)
         }
-
         val userTextView = findViewById<TextView>(R.id.user)
         userTextView.setOnClickListener {
             val intent = Intent(this, DetalleUsuarioActivity::class.java)
             intent.putExtra("usuarioId", usuarioId)
             startActivity(intent)
         }
-
         imagenAvatar = findViewById(R.id.imagenAvatar)
     }
-
     private fun cargarListasUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val listas = popViewService.getLlistesByUsuari(usuarioId)
-                Log.d("UsuarioActivity", "Listas recibidas: ${listas.size}")
                 runOnUiThread {
                     listaDeListas.clear()
                     listaDeListas.addAll(listas)
-                    Log.d("UsuarioActivity", "Listas actualizadas en el adaptador: ${listaDeListas.size}")
                     listasAdapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
@@ -98,7 +88,6 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CREAR_LISTA_REQUEST_CODE && resultCode == RESULT_OK) {
@@ -109,21 +98,16 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
-
     companion object {
         const val CREAR_LISTA_REQUEST_CODE = 1
     }
-
     private fun cargarDatosUsuario() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val usuario = popViewService.getUsuari(usuarioId)
-                Log.d("UsuarioActivity", "Usuario obtenido: ${usuario.nombre}")
-
                 runOnUiThread {
                     val userTextView = findViewById<TextView>(R.id.user)
                     userTextView.text = usuario.nombre
-
                     // Cargar la imagen de perfil desde los recursos locales
                     val imagenSeleccionada = usuario.imagen
                     cargarImagenPerfil(imagenSeleccionada)
@@ -136,13 +120,11 @@ class UsuarioActivity : AppCompatActivity() {
             }
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         // Detener la actualización periódica cuando la actividad se destruye
         handler.removeCallbacks(updateRunnable)
     }
-
     private fun cargarImagenPerfil(nombreImagen: String) {
         val resourceId = avatarResources[nombreImagen] ?: R.drawable.avataruser1
         imagenAvatar.setImageResource(resourceId)
