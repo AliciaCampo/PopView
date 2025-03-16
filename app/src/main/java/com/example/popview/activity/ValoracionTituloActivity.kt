@@ -137,25 +137,19 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     comentarios = response.body() ?: emptyList()
                     Log.d("ValoracionTituloActivity", "Comentarios cargados: ${comentarios.size}")
+                    comentarios.forEach {
+                        Log.d("Comentario", "ID: ${it.id}, Usuari: ${it.usuari_id}, Texto: ${it.comentaris}")
+                    }
                 } else {
                     Log.e("ValoracionTituloActivity", "Error: ${response.errorBody()?.string()}")
                 }
                 comentarioAdapter = ComentariosAdapter(
-                    comentarios = comentarios.toMutableList(), // Convertir a MutableList
-                    onEditClick = { comentarios ->
-                        mostrarDialogoEdicion(comentarios, titolId)
-                    },
-                    onDeleteClick = { comentario ->
-                        mostrarConfirmacionEliminacion(comentario, titolId)
-                    },
-                    onSendClick = { comentario ->
-                        // Define qué acción debe realizar el botón "Enviar"
-                        enviarComentario(comentario.comentaris, comentario.rating, titolId)
-                    },
+                    comentarios = comentarios.toMutableList(),
+                    onEditClick = { comentarios -> mostrarDialogoEdicion(comentarios, titolId) },
+                    onDeleteClick = { comentario -> mostrarConfirmacionEliminacion(comentario, titolId) },
+                    onSendClick = { comentario -> enviarComentario(comentario.comentaris, comentario.rating, titolId) },
                     currentUserId = currentUserId
                 )
-
-
                 recyclerView.adapter = comentarioAdapter
             } catch (e: Exception) {
                 Log.e("ValoracionTituloActivity", "Error al cargar comentarios: ${e.message}")
@@ -166,13 +160,17 @@ class ValoracionTituloActivity : AppCompatActivity() {
     private fun editarComentario(comentario: Comentario, titolId: Int) {
         lifecycleScope.launch {
             try {
-                val comentarioModificado = comentario.copy(comentaris = "Nuevo texto de comentario")
-                val response = api.modificarComentario(currentUserId, titolId, comentarioModificado)
+                val response = api.modificarComentario(currentUserId, titolId, comentario)
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
+                } else {
+                    val errorMessage = "Error al editar comentario: ${response.code()} ${response.errorBody()?.string()}"
+                    Log.e("ValoracionTituloActivity", errorMessage)
+                    Toast.makeText(this@ValoracionTituloActivity, "Error al editar comentario", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Log.e("ValoracionTituloActivity", "Error al editar comentario: ${e.message}")
+                Log.e("ValoracionTituloActivity", "Excepción al editar comentario: ${e.message}")
+                Toast.makeText(this@ValoracionTituloActivity, "Error al editar comentario", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -183,26 +181,36 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val response = api.eliminarComentario(currentUserId, titolId)
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
+                } else {
+                    val errorMessage = "Error al eliminar comentario: ${response.code()} ${response.errorBody()?.string()}"
+                    Log.e("ValoracionTituloActivity", errorMessage)
+                    Toast.makeText(this@ValoracionTituloActivity, "Error al eliminar comentario", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Log.e("ValoracionTituloActivity", "Error al eliminar comentario: ${e.message}")
+                Log.e("ValoracionTituloActivity", "Excepción al eliminar comentario: ${e.message}")
+                Toast.makeText(this@ValoracionTituloActivity, "Error al eliminar comentario", Toast.LENGTH_SHORT).show()
             }
         }
     }
     private fun mostrarConfirmacionEliminacion(comentario: Comentario, titolId: Int) {
+        if (comentario.usuari_id != currentUserId) {
+            Toast.makeText(this, "No puedes eliminar comentarios de otros usuarios", Toast.LENGTH_SHORT).show()
+            return
+        }
         val builder = AlertDialog.Builder(this)
         builder.setMessage("¿Estás seguro de que deseas eliminar este comentario?")
             .setCancelable(false)
-            .setPositiveButton("Sí") { dialog, id ->
-                eliminarComentario(comentario, titolId)
-            }
-            .setNegativeButton("No") { dialog, id ->
-                dialog.dismiss()  // Cierra el dialogo sin hacer nada
-            }
+            .setPositiveButton("Sí") { dialog, id -> eliminarComentario(comentario, titolId) }
+            .setNegativeButton("No") { dialog, id -> dialog.dismiss() }
         val alert = builder.create()
         alert.show()
     }
+
     private fun mostrarDialogoEdicion(comentario: Comentario, titolId: Int) {
+        if (comentario.usuari_id != currentUserId) {
+            Toast.makeText(this, "No puedes editar comentarios de otros usuarios", Toast.LENGTH_SHORT).show()
+            return
+        }
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.dialog_editar_comentario, null)
@@ -221,10 +229,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val comentarioModificado = comentario.copy(comentaris = nuevoComentarioTexto, rating = nuevoRating)
                 editarComentario(comentarioModificado, titolId)
             }
-            .setNegativeButton("Cancelar") { dialog, id ->
-                dialog.dismiss()
-            }
-
+            .setNegativeButton("Cancelar") { dialog, id -> dialog.dismiss() }
         val alert = builder.create()
         alert.show()
     }

@@ -101,14 +101,14 @@ interface PopViewService {
     ): Response<List<Comentario>>
 
 
-    @PUT("usuaris/{usuari_id}/titols/{titol_id}/comentaris/")
+    @PUT("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
     suspend fun modificarComentario(
         @Path("usuari_id") usuariId: Int,
         @Path("titol_id") titolId: Int,
         @Body comentario: Comentario
     ): Response<Void>
 
-    @DELETE("usuaris/{usuari_id}/titols/{titol_id}/comentaris/")
+    @DELETE("usuaris/{usuari_id}/titols/{titol_id}/comentarios/")
     suspend fun eliminarComentario(
         @Path("usuari_id") usuariId: Int,
         @Path("titol_id") titolId: Int
