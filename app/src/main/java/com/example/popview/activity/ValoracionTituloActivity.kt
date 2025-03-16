@@ -91,10 +91,11 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val platformIcons = listOf(
                     findViewById<ImageView>(R.id.platformIcon1),
                     findViewById<ImageView>(R.id.platformIcon2),
-                    findViewById<ImageView>(R.id.platformIcon3)
+                    findViewById<ImageView>(R.id.platformIcon3),
                 )
 
-                val platformsList = titulo.platforms.split(", ").map { it.trim() }
+                val platformsList = titulo.platforms.split(",").map { it.trim() }
+
                 platformIcons.forEachIndexed { index, imageView ->
                     if (index < platformsList.size) {
                         val platform = platformsList[index]
@@ -104,6 +105,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                         imageView.visibility = View.GONE
                     }
                 }
+
 
                 // Cargar comentarios usando titulo.id
                 cargarComentarios(titulo.id)
