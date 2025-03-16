@@ -66,11 +66,12 @@ class ValoracionTituloActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val editTextComment = findViewById<EditText>(R.id.editTextComment)
+        val ratingBarComment = findViewById<RatingBar>(R.id.ratingBarComment)
         val buttonSend = findViewById<ImageButton>(R.id.buttonSend)
 
         buttonSend.setOnClickListener {
             val comentarioText = editTextComment.text.toString()
-            val rating = ratingBar.rating
+            val rating = ratingBarComment.rating
             if (comentarioText.isNotEmpty()) {
                 enviarComentario(comentarioText, rating, titulo.id)  // Pasar titulo.id
             } else {
@@ -119,7 +120,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val nuevoComentario = Comentario(usuari_id = currentUserId, comentaris = comentarioText, rating = rating)
                 val response = api.agregarComentario(currentUserId, titolId, nuevoComentario)
                 if (response.isSuccessful) {
-                    Toast.makeText(this@ValoracionTituloActivity, "Comentario enviado", Toast.LENGTH_SHORT).show()
                     cargarComentarios(titolId)
                 } else {
                     Toast.makeText(this@ValoracionTituloActivity, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
@@ -180,10 +180,10 @@ class ValoracionTituloActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val response = api.eliminarComentario(currentUserId, titolId)
-                // Notificar al adaptador que los datos han cambiado
-                comentarioAdapter.updateComentarios(comentarios.toMutableList())
                 if (response.isSuccessful) {
-                    cargarComentarios(titolId)
+                    comentarios = comentarios.filter { it.id != comentario.id }
+                    comentarioAdapter.updateComentarios(comentarios.toMutableList())  // Actualizar el adaptador
+                    cargarComentarios(titolId)  // Recargar comentarios del servidor
                 } else {
                     val errorMessage = "Error al eliminar comentario: ${response.code()} ${response.errorBody()?.string()}"
                     Log.e("ValoracionTituloActivity", errorMessage)
