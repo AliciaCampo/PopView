@@ -16,15 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.R
 import com.example.popview.adapter.ListasAdapter
+import com.example.popview.adapter.ListasPublicasAdapter
 import com.example.popview.data.Lista
+import com.example.popview.data.ListaPublica
 import com.example.popview.service.PopViewAPI
 import kotlinx.coroutines.launch
 
 class BuscarListasActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private val listaDeListas = mutableListOf<Lista>()
-    private lateinit var listasAdapter: ListasAdapter
+    private val listaDeListas = mutableListOf<ListaPublica>()
+    private lateinit var listasAdapter: ListasPublicasAdapter
     private val popViewService = PopViewAPI().API()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +42,12 @@ class BuscarListasActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewContent)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        listasAdapter = ListasAdapter(listaDeListas) { lista ->
+        listasAdapter = ListasPublicasAdapter(listaDeListas) { lista ->
             val intent = Intent(this, DetalleListaPublicaActivity::class.java)
-            intent.putExtra("lista", lista)
+            intent.putExtra("lista", lista) // ListaPublica ya implementa Serializable
             startActivity(intent)
         }
+
         recyclerView.adapter = listasAdapter
 
         val editTextBuscar = findViewById<EditText>(R.id.textBuscar)
@@ -71,9 +74,14 @@ class BuscarListasActivity : AppCompatActivity() {
     private fun buscarListas(query: String) {
         lifecycleScope.launch {
             try {
-                // Usar buscarListasPublicas en lugar de getAllLlistesPublicas
-                val listasPublicas = popViewService.buscarListasPublicas(query)
+                val listasPublicas = if (query.isEmpty()) {
+                    popViewService.getAllLlistesPublicas()
+                } else {
+                    popViewService.buscarListasPublicas(query)
+                }
+
                 Log.d("BuscarListasActivity", "Listas recibidas: $listasPublicas")
+
                 runOnUiThread {
                     listaDeListas.clear()
                     listaDeListas.addAll(listasPublicas)
@@ -103,4 +111,5 @@ class BuscarListasActivity : AppCompatActivity() {
             }
         }
     }
+
 }

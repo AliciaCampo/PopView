@@ -73,8 +73,9 @@ interface PopViewService {
     @GET("buscar/usuarios")
     suspend fun buscarUsuarios(@Query("query") query: String): List<Usuario>
 
-    @GET("buscar/listas")
-    suspend fun buscarListasPublicas(@Query("query") query: String): List<Lista>
+    // Buscar listas públicas por título usando un parámetro de consulta
+    @GET("listas/publicas/buscar")
+    suspend fun buscarListasPublicas(@Query("titulo") titulo: String): List<ListaPublica>
 
     @GET("buscar/todo")
     suspend fun buscarTodo(@Query("query") query: String): List<Any>
