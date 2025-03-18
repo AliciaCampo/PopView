@@ -206,7 +206,6 @@ class EditLista : AppCompatActivity() {
                             runOnUiThread {
                                 adapter.notifyItemInserted(position)
                                 editTextPelicula.text.clear()
-                                Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
                             }
                             // Actualizar la lista en el servidor
                             listaData?.let { lista ->
