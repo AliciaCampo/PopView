@@ -17,17 +17,10 @@ class ListasPublicasAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textViewTitulo: TextView = itemView.findViewById(R.id.textViewTitulo)
         private val textViewDescripcion: TextView = itemView.findViewById(R.id.textViewDescripcion)
-        private val recyclerViewTitulos: RecyclerView = itemView.findViewById(R.id.recyclerViewTitulos)
 
         fun bind(lista: ListaPublica, onItemClick: (ListaPublica) -> Unit) {
             textViewTitulo.text = lista.titol
             textViewDescripcion.text = lista.descripcion ?: "Sin descripción"
-
-            // Configurar RecyclerView interno para mostrar los títulos
-            recyclerViewTitulos.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = TitulosListasPublicasAdapter(lista.titulos)
-            }
 
             itemView.setOnClickListener {
                 onItemClick(lista)

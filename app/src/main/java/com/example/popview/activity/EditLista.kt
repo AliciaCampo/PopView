@@ -129,6 +129,7 @@ class EditLista : AppCompatActivity() {
                         e.printStackTrace()
                         runOnUiThread {
                         }
+                        finish()
                     }
                 }
             }

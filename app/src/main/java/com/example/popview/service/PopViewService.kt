@@ -25,6 +25,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+import okhttp3.logging.HttpLoggingInterceptor
 
 interface PopViewService {
     @GET("usuaris/{usuari_id}")
@@ -38,7 +39,7 @@ interface PopViewService {
     @GET("llistes/")
     suspend fun getAllLlistes(): List<Lista>
     @GET("llistes/publicas")
-    suspend fun getAllLlistesPublicas(): List<ListaPublica>
+    suspend fun getAllLlistesPublicas(): Response <List<ListaPublica>>
     @GET("titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
     @GET("titols/")
@@ -160,6 +161,10 @@ private fun getUnsafeOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
         builder.hostnameVerifier { hostname, session -> true }
+
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY) // Mostra cos de la petició i resposta
+        builder.addInterceptor(logging)
 
         val okHttpClient = builder.build()
         return okHttpClient
