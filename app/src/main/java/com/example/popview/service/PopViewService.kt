@@ -8,7 +8,6 @@ import com.example.popview.data.Titulo
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Response
-import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -40,6 +39,7 @@ interface PopViewService {
     suspend fun getAllLlistes(): List<Lista>
     @GET("llistes/publicas")
     suspend fun getAllLlistesPublicas(): Response <List<ListaPublica>>
+
     @GET("titols/{titol_id}")
     suspend fun getTitol(@Path("titol_id") titolId: Int): Titulo
     @GET("titols/")
@@ -76,7 +76,7 @@ interface PopViewService {
 
     // Buscar listas públicas por título usando un parámetro de consulta
     @GET("listas/publicas/buscar")
-    suspend fun buscarListasPublicas(@Query("titulo") titulo: String): List<ListaPublica>
+    suspend fun buscarListasPublicas(@Query("titulo") titulo: String):Response <List<ListaPublica>>
 
     @GET("buscar/todo")
     suspend fun buscarTodo(@Query("query") query: String): List<Any>
