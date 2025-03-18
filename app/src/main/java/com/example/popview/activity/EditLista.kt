@@ -82,7 +82,6 @@ class EditLista : AppCompatActivity() {
                                 peliculasList.removeAt(position)
                                 runOnUiThread {
                                     adapter.notifyItemRemoved(position)
-                                    Toast.makeText(this@EditLista, "Títol eliminat de la llista.", Toast.LENGTH_SHORT).show()
                                 }
                             }
 
@@ -124,13 +123,11 @@ class EditLista : AppCompatActivity() {
                         // Actualizar la lista existente en el servidor
                         popViewService.updateLista(lista.id, updatedLista)
                         runOnUiThread {
-                            Toast.makeText(this@EditLista, "Llista desada amb èxit.", Toast.LENGTH_SHORT).show()
                             finish()
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
-                            Toast.makeText(this@EditLista, "Llista desada amb èxit.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -229,7 +226,6 @@ class EditLista : AppCompatActivity() {
                                 runOnUiThread {
                                     adapter.notifyDataSetChanged()
                                     editTextPelicula.text.clear()
-                                    Toast.makeText(this@EditLista, "Títol afegit: $peliculaTitulo", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         } else {
