@@ -1,3 +1,5 @@
+package com.example.popview.activity
+
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +8,7 @@ import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+
 
 class GraficosActivity : AppCompatActivity() {
 
