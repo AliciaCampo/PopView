@@ -64,4 +64,6 @@ dependencies {
     // Dependencias para corrutinas
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    //MPAndroidChart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
