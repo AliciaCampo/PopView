@@ -204,7 +204,12 @@ class AjustesActivity : AppCompatActivity() {
                 // Opcional: Que fer si no es selecciona res
             }
         }
-
+        //boton mostrar graficos
+        val buttonGraficos = findViewById<Button>(R.id.buttonGraficos)
+        buttonGraficos.setOnClickListener {
+            val intent = Intent(this, GraficosActivity::class.java)
+            startActivity(intent)
+        }
         // Control dels marges dels costats de la pantalla (Edge to Edge)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

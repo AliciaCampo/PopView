@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.GraficosActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.DetalleListaPublicaActivity"
             android:exported="false" />
         <activity
