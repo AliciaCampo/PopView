@@ -64,7 +64,25 @@ dependencies {
     // Dependencias para corrutinas
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    //MPAndroidChart
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    //Graficos e informes
+    /*implementation(platform( libs.firebase.bom))
+
+    // Add the dependency for the Analytics library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.mpandroidchart)
+    implementation(libs.androidx.datastore.core.android)*/
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    implementation (platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation ("com.google.firebase:firebase-firestore-ktx")
+    // Import the BoM for the Firebase platform
+    implementation(platform( libs.firebase.bom))
+
+    // Add the dependency for the Analytics library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.mpandroidchart)
+
 }
