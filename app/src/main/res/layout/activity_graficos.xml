@@ -19,10 +19,6 @@
         app:layout_constraintBottom_toTopOf="@id/fragment"
         app:layout_constraintHeight_percent="0.8"
         tools:ignore="MissingRegistered" />
-
-
-
-
     <!-- Fragmento para la barra de menú -->
     <fragment
         android:id="@+id/fragment"
