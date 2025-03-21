@@ -84,5 +84,6 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore)
     implementation(libs.mpandroidchart)
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
 
 }
