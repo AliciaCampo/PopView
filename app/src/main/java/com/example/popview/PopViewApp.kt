@@ -20,6 +20,7 @@ class PopViewApp : Application() {
         var estadistica = Statistics()
     }
     val db: FirebaseFirestore by lazy { Firebase.firestore }
+
     override fun onCreate() {
         super.onCreate()
         // Obtener el ID del dispositivo usando Settings.Secure (disponible desde API 1)
