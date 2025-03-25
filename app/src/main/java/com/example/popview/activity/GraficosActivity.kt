@@ -84,4 +84,32 @@ class GraficosActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
     }
+    private fun guardarEnFirebase(tipo: String, accion: String) {
+        val datos = hashMapOf(
+            "tipo" to tipo,
+            "accion" to accion,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        firestore.collection("interacciones")
+            .add(datos)
+            .addOnSuccessListener {
+                println("Datos guardados en Firebase correctamente")
+            }
+            .addOnFailureListener { e ->
+                println("Error al guardar en Firebase: ${e.message}")
+            }
+    }
+
+
+    private fun eliminarLista(idLista: String) {
+        // Lógica para eliminar una lista
+        lifecycleScope.launch {
+            // Guardar en DataStore
+            DataStoreManager.guardarInteraccionLista(this@GraficosActivity)
+
+            // Guardar en Firebase
+            guardarEnFirebase("listas", "eliminar")
+        }
+    }
 }

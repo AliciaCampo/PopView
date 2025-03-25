@@ -17,7 +17,7 @@ object DataStoreManager {
     private val INTERACCION_TITULO = intPreferencesKey("interaccion_titulo")
     private val INTERACCION_COMENTARIO = intPreferencesKey("interaccion_comentario")
 
-    // ✅ Guardar interacción para listas
+    //  Guardar interacción para listas
     suspend fun guardarInteraccionLista(context: Context) {
         context.dataStore.edit { preferences ->
             val valorActual = preferences[INTERACCION_LISTA] ?: 0
@@ -25,7 +25,7 @@ object DataStoreManager {
         }
     }
 
-    // ✅ Guardar interacción para títulos
+    //  Guardar interacción para títulos
     suspend fun guardarInteraccionTitulo(context: Context) {
         context.dataStore.edit { preferences ->
             val valorActual = preferences[INTERACCION_TITULO] ?: 0
@@ -33,7 +33,7 @@ object DataStoreManager {
         }
     }
 
-    // ✅ Guardar interacción para comentarios
+    //  Guardar interacción para comentarios
     suspend fun guardarInteraccionComentario(context: Context) {
         context.dataStore.edit { preferences ->
             val valorActual = preferences[INTERACCION_COMENTARIO] ?: 0
@@ -41,21 +41,21 @@ object DataStoreManager {
         }
     }
 
-    // ✅ Obtener interacción de listas como Flow
+    //  Obtener interacción de listas como Flow
     fun obtenerInteraccionLista(context: Context): Flow<Int> {
         return context.dataStore.data.map { preferences ->
             preferences[INTERACCION_LISTA] ?: 0
         }
     }
 
-    // ✅ Obtener interacción de títulos como Flow
+    //  Obtener interacción de títulos como Flow
     fun obtenerInteraccionTitulo(context: Context): Flow<Int> {
         return context.dataStore.data.map { preferences ->
             preferences[INTERACCION_TITULO] ?: 0
         }
     }
 
-    // ✅ Obtener interacción de comentarios como Flow
+    //  Obtener interacción de comentarios como Flow
     fun obtenerInteraccionComentario(context: Context): Flow<Int> {
         return context.dataStore.data.map { preferences ->
             preferences[INTERACCION_COMENTARIO] ?: 0

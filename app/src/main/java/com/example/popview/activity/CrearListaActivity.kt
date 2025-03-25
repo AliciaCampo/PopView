@@ -8,11 +8,14 @@ import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.popview.data.Lista
 import com.example.popview.R
+import com.example.popview.data.DataStoreManager
 import com.example.popview.service.PopViewAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class CrearListaActivity : AppCompatActivity() {
@@ -64,8 +67,11 @@ class CrearListaActivity : AppCompatActivity() {
                             val intent = Intent()
                             intent.putExtra("nuevaLista", createdLista)  // Pasar la lista creada
                             setResult(RESULT_OK, intent)
+                            crearLista(titulo)
                             finish()  // Finalizar la actividad
                         }
+
+
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
@@ -76,6 +82,29 @@ class CrearListaActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "El título no puede estar vacío.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    private fun guardarEnFirebase(tipo: String, accion: String) {
+        val datos = hashMapOf(
+            "tipo" to tipo,
+            "accion" to accion,
+            "timestamp" to System.currentTimeMillis()
+        )
+        FirebaseFirestore.getInstance().collection("interacciones")
+            .add(datos)
+            .addOnSuccessListener {
+                println("Datos guardados en Firebase correctamente")
+            }
+            .addOnFailureListener { e ->
+                println("Error al guardar en Firebase: ${e.message}")
+            }
+    }
+    // Crear lista
+    private fun crearLista(nombre: String) {
+        // Lógica para crear una lista
+        lifecycleScope.launch {
+            DataStoreManager.guardarInteraccionLista(this@CrearListaActivity)
+            guardarEnFirebase("listas", "crear")
         }
     }
 }

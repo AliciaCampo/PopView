@@ -11,12 +11,15 @@ import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popview.data.Lista
 import com.example.popview.adapter.PeliculasAdapter
 import com.example.popview.R
+import com.example.popview.data.DataStoreManager
 import com.example.popview.service.PopViewAPI
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -122,6 +125,7 @@ class EditLista : AppCompatActivity() {
                     try {
                         // Actualizar la lista existente en el servidor
                         popViewService.updateLista(lista.id, updatedLista)
+                        modificarLista(lista.id.toString(), lista.titulo)
                         runOnUiThread {
                             finish()
                         }
@@ -160,6 +164,7 @@ class EditLista : AppCompatActivity() {
                                 val intent = Intent()
                                 intent.putExtra("eliminarLista", lista)
                                 setResult(RESULT_OK, intent)
+                                eliminarLista(lista.id.toString())
                                 finish()
                             }
                         } catch (e: Exception) {
@@ -222,7 +227,10 @@ class EditLista : AppCompatActivity() {
 
                                 // Actualizar la lista existente en el servidor
                                 popViewService.addTituloToList(lista.id, tituloExistente.id)
-
+                                // Guardar interacción en DataStore y Firebase
+                                DataStoreManager.guardarInteraccionTitulo(this@EditLista)
+                                guardarEnFirebase("titulos", "crear")
+                                crearTitulo(tituloExistente.nombre)
                                 runOnUiThread {
                                     adapter.notifyDataSetChanged()
                                     editTextPelicula.text.clear()
@@ -249,5 +257,53 @@ class EditLista : AppCompatActivity() {
 
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
         descripcionField.visibility = if (isPrivada) EditText.GONE else EditText.VISIBLE
+    }
+    private fun guardarEnFirebase(tipo: String, accion: String) {
+        val datos = hashMapOf(
+            "tipo" to tipo,
+            "accion" to accion,
+            "timestamp" to System.currentTimeMillis()
+        )
+        FirebaseFirestore.getInstance().collection("interacciones")
+            .add(datos)
+            .addOnSuccessListener {
+                println("Datos guardados en Firebase correctamente")
+            }
+            .addOnFailureListener { e ->
+                println("Error al guardar en Firebase: ${e.message}")
+            }
+    }
+    private fun modificarLista(idLista: String, nuevoNombre: String) {
+        // Lógica para modificar una lista
+        lifecycleScope.launch {
+            DataStoreManager.guardarInteraccionLista(this@EditLista)
+            guardarEnFirebase("listas", "modificar")
+        }
+    }
+    private fun eliminarLista(idLista: String) {
+        // Lógica para eliminar una lista
+        lifecycleScope.launch {
+            // Guardar en DataStore
+            DataStoreManager.guardarInteraccionLista(this@EditLista)
+
+            // Guardar en Firebase
+            guardarEnFirebase("listas", "eliminar")
+        }
+    }
+    private fun crearTitulo(nombre: String) {
+        // Lógica para crear lista
+        lifecycleScope.launch {
+            DataStoreManager.guardarInteraccionLista(this@EditLista)
+            guardarEnFirebase("titulos", "crear")
+        }
+    }
+    private fun eliminarTitulo(idTitulo: String) {
+        //llamada con eliminarTitulo(idTitulo)
+        lifecycleScope.launch {
+            // Guardar en DataStore
+            DataStoreManager.guardarInteraccionLista(this@EditLista)
+            // Guardar en Firebase
+            guardarEnFirebase("titulos", "eliminar")
+        }
     }
 }
