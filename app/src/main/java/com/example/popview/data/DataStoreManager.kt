@@ -4,25 +4,61 @@ import android.content.Context
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-private val Context.dataStore by preferencesDataStore(name = "settings")
+// Crear instancia de DataStore
+private val Context.dataStore by preferencesDataStore(name = "interacciones")
 
 object DataStoreManager {
 
-    private val INTERACCIONES = intPreferencesKey("interacciones")
+    // Clave para almacenar el valor de interacciones
+    private val INTERACCION_LISTA = intPreferencesKey("interaccion_lista")
+    private val INTERACCION_TITULO = intPreferencesKey("interaccion_titulo")
+    private val INTERACCION_COMENTARIO = intPreferencesKey("interaccion_comentario")
 
-    suspend fun guardarInteraccion(context: Context) {
-        context.dataStore.edit { settings ->
-            val current = settings[INTERACCIONES] ?: 0
-            settings[INTERACCIONES] = current + 1
+    // ✅ Guardar interacción para listas
+    suspend fun guardarInteraccionLista(context: Context) {
+        context.dataStore.edit { preferences ->
+            val valorActual = preferences[INTERACCION_LISTA] ?: 0
+            preferences[INTERACCION_LISTA] = valorActual + 1
         }
     }
 
-    fun obtenerInteraccion(context: Context): Int {
-        return runBlocking {
-            context.dataStore.data.first()[INTERACCIONES] ?: 0
+    // ✅ Guardar interacción para títulos
+    suspend fun guardarInteraccionTitulo(context: Context) {
+        context.dataStore.edit { preferences ->
+            val valorActual = preferences[INTERACCION_TITULO] ?: 0
+            preferences[INTERACCION_TITULO] = valorActual + 1
+        }
+    }
+
+    // ✅ Guardar interacción para comentarios
+    suspend fun guardarInteraccionComentario(context: Context) {
+        context.dataStore.edit { preferences ->
+            val valorActual = preferences[INTERACCION_COMENTARIO] ?: 0
+            preferences[INTERACCION_COMENTARIO] = valorActual + 1
+        }
+    }
+
+    // ✅ Obtener interacción de listas como Flow
+    fun obtenerInteraccionLista(context: Context): Flow<Int> {
+        return context.dataStore.data.map { preferences ->
+            preferences[INTERACCION_LISTA] ?: 0
+        }
+    }
+
+    // ✅ Obtener interacción de títulos como Flow
+    fun obtenerInteraccionTitulo(context: Context): Flow<Int> {
+        return context.dataStore.data.map { preferences ->
+            preferences[INTERACCION_TITULO] ?: 0
+        }
+    }
+
+    // ✅ Obtener interacción de comentarios como Flow
+    fun obtenerInteraccionComentario(context: Context): Flow<Int> {
+        return context.dataStore.data.map { preferences ->
+            preferences[INTERACCION_COMENTARIO] ?: 0
         }
     }
 }
