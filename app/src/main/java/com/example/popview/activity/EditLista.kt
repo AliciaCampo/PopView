@@ -293,7 +293,7 @@ class EditLista : AppCompatActivity() {
     private fun crearTitulo(nombre: String) {
         // Lógica para crear lista
         lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionLista(this@EditLista)
+            DataStoreManager.guardarInteraccionTitulo(this@EditLista)
             guardarEnFirebase("titulos", "crear")
         }
     }
@@ -301,7 +301,7 @@ class EditLista : AppCompatActivity() {
         //llamada con eliminarTitulo(idTitulo)
         lifecycleScope.launch {
             // Guardar en DataStore
-            DataStoreManager.guardarInteraccionLista(this@EditLista)
+            DataStoreManager.guardarInteraccionTitulo(this@EditLista)
             // Guardar en Firebase
             guardarEnFirebase("titulos", "eliminar")
         }
