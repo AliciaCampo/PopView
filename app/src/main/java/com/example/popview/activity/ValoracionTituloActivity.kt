@@ -18,9 +18,11 @@ import com.bumptech.glide.Glide
 import com.example.popview.R
 import com.example.popview.adapter.ComentariosAdapter
 import com.example.popview.data.Comentario
+import com.example.popview.data.DataStoreManager
 import com.example.popview.data.Titulo
 import com.example.popview.fragment.AddTituloLista
 import com.example.popview.service.PopViewAPI
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class ValoracionTituloActivity : AppCompatActivity() {
@@ -116,6 +118,22 @@ class ValoracionTituloActivity : AppCompatActivity() {
         }
     }
 
+    private fun guardarEnFirebase(tipo: String, accion: String) {
+        val datos = hashMapOf(
+            "tipo" to tipo,
+            "accion" to accion,
+            "timestamp" to System.currentTimeMillis()
+        )
+        FirebaseFirestore.getInstance().collection("interacciones")
+            .add(datos)
+            .addOnSuccessListener {
+                println("Datos guardados en Firebase correctamente")
+            }
+            .addOnFailureListener { e ->
+                println("Error al guardar en Firebase: ${e.message}")
+            }
+    }
+
     private fun enviarComentario(comentarioText: String, rating: Float, titolId: Int) {
         lifecycleScope.launch {
             try {
@@ -129,6 +147,15 @@ class ValoracionTituloActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("ValoracionTituloActivity", "Error al enviar comentario: ${e.message}")
             }
+        }
+    }
+
+    // Crear comentario
+    private fun crearComentario(nombre: String, comentario: String, rating: Float) {
+        // Lógica para crear un comentario
+        lifecycleScope.launch {
+            DataStoreManager.guardarInteraccionComentario(this@ValoracionTituloActivity)
+            guardarEnFirebase("comentarios", "crear")
         }
     }
 
