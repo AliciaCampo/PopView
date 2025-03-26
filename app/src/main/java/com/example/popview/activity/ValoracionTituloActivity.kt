@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.popview.R
+import com.example.popview.activity.CrearListaActivity
 import com.example.popview.adapter.ComentariosAdapter
 import com.example.popview.data.Comentario
 import com.example.popview.data.DataStoreManager
@@ -233,7 +234,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("¿Estás seguro de que deseas eliminar este comentario?")
             .setCancelable(false)
-            .setPositiveButton("Sí") { dialog, id -> eliminarComentario(comentario, titolId) }
+            .setPositiveButton("Sí") { dialog, id -> eliminarComentario(comentario, titolId); eliminarComentarios(comentario.comentaris) }
             .setNegativeButton("No") { dialog, id -> dialog.dismiss() }
         val alert = builder.create()
         alert.show()
@@ -265,6 +266,13 @@ class ValoracionTituloActivity : AppCompatActivity() {
             .setNegativeButton("Cancelar") { dialog, id -> dialog.dismiss() }
         val alert = builder.create()
         alert.show()
+    }
+    private fun eliminarComentarios(nombre: String) {
+        // Lógica para eliminar un comentario
+        lifecycleScope.launch {
+            DataStoreManager.guardarInteraccionComentario(this@ValoracionTituloActivity)
+            guardarEnFirebase("comentario", "eliminar")
+        }
     }
     private fun getPlatformIcon(platform: String): Int {
         return when (platform) {
