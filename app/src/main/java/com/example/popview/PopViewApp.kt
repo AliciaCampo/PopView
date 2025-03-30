@@ -2,6 +2,7 @@ package com.example.popview
 import android.app.Application
 import android.provider.Settings
 import android.util.Log
+import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
@@ -31,9 +32,7 @@ class PopViewApp : Application() {
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val statsFromDB = document.toObject<Statistics>()
-                    if (statsFromDB != null) {
-                        statistics = statsFromDB
-                    }
+                    PopViewApp.statistics = statsFromDB!!
                 } else {
                     // Si no existe, guarda los valores por defecto
                     db.collection("Devices").document(idDispositiu).set(idDispositiu)
