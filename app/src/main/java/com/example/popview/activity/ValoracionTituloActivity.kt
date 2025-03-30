@@ -142,6 +142,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val response = api.agregarComentario(currentUserId, titolId, nuevoComentario)
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
+                    crearComentario(comentarioText, comentarioText, rating)
                 } else {
                     Toast.makeText(this@ValoracionTituloActivity, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
                 }
@@ -194,6 +195,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val response = api.modificarComentario(currentUserId, titolId, comentario)
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
+                    editarComentario(comentario.comentaris, comentario.comentaris, comentario.rating)
                 } else {
                     val errorMessage = "Error al editar comentario: ${response.code()} ${response.errorBody()?.string()}"
                     Log.e("ValoracionTituloActivity", errorMessage)
@@ -203,6 +205,14 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 Log.e("ValoracionTituloActivity", "Excepción al editar comentario: ${e.message}")
                 Toast.makeText(this@ValoracionTituloActivity, "Error al editar comentario", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun editarComentario(nombre: String, comentario: String, rating: Float) {
+        // Lógica para editar un comentario
+        lifecycleScope.launch {
+            DataStoreManager.guardarInteraccionComentario(this@ValoracionTituloActivity)
+            guardarEnFirebase("comentarios", "editar")
         }
     }
 
