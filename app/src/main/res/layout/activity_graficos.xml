@@ -27,6 +27,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primary"
+                android:textSize="25sp"
                 android:text="Gràfics Llistes" />
 
             <!-- Gráfico de barras (Listas) -->
@@ -39,6 +42,9 @@
                 android:id="@+id/textTitols"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primary"
+                android:textSize="25sp"
                 android:text="Gràfics Titols" />
 
             <!-- Gráfico de pastel (Títulos) -->
@@ -50,6 +56,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_regular"
+                android:textColor="@color/md_theme_primary"
+                android:textSize="25sp"
                 android:text="Gràfics Comentaris" />
 
             <!-- Gráfico de líneas (Comentarios) -->
