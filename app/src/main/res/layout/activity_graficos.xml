@@ -8,38 +8,60 @@
     android:layout_height="match_parent"
     tools:context=".activity.GraficosActivity">
 
-    <!-- Gráfico de barras (Listas) -->
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+    <!-- ScrollView para los gráficos y textos -->
+    <android.widget.ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.30"
-        tools:ignore="MissingRegistered" />
+        app:layout_constraintBottom_toTopOf="@id/fragment">
 
-    <!-- Gráfico de pastel (Títulos) -->
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/barChart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.30" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <!-- Gráfico de líneas (Comentarios) -->
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/pieChart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.30" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gràfics Llistes" />
 
-    <!-- Fragmento para la barra de menú -->
+            <!-- Gráfico de barras (Listas) -->
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" /> <!-- Establece una altura fija o ajusta según lo necesario -->
+
+            <TextView
+                android:id="@+id/textTitols"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gràfics Titols" />
+
+            <!-- Gráfico de pastel (Títulos) -->
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" /> <!-- Establece una altura fija o ajusta según lo necesario -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gràfics Comentaris" />
+
+            <!-- Gráfico de líneas (Comentarios) -->
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" /> <!-- Establece una altura fija o ajusta según lo necesario -->
+
+        </LinearLayout>
+    </android.widget.ScrollView>
+
+    <!-- Fragmento para la barra de menú fijo -->
     <fragment
         android:id="@+id/fragment"
         android:name="com.example.popview.fragment.barramenu"
