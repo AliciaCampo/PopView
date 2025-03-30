@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042919108278",
+    "project_id": "popview-ea39e",
+    "storage_bucket": "popview-ea39e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042919108278:android:3b2ff60737b7ef39bc8017",
+        "android_client_info": {
+          "package_name": "com.example.popview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBSsUW-QGbTaXSFsQwehugaHs4B8ZCp7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
