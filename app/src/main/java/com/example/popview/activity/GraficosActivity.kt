@@ -1,115 +1,128 @@
 package com.example.popview.activity
-import android.graphics.Color
+
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.popview.R
-import com.example.popview.data.DataStoreManager
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+
 class GraficosActivity : AppCompatActivity() {
+
     private lateinit var barChart: BarChart
-    private val firestore = FirebaseFirestore.getInstance()
+    private lateinit var pieChart: PieChart
+    private lateinit var lineChart: LineChart
+
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graficos)
+
         barChart = findViewById(R.id.barChart)
-        // Guardar interacciones con DataStore
-        lifecycleScope.launch {
-            // Guardamos interacciones en DataStore
-            DataStoreManager.guardarInteraccionLista(this@GraficosActivity)
-            DataStoreManager.guardarInteraccionTitulo(this@GraficosActivity)
-            DataStoreManager.guardarInteraccionComentario(this@GraficosActivity)
-            // Recuperamos los valores de DataStore
-            val interaccionesLista = DataStoreManager.obtenerInteraccionLista(this@GraficosActivity).first()
-            val interaccionesTitulo = DataStoreManager.obtenerInteraccionTitulo(this@GraficosActivity).first()
-            val interaccionesComentario = DataStoreManager.obtenerInteraccionComentario(this@GraficosActivity).first()
-            // Mostramos el gráfico con los datos de DataStore
-            mostrarGrafico(interaccionesLista, interaccionesTitulo, interaccionesComentario)
-            // Recuperar datos desde Firebase y actualizar gráfico
-            cargarDatosDesdeFirebase()
-        }
+        pieChart = findViewById(R.id.pieChart)
+        lineChart = findViewById(R.id.lineChart)
+
+        fetchDataFromFirebase()
     }
-    private fun mostrarGrafico(interaccionesLista: Int, interaccionesTitulo: Int, interaccionesComentario: Int) {
-        val entries = mutableListOf<BarEntry>()
-        // Añadir datos de DataStore para las interacciones
-        entries.add(BarEntry(1f, interaccionesLista.toFloat()))
-        entries.add(BarEntry(2f, interaccionesTitulo.toFloat()))
-        entries.add(BarEntry(3f, interaccionesComentario.toFloat()))
-        val dataSet = BarDataSet(entries, "Interacciones")
-        dataSet.color = Color.parseColor("#6200EE")
-        dataSet.valueTextColor = Color.WHITE
-        dataSet.valueTextSize = 12f
-        val barData = BarData(dataSet)
-        barChart.data = barData
-        // Personalización del gráfico
-        barChart.description.text = "Interacciones por actividad"
-        barChart.description.textColor = Color.WHITE
-        barChart.setBackgroundColor(Color.BLACK)
-        barChart.animateY(1000)
-        barChart.invalidate()
-    }
-    private fun cargarDatosDesdeFirebase() {
-        firestore.collection("interacciones")
-            .get()
+
+    private fun fetchDataFromFirebase() {
+        // Aquí agregas la lógica para obtener datos de Firebase Firestore
+        db.collection("interacciones").get()
             .addOnSuccessListener { result ->
-                val entries = mutableListOf<BarEntry>()
-                // Añadir datos de Firebase al gráfico
-                var index = 4f
-                for (document in result) {
-                    val valor = document.getLong("valor")?.toFloat() ?: 0f
-                    entries.add(BarEntry(index, valor))
+                val barEntries = mutableListOf<BarEntry>()
+                val pieEntries = mutableListOf<PieEntry>()
+                val lineEntriesCreados = mutableListOf<Entry>()
+                val lineEntriesEliminados = mutableListOf<Entry>()
+                val lineEntriesEditados = mutableListOf<Entry>()
+
+                var index = 0
+                result.forEach { document ->
+                    val listasCreadas = document.getLong("listasCreadas") ?: 0
+                    val listasEliminadas = document.getLong("listasEliminadas") ?: 0
+                    val listasEditadas = document.getLong("listasEditadas") ?: 0
+
+                    val titulosCreados = document.getLong("titulosCreados") ?: 0
+                    val titulosEliminados = document.getLong("titulosEliminados") ?: 0
+
+                    val comentariosCreados = document.getLong("comentariosCreados") ?: 0
+                    val comentariosEliminados = document.getLong("comentariosEliminados") ?: 0
+                    val comentariosEditados = document.getLong("comentariosEditados") ?: 0
+
+                    // Gráfico de Barras (Listas)
+                    barEntries.add(BarEntry(index.toFloat(), listasCreadas.toFloat()))
+                    barEntries.add(BarEntry(index.toFloat() + 0.2f, listasEliminadas.toFloat()))
+                    barEntries.add(BarEntry(index.toFloat() + 0.4f, listasEditadas.toFloat()))
+
+                    // Gráfico de Pastel (Títulos)
+                    pieEntries.add(PieEntry(titulosCreados.toFloat(), "Creados"))
+                    pieEntries.add(PieEntry(titulosEliminados.toFloat(), "Eliminados"))
+
+                    // Gráfico de Líneas (Comentarios)
+                    lineEntriesCreados.add(Entry(index.toFloat(), comentariosCreados.toFloat()))
+                    lineEntriesEliminados.add(Entry(index.toFloat(), comentariosEliminados.toFloat()))
+                    lineEntriesEditados.add(Entry(index.toFloat(), comentariosEditados.toFloat()))
+
                     index++
                 }
-                // Actualizar gráfico con datos de Firebase
-                if (entries.isNotEmpty()) {
-                    val dataSet = BarDataSet(entries, "Datos de Firebase")
-                    dataSet.color = Color.parseColor("#03DAC5")
-                    dataSet.valueTextColor = Color.WHITE
-                    dataSet.valueTextSize = 12f
 
-                    val barData = barChart.data
-                    barData.addDataSet(dataSet)
-
-                    barChart.data = barData
-                    barChart.invalidate()
-                }
+                // Actualizar gráficos con los datos obtenidos
+                updateBarChart(barEntries)
+                updatePieChart(pieEntries)
+                updateLineChart(lineEntriesCreados, lineEntriesEliminados, lineEntriesEditados)
             }
-            .addOnFailureListener { e ->
-                e.printStackTrace()
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al cargar datos: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
-    private fun guardarEnFirebase(tipo: String, accion: String) {
-        val datos = hashMapOf(
-            "tipo" to tipo,
-            "accion" to accion,
-            "timestamp" to System.currentTimeMillis()
+
+    private fun updateBarChart(entries: List<BarEntry>) {
+        val dataSet = BarDataSet(entries, "Listas")
+
+        // Crear una lista con los colores que quieres para las barras
+        val colors = listOf(
+            getColor(R.color.colorCreados),
+            getColor(R.color.colorEliminados),
+            getColor(R.color.colorEditados)
         )
 
-        firestore.collection("interacciones")
-            .add(datos)
-            .addOnSuccessListener {
-                println("Datos guardados en Firebase correctamente")
-            }
-            .addOnFailureListener { e ->
-                println("Error al guardar en Firebase: ${e.message}")
-            }
+        // Usar la lista de colores para el DataSet
+        dataSet.colors = colors
+
+        val data = BarData(dataSet)
+        barChart.data = data
+        barChart.invalidate()  // Redibuja el gráfico
     }
 
 
-    private fun eliminarLista(idLista: String) {
-        // Lógica para eliminar una lista
-        lifecycleScope.launch {
-            // Guardar en DataStore
-            DataStoreManager.guardarInteraccionLista(this@GraficosActivity)
+    private fun updatePieChart(entries: List<PieEntry>) {
+        val dataSet = PieDataSet(entries, "Títulos")
+        dataSet.colors = listOf(getColor(R.color.colorCreados), getColor(R.color.colorEliminados))  // Colores personalizados
+        val data = PieData(dataSet)
+        pieChart.data = data
+        pieChart.invalidate()  // Redibuja el gráfico
+    }
 
-            // Guardar en Firebase
-            guardarEnFirebase("listas", "eliminar")
-        }
+    private fun updateLineChart(
+        entriesCreados: List<Entry>,
+        entriesEliminados: List<Entry>,
+        entriesEditados: List<Entry>
+    ) {
+        val dataSetCreados = LineDataSet(entriesCreados, "Comentarios Creados")
+        dataSetCreados.color = getColor(R.color.colorCreados)  // Color para los comentarios creados
+
+        val dataSetEliminados = LineDataSet(entriesEliminados, "Comentarios Eliminados")
+        dataSetEliminados.color = getColor(R.color.colorEliminados)  // Color para los comentarios eliminados
+
+        val dataSetEditados = LineDataSet(entriesEditados, "Comentarios Editados")
+        dataSetEditados.color = getColor(R.color.colorEditados)  // Color para los comentarios editados
+
+        val data = LineData(dataSetCreados, dataSetEliminados, dataSetEditados)
+        lineChart.data = data
+        lineChart.invalidate()  // Redibuja el gráfico
     }
 }

@@ -205,6 +205,7 @@ class EditLista : AppCompatActivity() {
                                 }
                                 return@launch
                             }
+                            crearTitulo(tituloExistente.nombre)
 
                             // Añadir el título a la lista en memoria
                             val position = peliculasList.size

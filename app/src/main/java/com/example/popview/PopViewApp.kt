@@ -8,9 +8,15 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 data class Statistics(
-    var totalComments: Int = 0,
-    var editedComments: Int = 0,
-    var deletedComments: Int = 0
+    var comentarioCreado : Int = 0,
+    var comentarioEditado : Int = 0,
+    var comentarioEliminado : Int = 0,
+    var listasCreadas: Int = 0,
+    var listasEditadas: Int = 0,
+    var listasEliminadas: Int = 0,
+    var titulosCreados: Int = 0,
+    var titulosEditados: Int = 0,
+    var titulosEliminados: Int = 0
 )
 class PopViewApp : Application() {
     companion object {
@@ -33,9 +39,12 @@ class PopViewApp : Application() {
                 if (document.exists()) {
                     val statsFromDB = document.toObject<Statistics>()
                     PopViewApp.statistics = statsFromDB!!
+                    Log.i("PopViewApp", "Estadísticas recuperadas correctamente")
                 } else {
                     // Si no existe, guarda los valores por defecto
-                    db.collection("Devices").document(idDispositiu).set(idDispositiu)
+                    Log.w("PopViewApp", "Documento no encontrado, creando uno nuevo")
+                    db.collection("Devices").document(idDispositiu).set(mapOf("id" to idDispositiu))
+
                 }
             }
             .addOnFailureListener { e ->
