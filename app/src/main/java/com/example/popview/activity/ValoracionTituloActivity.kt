@@ -34,8 +34,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
     private val api = PopViewAPI().API()
     private val currentUserId = 5 // Supongamos que el ID del usuario actual es 5
     private var comentarios: List<Comentario> = emptyList()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_valoracion_titulo)
@@ -121,22 +119,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
         }
     }
 
-    private fun guardarEnFirebase(tipo: String, accion: String) {
-        val datos = hashMapOf(
-            "tipo" to tipo,
-            "accion" to accion,
-            "timestamp" to System.currentTimeMillis()
-        )
-        FirebaseFirestore.getInstance().collection("interacciones")
-            .add(datos)
-            .addOnSuccessListener {
-                println("Datos guardados en Firebase correctamente")
-            }
-            .addOnFailureListener { e ->
-                println("Error al guardar en Firebase: ${e.message}")
-            }
-    }
-
     private fun enviarComentario(comentarioText: String, rating: Float, titolId: Int) {
         lifecycleScope.launch {
             try {
@@ -144,7 +126,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val response = api.agregarComentario(currentUserId, titolId, nuevoComentario)
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
-                    crearComentario(comentarioText, comentarioText, rating)
+                    registrarComentarioCreado()
                 } else {
                     Toast.makeText(this@ValoracionTituloActivity, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
                 }
@@ -153,16 +135,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
         }
     }
-
-    // Crear comentario
-    private fun crearComentario(nombre: String, comentario: String, rating: Float) {
-        // Lógica para crear un comentario
-        lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionComentario(this@ValoracionTituloActivity)
-            guardarEnFirebase("comentarios", "crear")
-        }
-    }
-
     private fun cargarComentarios(titolId: Int) {
         lifecycleScope.launch {
             try {
@@ -197,7 +169,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val response = api.modificarComentario(currentUserId, titolId, comentario)
                 if (response.isSuccessful) {
                     cargarComentarios(titolId)
-                    editarComentario(comentario.comentaris, comentario.comentaris, comentario.rating)
                 } else {
                     val errorMessage = "Error al editar comentario: ${response.code()} ${response.errorBody()?.string()}"
                     Log.e("ValoracionTituloActivity", errorMessage)
@@ -209,15 +180,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun editarComentario(nombre: String, comentario: String, rating: Float) {
-        // Lógica para editar un comentario
-        lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionComentario(this@ValoracionTituloActivity)
-            guardarEnFirebase("comentarios", "editar")
-        }
-    }
-
     private fun eliminarComentario(comentario: Comentario, titolId: Int) {
         lifecycleScope.launch {
             try {
@@ -246,7 +208,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("¿Estás seguro de que deseas eliminar este comentario?")
             .setCancelable(false)
-            .setPositiveButton("Sí") { dialog, id -> eliminarComentario(comentario, titolId); eliminarComentarios(comentario.comentaris) }
+            .setPositiveButton("Sí") { dialog, id -> eliminarComentario(comentario, titolId); registrarComentarioEliminado() }
             .setNegativeButton("No") { dialog, id -> dialog.dismiss() }
         val alert = builder.create()
         alert.show()
@@ -274,17 +236,11 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 val nuevoRating = ratingBar.rating
                 val comentarioModificado = comentario.copy(comentaris = nuevoComentarioTexto, rating = nuevoRating)
                 editarComentario(comentarioModificado, titolId)
+                registrarComentarioEditado()
             }
             .setNegativeButton("Cancelar") { dialog, id -> dialog.dismiss() }
         val alert = builder.create()
         alert.show()
-    }
-    private fun eliminarComentarios(nombre: String) {
-        // Lógica para eliminar un comentario
-        lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionComentario(this@ValoracionTituloActivity)
-            guardarEnFirebase("comentario", "eliminar")
-        }
     }
     private fun registrarComentarioCreado() {
         val db = FirebaseFirestore.getInstance()
@@ -319,7 +275,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
                 Log.e("PopViewApp", "Error al registrar comentario en Devices", e)
             }
     }
-
     private fun getPlatformIcon(platform: String): Int {
         return when (platform) {
             "Netflix" -> R.drawable.logo_netflix
