@@ -13,6 +13,8 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.firestore.FirebaseFirestore
 import com.github.mikephil.charting.formatter.ValueFormatter
+import androidx.core.content.ContextCompat
+
 class GraficosActivity : AppCompatActivity() {
 
     private lateinit var barChart: BarChart
@@ -131,7 +133,7 @@ class GraficosActivity : AppCompatActivity() {
         entriesEditados: List<Entry>
     ) {
         val dataSetCreados = LineDataSet(entriesCreados, "Comentarios Creados").apply {
-            color = getColor(R.color.colorCreados) // Línea principal
+            color = ContextCompat.getColor(this@GraficosActivity, R.color.colorCreados)
             setCircleColor(color)
             setDrawCircles(true)
             setDrawValues(true)
@@ -139,29 +141,29 @@ class GraficosActivity : AppCompatActivity() {
 
             // Relleno semitransparente
             setDrawFilled(true)
-            fillColor = getColor(R.color.colorCreadosSemi)
+            fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorCreadosSemi)
         }
 
         val dataSetEliminados = LineDataSet(entriesEliminados, "Comentarios Eliminados").apply {
-            color = getColor(R.color.colorEliminados)
+            color = ContextCompat.getColor(this@GraficosActivity, R.color.colorEliminados)
             setCircleColor(color)
             setDrawCircles(true)
             setDrawValues(true)
             mode = LineDataSet.Mode.CUBIC_BEZIER
 
             setDrawFilled(true)
-            fillColor = getColor(R.color.colorEliminadosSemi)
+            fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorEliminadosSemi)
         }
 
         val dataSetEditados = LineDataSet(entriesEditados, "Comentarios Editados").apply {
-            color = getColor(R.color.colorEditados)
+            color = ContextCompat.getColor(this@GraficosActivity, R.color.colorEditados)
             setCircleColor(color)
             setDrawCircles(true)
             setDrawValues(true)
             mode = LineDataSet.Mode.CUBIC_BEZIER
 
             setDrawFilled(true)
-            fillColor = getColor(R.color.colorEditadosSemi)
+            fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorEditadosSemi)
         }
 
         val data = LineData(dataSetCreados, dataSetEliminados, dataSetEditados)
@@ -180,6 +182,7 @@ class GraficosActivity : AppCompatActivity() {
         lineChart.description.isEnabled = false
         lineChart.invalidate()
     }
+
 
 
 }
