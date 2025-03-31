@@ -75,7 +75,7 @@ class GraficosActivity : AppCompatActivity() {
             }
     }
     private fun updateBarChart(entries: List<BarEntry>) {
-        val dataSet = BarDataSet(entries, "Listas")
+        val dataSet = BarDataSet(entries, "Llistas")
         val colors = listOf(
             getColor(R.color.colorCreados),
             getColor(R.color.colorEliminados),
@@ -123,7 +123,7 @@ class GraficosActivity : AppCompatActivity() {
         entriesEliminados: List<Entry>,
         entriesEditados: List<Entry>
     ) {
-        val dataSetCreados = LineDataSet(entriesCreados, "Comentarios Creados").apply {
+        val dataSetCreados = LineDataSet(entriesCreados, "Comentaris afegits").apply {
             color = ContextCompat.getColor(this@GraficosActivity, R.color.colorCreados)
             setCircleColor(color)
             setDrawCircles(true)
@@ -133,7 +133,7 @@ class GraficosActivity : AppCompatActivity() {
             setDrawFilled(true)
             fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorCreadosSemi)
         }
-        val dataSetEliminados = LineDataSet(entriesEliminados, "Comentarios Eliminados").apply {
+        val dataSetEliminados = LineDataSet(entriesEliminados, "Comentaris eliminats").apply {
             color = ContextCompat.getColor(this@GraficosActivity, R.color.colorEliminados)
             setCircleColor(color)
             setDrawCircles(true)
@@ -142,7 +142,7 @@ class GraficosActivity : AppCompatActivity() {
             setDrawFilled(true)
             fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorEliminadosSemi)
         }
-        val dataSetEditados = LineDataSet(entriesEditados, "Comentarios Editados").apply {
+        val dataSetEditados = LineDataSet(entriesEditados, "Comentaris modificats").apply {
             color = ContextCompat.getColor(this@GraficosActivity, R.color.colorEditados)
             setCircleColor(color)
             setDrawCircles(true)
