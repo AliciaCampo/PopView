@@ -49,9 +49,9 @@ class GraficosActivity : AppCompatActivity() {
                     val titulosCreados = document.getLong("titulosCreados") ?: 0
                     val titulosEliminados = document.getLong("titulosEliminados") ?: 0
 
-                    val comentariosCreados = document.getLong("comentariosCreados") ?: 0
-                    val comentariosEliminados = document.getLong("comentariosEliminados") ?: 0
-                    val comentariosEditados = document.getLong("comentariosEditados") ?: 0
+                    val comentariosCreados = document.getLong("comentarioCreado") ?: 0
+                    val comentariosEliminados = document.getLong("comentarioEliminado") ?: 0
+                    val comentariosEditados = document.getLong("comentarioEditado") ?: 0
 
                     // Gráfico de Barras (Listas)
                     barEntries.add(BarEntry(index.toFloat(), listasCreadas.toFloat()))
