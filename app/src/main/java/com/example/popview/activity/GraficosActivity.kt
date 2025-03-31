@@ -90,7 +90,8 @@ class GraficosActivity : AppCompatActivity() {
         )
         dataSet.colors = colors
         val data = BarData(dataSet)
-        data.barWidth = 0.25f  // Reduce el ancho para dejar más espacio
+        data.barWidth = 0.20f  // Reduce el ancho para dejar más espacio
+        data.setValueTextSize(8f)
         barChart.data = data
         // Aumentar el espaciado entre barras
         val xAxis = barChart.xAxis
