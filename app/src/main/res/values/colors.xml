@@ -147,4 +147,8 @@
     <color name ="colorCreados">#4CAF50</color>
     <color name ="colorEliminados">#FF0000</color>
     <color name ="colorEditados">#03A9F4</color>
+    <color name="colorCreadosSemi">#804CAF50</color>
+    <color name="colorEliminadosSemi">#80F44336</color>
+    <color name="colorEditadosSemi">#803F51B5</color>
+
 </resources>

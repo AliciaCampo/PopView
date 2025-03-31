@@ -130,17 +130,56 @@ class GraficosActivity : AppCompatActivity() {
         entriesEliminados: List<Entry>,
         entriesEditados: List<Entry>
     ) {
-        val dataSetCreados = LineDataSet(entriesCreados, "Comentarios Creados")
-        dataSetCreados.color = getColor(R.color.colorCreados)  // Color para los comentarios creados
+        val dataSetCreados = LineDataSet(entriesCreados, "Comentarios Creados").apply {
+            color = getColor(R.color.colorCreados) // Línea principal
+            setCircleColor(color)
+            setDrawCircles(true)
+            setDrawValues(true)
+            mode = LineDataSet.Mode.CUBIC_BEZIER
 
-        val dataSetEliminados = LineDataSet(entriesEliminados, "Comentarios Eliminados")
-        dataSetEliminados.color = getColor(R.color.colorEliminados)  // Color para los comentarios eliminados
+            // Relleno semitransparente
+            setDrawFilled(true)
+            fillColor = getColor(R.color.colorCreadosSemi)
+        }
 
-        val dataSetEditados = LineDataSet(entriesEditados, "Comentarios Editados")
-        dataSetEditados.color = getColor(R.color.colorEditados)  // Color para los comentarios editados
+        val dataSetEliminados = LineDataSet(entriesEliminados, "Comentarios Eliminados").apply {
+            color = getColor(R.color.colorEliminados)
+            setCircleColor(color)
+            setDrawCircles(true)
+            setDrawValues(true)
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+
+            setDrawFilled(true)
+            fillColor = getColor(R.color.colorEliminadosSemi)
+        }
+
+        val dataSetEditados = LineDataSet(entriesEditados, "Comentarios Editados").apply {
+            color = getColor(R.color.colorEditados)
+            setCircleColor(color)
+            setDrawCircles(true)
+            setDrawValues(true)
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+
+            setDrawFilled(true)
+            fillColor = getColor(R.color.colorEditadosSemi)
+        }
 
         val data = LineData(dataSetCreados, dataSetEliminados, dataSetEditados)
         lineChart.data = data
-        lineChart.invalidate()  // Redibuja el gráfico
+
+        // Ajustar eje Y para que no termine en 0
+        lineChart.axisLeft.apply {
+            axisMinimum = 0f
+            axisMaximum = maxOf(
+                dataSetCreados.yMax,
+                dataSetEliminados.yMax,
+                dataSetEditados.yMax
+            ) + 2
+        }
+
+        lineChart.description.isEnabled = false
+        lineChart.invalidate()
     }
+
+
 }
