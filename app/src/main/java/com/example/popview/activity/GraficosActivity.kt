@@ -7,10 +7,12 @@ import com.example.popview.R
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.firestore.FirebaseFirestore
-
+import com.github.mikephil.charting.formatter.ValueFormatter
 class GraficosActivity : AppCompatActivity() {
 
     private lateinit var barChart: BarChart
@@ -59,8 +61,8 @@ class GraficosActivity : AppCompatActivity() {
                     barEntries.add(BarEntry(index.toFloat() + 0.4f, listasEditadas.toFloat()))
 
                     // Gráfico de Pastel (Títulos)
-                    pieEntries.add(PieEntry(titulosCreados.toFloat(), "Creados"))
-                    pieEntries.add(PieEntry(titulosEliminados.toFloat(), "Eliminados"))
+                    pieEntries.add(PieEntry(titulosCreados.toFloat(), "Afegits"))
+                    pieEntries.add(PieEntry(titulosEliminados.toFloat(), "Eliminats"))
 
                     // Gráfico de Líneas (Comentarios)
                     lineEntriesCreados.add(Entry(index.toFloat(), comentariosCreados.toFloat()))
@@ -100,13 +102,31 @@ class GraficosActivity : AppCompatActivity() {
 
 
     private fun updatePieChart(entries: List<PieEntry>) {
-        val dataSet = PieDataSet(entries, "Títulos")
-        dataSet.colors = listOf(getColor(R.color.colorCreados), getColor(R.color.colorEliminados))  // Colores personalizados
+        // Filtrar entradas con valor 0 para que no se dibujen
+        val filteredEntries = entries.filter { it.value > 0 }
+        val total = filteredEntries.sumOf { it.value.toDouble() }
+        if (total == 0.0) return // Evitar división por 0
+        val normalizedEntries = filteredEntries.map {
+            PieEntry((it.value / total * 100).toFloat(), it.label)
+        }
+        val dataSet = PieDataSet(normalizedEntries, "")
+        dataSet.colors = listOf(getColor(R.color.colorCreados), getColor(R.color.colorEliminados))
+        dataSet.setDrawValues(true) // Muestra solo los valores numéricos
+        pieChart.setDrawEntryLabels(false) // Ocultar los textos dentro del gráfico
         val data = PieData(dataSet)
+        data.setValueTextSize(14f)
+        data.setValueFormatter(object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return "${value.toInt()}%" // Elimina los decimales
+            }
+        })
         pieChart.data = data
-        pieChart.invalidate()  // Redibuja el gráfico
+        // Configurar leyenda abajo
+        pieChart.legend.isEnabled = true
+        pieChart.legend.orientation = Legend.LegendOrientation.HORIZONTAL
+        pieChart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+        pieChart.invalidate() // Redibuja el gráfico
     }
-
     private fun updateLineChart(
         entriesCreados: List<Entry>,
         entriesEliminados: List<Entry>,
