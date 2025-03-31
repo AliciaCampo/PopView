@@ -37,7 +37,6 @@ class ValoracionTituloActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_valoracion_titulo)
-
         // Obtener el objeto Titulo del Intent
         val titulo = intent.getSerializableExtra("titulo") as? Titulo
         if (titulo == null) {
@@ -45,13 +44,11 @@ class ValoracionTituloActivity : AppCompatActivity() {
             finish()
             return
         }
-
         val imageView = findViewById<ImageView>(R.id.imageContent)
         val textTitle = findViewById<TextView>(R.id.textTitle)
         val textDescription = findViewById<TextView>(R.id.textDescription)
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val iconAnadirLista = findViewById<ImageView>(R.id.añadirTittulo)
-
         iconAnadirLista.setOnClickListener {
             val dialog = AddTituloLista()
             val bundle = Bundle().apply {
@@ -60,12 +57,10 @@ class ValoracionTituloActivity : AppCompatActivity() {
             dialog.arguments = bundle
             dialog.show(supportFragmentManager, "AddTituloLista")
         }
-
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
         imageButtonEnrere.setOnClickListener {
             finish()
         }
-
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val editTextComment = findViewById<EditText>(R.id.editTextComment)
