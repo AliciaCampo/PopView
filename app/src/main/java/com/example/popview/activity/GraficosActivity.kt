@@ -81,26 +81,23 @@ class GraficosActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error al cargar datos: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
     private fun updateBarChart(entries: List<BarEntry>) {
         val dataSet = BarDataSet(entries, "Listas")
-
-        // Crear una lista con los colores que quieres para las barras
         val colors = listOf(
             getColor(R.color.colorCreados),
             getColor(R.color.colorEliminados),
             getColor(R.color.colorEditados)
         )
-
-        // Usar la lista de colores para el DataSet
         dataSet.colors = colors
-
         val data = BarData(dataSet)
+        data.barWidth = 0.25f  // Reduce el ancho para dejar más espacio
         barChart.data = data
+        // Aumentar el espaciado entre barras
+        val xAxis = barChart.xAxis
+        xAxis.spaceMin = 1.5f  // Más espacio mínimo entre barras
+        xAxis.spaceMax = 1.5f  // Más espacio máximo entre barras
         barChart.invalidate()  // Redibuja el gráfico
     }
-
-
     private fun updatePieChart(entries: List<PieEntry>) {
         // Filtrar entradas con valor 0 para que no se dibujen
         val filteredEntries = entries.filter { it.value > 0 }
