@@ -95,7 +95,6 @@ class CrearListaActivity : AppCompatActivity() {
     private fun crearLista(nombre: String) {
         // Lógica para crear una lista
         lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionLista(this@CrearListaActivity)
             registrarInteraccionEnDevices()
         }
     }
