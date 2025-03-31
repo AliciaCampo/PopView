@@ -14,26 +14,19 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.firestore.FirebaseFirestore
 import com.github.mikephil.charting.formatter.ValueFormatter
 import androidx.core.content.ContextCompat
-
 class GraficosActivity : AppCompatActivity() {
-
     private lateinit var barChart: BarChart
     private lateinit var pieChart: PieChart
     private lateinit var lineChart: LineChart
-
     private val db = FirebaseFirestore.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graficos)
-
         barChart = findViewById(R.id.barChart)
         pieChart = findViewById(R.id.pieChart)
         lineChart = findViewById(R.id.lineChart)
-
         fetchDataFromFirebase()
     }
-
     private fun fetchDataFromFirebase() {
         // Aquí agregas la lógica para obtener datos de Firebase Firestore
         db.collection("Devices").get()
@@ -70,10 +63,8 @@ class GraficosActivity : AppCompatActivity() {
                     lineEntriesCreados.add(Entry(index.toFloat(), comentariosCreados.toFloat()))
                     lineEntriesEliminados.add(Entry(index.toFloat(), comentariosEliminados.toFloat()))
                     lineEntriesEditados.add(Entry(index.toFloat(), comentariosEditados.toFloat()))
-
                     index++
                 }
-
                 // Actualizar gráficos con los datos obtenidos
                 updateBarChart(barEntries)
                 updatePieChart(pieEntries)
@@ -138,37 +129,30 @@ class GraficosActivity : AppCompatActivity() {
             setDrawCircles(true)
             setDrawValues(true)
             mode = LineDataSet.Mode.CUBIC_BEZIER
-
             // Relleno semitransparente
             setDrawFilled(true)
             fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorCreadosSemi)
         }
-
         val dataSetEliminados = LineDataSet(entriesEliminados, "Comentarios Eliminados").apply {
             color = ContextCompat.getColor(this@GraficosActivity, R.color.colorEliminados)
             setCircleColor(color)
             setDrawCircles(true)
             setDrawValues(true)
             mode = LineDataSet.Mode.CUBIC_BEZIER
-
             setDrawFilled(true)
             fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorEliminadosSemi)
         }
-
         val dataSetEditados = LineDataSet(entriesEditados, "Comentarios Editados").apply {
             color = ContextCompat.getColor(this@GraficosActivity, R.color.colorEditados)
             setCircleColor(color)
             setDrawCircles(true)
             setDrawValues(true)
             mode = LineDataSet.Mode.CUBIC_BEZIER
-
             setDrawFilled(true)
             fillColor = ContextCompat.getColor(this@GraficosActivity, R.color.colorEditadosSemi)
         }
-
         val data = LineData(dataSetCreados, dataSetEliminados, dataSetEditados)
         lineChart.data = data
-
         // Ajustar eje Y para que no termine en 0
         lineChart.axisLeft.apply {
             axisMinimum = 0f
@@ -178,11 +162,7 @@ class GraficosActivity : AppCompatActivity() {
                 dataSetEditados.yMax
             ) + 2
         }
-
         lineChart.description.isEnabled = false
         lineChart.invalidate()
     }
-
-
-
 }
