@@ -75,7 +75,7 @@ class GraficosActivity : AppCompatActivity() {
             }
     }
     private fun updateBarChart(entries: List<BarEntry>) {
-        val dataSet = BarDataSet(entries, "Llistas")
+        val dataSet = BarDataSet(entries, "Llistes")
         val colors = listOf(
             getColor(R.color.colorCreados),
             getColor(R.color.colorEliminados),
