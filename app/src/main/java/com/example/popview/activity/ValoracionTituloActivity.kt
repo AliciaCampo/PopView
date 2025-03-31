@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.popview.PopViewApp
 import com.example.popview.R
 import com.example.popview.activity.CrearListaActivity
 import com.example.popview.adapter.ComentariosAdapter
@@ -23,6 +24,7 @@ import com.example.popview.data.DataStoreManager
 import com.example.popview.data.Titulo
 import com.example.popview.fragment.AddTituloLista
 import com.example.popview.service.PopViewAPI
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
@@ -284,6 +286,40 @@ class ValoracionTituloActivity : AppCompatActivity() {
             guardarEnFirebase("comentario", "eliminar")
         }
     }
+    private fun registrarComentarioCreado() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+        deviceRef.update("comentarioCreado", FieldValue.increment(1))
+            .addOnSuccessListener {
+                Log.d("PopViewApp", "Comentario registrado correctamente en Devices")
+            }
+            .addOnFailureListener { e ->
+                Log.e("PopViewApp", "Error al registrar comentario en Devices", e)
+            }
+    }
+    private fun registrarComentarioEditado() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+        deviceRef.update("comentarioEditado", FieldValue.increment(1))
+            .addOnSuccessListener {
+                Log.d("PopViewApp", "Comentario registrado correctamente en Devices")
+            }
+            .addOnFailureListener { e ->
+                Log.e("PopViewApp", "Error al registrar comentario en Devices", e)
+            }
+    }
+    private fun registrarComentarioEliminado() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+        deviceRef.update("comentarioEliminado", FieldValue.increment(1))
+            .addOnSuccessListener {
+                Log.d("PopViewApp", "Comentario registrado correctamente en Devices")
+            }
+            .addOnFailureListener { e ->
+                Log.e("PopViewApp", "Error al registrar comentario en Devices", e)
+            }
+    }
+
     private fun getPlatformIcon(platform: String): Int {
         return when (platform) {
             "Netflix" -> R.drawable.logo_netflix

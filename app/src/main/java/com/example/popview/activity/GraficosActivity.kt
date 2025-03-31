@@ -32,7 +32,7 @@ class GraficosActivity : AppCompatActivity() {
 
     private fun fetchDataFromFirebase() {
         // Aquí agregas la lógica para obtener datos de Firebase Firestore
-        db.collection("interacciones").get()
+        db.collection("Devices").get()
             .addOnSuccessListener { result ->
                 val barEntries = mutableListOf<BarEntry>()
                 val pieEntries = mutableListOf<PieEntry>()

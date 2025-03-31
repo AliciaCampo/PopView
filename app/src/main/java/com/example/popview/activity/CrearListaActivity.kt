@@ -2,6 +2,7 @@ package com.example.popview.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -9,42 +10,37 @@ import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.popview.PopViewApp
 import com.example.popview.data.Lista
 import com.example.popview.R
 import com.example.popview.data.DataStoreManager
 import com.example.popview.service.PopViewAPI
+import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-
 class CrearListaActivity : AppCompatActivity() {
     private val popViewService = PopViewAPI().API()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_lista)
-
         // Obtener el ID del usuario desde el Intent
         val usuarioId = intent.getIntExtra("usuarioId", -1)
-
         // Validar que el ID del usuario es válido
         if (usuarioId == -1) {
             Toast.makeText(this, "Error: Usuario no encontrado", Toast.LENGTH_SHORT).show()
             finish()  // Finalizar la actividad si no se pasa el ID de usuario
             return
         }
-
         val editTextTitulo = findViewById<EditText>(R.id.editTextTitulo)
         val switchPrivada = findViewById<Switch>(R.id.switchPrivada)
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
         val imageButtonEnrere: ImageButton = findViewById(R.id.imageButtonEnrere)
-
         // Regresar a la actividad anterior
         imageButtonEnrere.setOnClickListener {
             finish()
         }
-
         // Al hacer clic en "Guardar"
         btnGuardar.setOnClickListener {
             val titulo = editTextTitulo.text.toString()
@@ -57,7 +53,6 @@ class CrearListaActivity : AppCompatActivity() {
                     titulos = mutableListOf(),
                     usuarioId = usuarioId  // Pasamos el ID del usuario al crear la lista
                 )
-
                 // Usar CoroutineScope para realizar la petición en un hilo en segundo plano
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -70,8 +65,6 @@ class CrearListaActivity : AppCompatActivity() {
                             crearLista(titulo)
                             finish()  // Finalizar la actividad
                         }
-
-
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
@@ -84,27 +77,26 @@ class CrearListaActivity : AppCompatActivity() {
             }
         }
     }
-    private fun guardarEnFirebase(tipo: String, accion: String) {
-        val datos = hashMapOf(
-            "tipo" to tipo,
-            "accion" to accion,
-            "timestamp" to System.currentTimeMillis()
-        )
-        FirebaseFirestore.getInstance().collection("interacciones")
-            .add(datos)
+    private fun registrarInteraccionEnDevices() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+
+        // Incrementar en +1 el contador de listas creadas
+        deviceRef.update("listasCreadas", FieldValue.increment(1))
             .addOnSuccessListener {
-                println("Datos guardados en Firebase correctamente")
+                Log.d("PopViewApp", "Interacción guardada en Devices correctamente")
             }
             .addOnFailureListener { e ->
-                println("Error al guardar en Firebase: ${e.message}")
+                Log.e("PopViewApp", "Error al actualizar estadísticas en Devices", e)
             }
     }
+
     // Crear lista
     private fun crearLista(nombre: String) {
         // Lógica para crear una lista
         lifecycleScope.launch {
             DataStoreManager.guardarInteraccionLista(this@CrearListaActivity)
-            guardarEnFirebase("listas", "crear")
+            registrarInteraccionEnDevices()
         }
     }
 }

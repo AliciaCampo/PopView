@@ -14,11 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.popview.PopViewApp
 import com.example.popview.data.Lista
 import com.example.popview.adapter.PeliculasAdapter
 import com.example.popview.R
 import com.example.popview.data.DataStoreManager
 import com.example.popview.service.PopViewAPI
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -120,12 +122,12 @@ class EditLista : AppCompatActivity() {
                     esPrivada = esPrivada,
                     titulos = peliculasList
                 )
-
+                registrarListaEditada()
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         // Actualizar la lista existente en el servidor
                         popViewService.updateLista(lista.id, updatedLista)
-                        modificarLista(lista.id.toString(), lista.titulo)
+                        registrarListaEditada()
                         runOnUiThread {
                             finish()
                         }
@@ -164,7 +166,7 @@ class EditLista : AppCompatActivity() {
                                 val intent = Intent()
                                 intent.putExtra("eliminarLista", lista)
                                 setResult(RESULT_OK, intent)
-                                eliminarLista(lista.id.toString())
+                                registrarListaEliminada()
                                 finish()
                             }
                         } catch (e: Exception) {
@@ -205,7 +207,7 @@ class EditLista : AppCompatActivity() {
                                 }
                                 return@launch
                             }
-                            crearTitulo(tituloExistente.nombre)
+                            registrarTituloCreado()
 
                             // Añadir el título a la lista en memoria
                             val position = peliculasList.size
@@ -228,10 +230,6 @@ class EditLista : AppCompatActivity() {
 
                                 // Actualizar la lista existente en el servidor
                                 popViewService.addTituloToList(lista.id, tituloExistente.id)
-                                // Guardar interacción en DataStore y Firebase
-                                DataStoreManager.guardarInteraccionTitulo(this@EditLista)
-                                guardarEnFirebase("titulos", "crear")
-                                crearTitulo(tituloExistente.nombre)
                                 runOnUiThread {
                                     adapter.notifyDataSetChanged()
                                     editTextPelicula.text.clear()
@@ -259,52 +257,53 @@ class EditLista : AppCompatActivity() {
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
         descripcionField.visibility = if (isPrivada) EditText.GONE else EditText.VISIBLE
     }
-    private fun guardarEnFirebase(tipo: String, accion: String) {
-        val datos = hashMapOf(
-            "tipo" to tipo,
-            "accion" to accion,
-            "timestamp" to System.currentTimeMillis()
-        )
-        FirebaseFirestore.getInstance().collection("interacciones")
-            .add(datos)
+
+    private fun registrarListaEditada() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+
+        deviceRef.update("listasEditadas", FieldValue.increment(1))
             .addOnSuccessListener {
-                println("Datos guardados en Firebase correctamente")
+                Log.d("PopViewApp", "Lista editada registrada en Devices")
             }
             .addOnFailureListener { e ->
-                println("Error al guardar en Firebase: ${e.message}")
+                Log.e("PopViewApp", "Error al actualizar listas editadas en Devices", e)
             }
     }
-    private fun modificarLista(idLista: String, nuevoNombre: String) {
-        // Lógica para modificar una lista
-        lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionLista(this@EditLista)
-            guardarEnFirebase("listas", "modificar")
-        }
-    }
-    private fun eliminarLista(idLista: String) {
-        // Lógica para eliminar una lista
-        lifecycleScope.launch {
-            // Guardar en DataStore
-            DataStoreManager.guardarInteraccionLista(this@EditLista)
 
-            // Guardar en Firebase
-            guardarEnFirebase("listas", "eliminar")
-        }
+    private fun registrarListaEliminada() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+
+        deviceRef.update("listasEliminadas", FieldValue.increment(1))
+            .addOnSuccessListener {
+                Log.d("PopViewApp", "Lista registrado correctamente en Devices")
+            }
+            .addOnFailureListener { e ->
+                Log.e("PopViewApp", "Error al registrar lista en Devices", e)
+            }
     }
-    private fun crearTitulo(nombre: String) {
-        // Lógica para crear lista
-        lifecycleScope.launch {
-            DataStoreManager.guardarInteraccionTitulo(this@EditLista)
-            guardarEnFirebase("titulos", "crear")
-        }
+
+    private fun registrarTituloCreado() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+        deviceRef.update("titulosCreados", FieldValue.increment(1))
+            .addOnSuccessListener {
+                Log.d("PopViewApp", "Titulo creado registrado en Devices")
+            }
+            .addOnFailureListener { e ->
+                Log.e("PopViewApp", "Error al actualizar listas editadas en Devices", e)
+            }
     }
-    private fun eliminarTitulo(idTitulo: String) {
-        //llamada con eliminarTitulo(idTitulo)
-        lifecycleScope.launch {
-            // Guardar en DataStore
-            DataStoreManager.guardarInteraccionTitulo(this@EditLista)
-            // Guardar en Firebase
-            guardarEnFirebase("titulos", "eliminar")
-        }
+    private fun registrarTituloEliminado() {
+        val db = FirebaseFirestore.getInstance()
+        val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
+        deviceRef.update("titulosEliminados", FieldValue.increment(1))
+            .addOnSuccessListener {
+                Log.d("PopViewApp", "Titulo eliminado registrado en Devices")
+            }
+            .addOnFailureListener { e ->
+                Log.e("PopViewApp", "Error al actualizar listas editadas en Devices", e)
+            }
     }
 }
