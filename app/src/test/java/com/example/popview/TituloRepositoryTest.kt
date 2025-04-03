@@ -2,7 +2,7 @@ package com.example.popview
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-class TitleRepositoryTest {
+class TituloRepositoryTest {
     @Test
     fun `cargar 120 títulos correctamente`() {
         // Simulación de los títulos cargados (como si los devolviera el repositorio)
