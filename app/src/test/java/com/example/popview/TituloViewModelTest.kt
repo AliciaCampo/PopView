@@ -150,11 +150,4 @@ class TituloViewModelTest {
         assertNull(estado.errorPlataforma)
         assertNull(estado.errorRating)
     }
-
-
-
-
-
-
-
 }
