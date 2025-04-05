@@ -1,101 +1,135 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
+    android:background="?attr/colorSurface"
     tools:context=".activity.RegistroActivity">
 
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/Widget.PopView.AppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.PopView.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/registre"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/Widget.PopView.ActivityContent"
             android:orientation="vertical"
-            android:paddingHorizontal="32dp"
-            android:paddingTop="100dp"
             android:gravity="center_horizontal">
 
-            <!-- Imagen Avatar -->
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imagenAvatar"
-                android:layout_width="172dp"
-                android:layout_height="176dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="32dp"
                 android:src="@drawable/avatar"
-                android:layout_marginBottom="24dp" />
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.PopView.Circle"/>
 
-            <!-- TextInputLayout: Usuario -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/crear_cuenta"
+                android:textAppearance="@style/TextAppearance.PopView.Headline2"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputUsuario"
+                style="@style/Widget.PopView.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginTop="32dp"
+                app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/usuari"
-                    android:textColor="#A6003D"
-                    android:fontFamily="@font/oswald_regular" />
+                    android:inputType="text"
+                    android:maxLines="1"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- TextInputLayout: Email -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
+                style="@style/Widget.PopView.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginTop="16dp"
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:textColor="#A6003D"
-                    android:fontFamily="@font/oswald_regular" />
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- TextInputLayout: Edad -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEdad"
+                style="@style/Widget.PopView.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginTop="16dp"
+                app:startIconDrawable="@drawable/ic_cake">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/edat"
-                    android:textColor="#A6003D"
-                    android:fontFamily="@font/oswald_regular" />
+                    android:inputType="number"
+                    android:maxLines="1"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- TextInputLayout: Contraseña -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputContrasenya"
+                style="@style/Widget.PopView.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:layout_marginTop="16dp"
+                app:startIconDrawable="@drawable/ic_lock"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/contrasenya"
-                    android:textColor="#A6003D"
-                    android:fontFamily="@font/oswald_regular" />
+                    android:inputType="textPassword"
+                    android:maxLines="1"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Botón de Registro -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonRegistre"
-                android:layout_width="wrap_content"
+                style="@style/Widget.PopView.Button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/registre"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="12dp" />
+                android:layout_marginTop="32dp"
+                android:text="@string/registre"/>
+
         </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
