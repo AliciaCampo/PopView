@@ -1,7 +1,7 @@
 package com.example.popview;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import  org.junit.Assert.assertEquals;
+import  org.junit.Assert.assertFalse;
 
 import com.example.popview.data.Comentario
 import com.example.popview.viewmodel.ComentarioViewModel;
