@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.popview" />
+                  <option name="mobileSdkAppId" value="1:1042919108278:android:3b2ff60737b7ef39bc8017" />
+                  <option name="projectId" value="popview-ea39e" />
+                  <option name="projectNumber" value="1042919108278" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
