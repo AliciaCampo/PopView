@@ -1,179 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".activity.AjustesActivity">
 
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/Widget.PopView.AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/fragment"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.PopView.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/prefer_ncies"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            style="@style/Widget.PopView.ActivityContent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.PopView.ActivityCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/oswald_regular"
-                android:text="@string/prefer_ncies"
-                android:textColor="@color/md_theme_primary"
-                android:textSize="30sp" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textViewIdioma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/idioma"
+                        android:textAppearance="@style/TextAppearance.PopView.Body1"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.PopView.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:startIconDrawable="@drawable/ic_language">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spinnerIdioma"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.PopView.ActivityCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textViewMidaText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mida_del_text"
+                        android:textAppearance="@style/TextAppearance.PopView.Body1"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.PopView.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:startIconDrawable="@drawable/ic_text_fields">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spinnerMidaText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.PopView.ActivityCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textViewHorari"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/zona_horaria"
+                        android:textAppearance="@style/TextAppearance.PopView.Body1"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.PopView.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:startIconDrawable="@drawable/ic_access_time">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spinnerHorari"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.PopView.ActivityCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textViewTema"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tema"
+                        android:textAppearance="@style/TextAppearance.PopView.Body1"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.PopView.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:startIconDrawable="@drawable/ic_palette">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spinnerTema"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
-                android:id="@+id/linearLayoutIdioma"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewIdioma"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/oswald_regular"
-                    android:text="@string/idioma"
-                    android:textColor="@color/md_theme_primary"
-                    android:textSize="24sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerIdioma"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutMidaText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewMidaText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/oswald_regular"
-                    android:text="@string/mida_del_text"
-                    android:textColor="@color/md_theme_primary"
-                    android:textSize="24sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerMidaText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutHorari"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewHorari"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/oswald_regular"
-                    android:text="@string/zona_horaria"
-                    android:textColor="@color/md_theme_primary"
-                    android:textSize="24sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerHorari"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutTema"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewTema"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/oswald_regular"
-                    android:text="@string/tema"
-                    android:textColor="@color/md_theme_primary"
-                    android:textSize="24sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerTema"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:layout_marginTop="16dp">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipAjuda"
+                    style="@style/Widget.Material3.Chip.Assist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/ajuda"
-                    app:chipIcon="@drawable/help_circle" />
+                    app:chipIcon="@drawable/help_circle"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonRestablir"
+                    style="@style/Widget.PopView.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/restablir_els_valors_predeterminats" />
-                <Button
+                    android:text="@string/restablir_els_valors_predeterminats"/>
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonGraficos"
+                    style="@style/Widget.PopView.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Veure gràfics" />
+                    android:text="Veure gràfics"/>
+
             </LinearLayout>
+
         </LinearLayout>
-    </ScrollView>
 
-    <fragment
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/fragment"
-        android:name="com.example.popview.fragment.barramenu"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?attr/colorSurface"
+        app:elevation="8dp"
+        app:itemIconTint="?attr/colorPrimary"
+        app:itemTextColor="?attr/colorPrimary"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

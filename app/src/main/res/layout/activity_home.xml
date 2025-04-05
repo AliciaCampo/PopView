@@ -1,110 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".activity.HomeActivity">
 
-    <android.widget.ScrollView
-        android:id="@+id/scrollViewContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fragment_navigation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/Widget.PopView.AppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.PopView.Toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            style="@style/Widget.PopView.ActivityContent"
+            android:orientation="vertical">
 
             <fragment
                 android:id="@+id/categoriesFragment"
                 android:name="com.example.popview.fragment.CategoriesFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textRecomanacions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/oswald_regular"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/recomanacions"
-                android:textColor="@color/md_theme_primaryContainer"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/categoriesFragment" />
+                android:textAppearance="@style/TextAppearance.PopView.Headline2"
+                android:textColor="?attr/colorPrimary"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewRecomancions"
+                style="@style/Widget.PopView.ActivityList"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textRecomanacions" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <TextView
                 android:id="@+id/textPeliculesMesPopulars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/oswald_regular"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/pel_l_cules_m_s_populars"
-                android:textColor="@color/md_theme_primaryContainer"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewRecomancions" />
+                android:textAppearance="@style/TextAppearance.PopView.Headline2"
+                android:textColor="?attr/colorPrimary"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewImagePelisPop"
+                style="@style/Widget.PopView.ActivityList"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textPeliculesMesPopulars" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <TextView
                 android:id="@+id/textSeriesMesPopulars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/oswald_regular"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/s_ries_m_s_populars"
-                android:textColor="@color/md_theme_primaryContainer"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewImagePelisPop" />
+                android:textAppearance="@style/TextAppearance.PopView.Headline2"
+                android:textColor="?attr/colorPrimary"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewSeriesPop"
+                style="@style/Widget.PopView.ActivityList"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textSeriesMesPopulars" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </android.widget.ScrollView>
+        </LinearLayout>
 
-    <fragment
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/fragment_navigation"
-        android:name="com.example.popview.fragment.barramenu"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?attr/colorSurface"
+        app:elevation="8dp"
+        app:itemIconTint="?attr/colorPrimary"
+        app:itemTextColor="?attr/colorPrimary"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
