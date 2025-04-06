@@ -33,9 +33,6 @@
             android:name=".fragment.AddTituloLista"
             android:exported="false" />
         <activity
-            android:name=".activity.plantilla_valoracion_titulo"
-            android:exported="false" />
-        <activity
             android:name=".activity.CrearListaActivity"
             android:exported="false" />
         <activity
