@@ -97,4 +97,51 @@ class ComentarioViewModelTest {
         assertEquals(null, estado.errorUsuarioId)
         assertEquals(null, estado.errorRating)
     }
+
+    @Test
+    fun `comentario con comentaris de longitud máxima permitida es válido`() {
+        val comentarioValido = Comentario(
+            usuari_id = 1,
+            comentaris = "a".repeat(500), // Asumiendo que 500 es la longitud máxima permitida
+            rating = 3.0f
+        )
+
+        val estado = viewModel.validarComentario(comentarioValido)
+
+        assertTrue(estado.esValido)
+        assertEquals(null, estado.errorComentario)
+    }
+
+    @Test
+    fun `agregar comentario con comentaris vacío retorna error`() {
+        val comentarioInvalido = Comentario(
+            usuari_id = 1,
+            comentaris = "",
+            rating = 3.0f
+        )
+
+        val estado = viewModel.validarComentario(comentarioInvalido)
+
+        assertFalse(estado.esValido)
+        assertEquals("El comentario no puede estar vacío", estado.errorComentario)
+    }
+
+    @Test
+    fun `agregar múltiples comentarios válidos incrementa el tamaño de la lista`() {
+        val comentario1 = Comentario(
+            usuari_id = 1,
+            comentaris = "Primer comentario",
+            rating = 4.0f
+        )
+        val comentario2 = Comentario(
+            usuari_id = 2,
+            comentaris = "Segundo comentario",
+            rating = 3.5f
+        )
+
+        viewModel.agregarComentario(comentario1)
+        viewModel.agregarComentario(comentario2)
+
+        assertEquals(2, viewModel.obtenerTodos().size)
+    }
 }
