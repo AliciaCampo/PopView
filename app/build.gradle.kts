@@ -91,5 +91,7 @@ dependencies {
     testImplementation (libs.mockito.kotlin )// Mockito per a Kotlin
     androidTestImplementation (libs.mockito.core) // Mockito core
     androidTestImplementation (libs.mockito.kotlin )// Mockito per a Kotlin
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+
 }
 
