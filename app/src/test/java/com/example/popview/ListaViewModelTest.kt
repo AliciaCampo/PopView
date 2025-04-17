@@ -115,4 +115,37 @@ class ListaViewModelTest {
         val resultado = viewModel.agregarTitulo(tituloValido)
         assertFalse(resultado)
     }
+
+    @Test
+    fun `actualizarPrivada amb valor null manté la llista no vàlida`() {
+        viewModel.actualizarPrivada(null)
+        val estat = viewModel.validarLista()
+        assertFalse(estat.esValido)
+        assertEquals("Has d'indicar si la llista és privada o pública", estat.errorPrivada)
+    }
+
+    @Test
+    fun `agregarTitulo amb nom en blanc no afegeix el títol`() {
+        val tituloInvalido = Titulo(
+            imagen = "https://exemple.com/imatge.jpg",
+            nombre = "",
+            description = "Sense nom",
+            genero = "Drama",
+            edadRecomendada = 12,
+            platforms = "HBO",
+            rating = 3.5f,
+            comments = emptyList(),
+            id = 2
+        )
+        val resultat = viewModel.agregarTitulo(tituloInvalido)
+        assertFalse(resultat)
+        assertTrue(viewModel.obtenerTitulos().isEmpty())
+    }
+
+    @Test
+    fun `eliminarTitulo amb llista buida retorna false`() {
+        val resultat = viewModel.eliminarTitulo(42)
+        assertFalse(resultat)
+        assertTrue(viewModel.obtenerTitulos().isEmpty())
+    }
 }
