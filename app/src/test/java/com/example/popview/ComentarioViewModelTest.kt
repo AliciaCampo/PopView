@@ -30,7 +30,7 @@ class ComentarioViewModelTest {
         assertFalse(estado.esValido)
         assertEquals("El comentario no puede estar vacío", estado.errorComentario)
         assertEquals("El ID de usuario debe ser mayor que 0", estado.errorUsuarioId)
-        assertEquals("La puntuación debe estar entre 0 y 5", estado.errorRating)
+        assertEquals("La puntuación debe estar entre 0 y 4", estado.errorRating)
     }
 
     @Test
