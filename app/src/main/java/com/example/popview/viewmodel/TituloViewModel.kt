@@ -7,6 +7,9 @@ data class EstadoTitulo(
     var esValido: Boolean,
     var errorNombre: String? = null,
     var errorImagen: String? = null,
+    var errorDescripcion: String? = null,
+    var errorGenero: String? = null,
+    var errorEdad: String? = null,
     var errorPlataforma: String? = null,
     var errorRating: String? = null
 )
@@ -17,14 +20,34 @@ class TituloViewModel : ViewModel() {
 
     fun validarTitulo(titulo: Titulo): EstadoTitulo {
         val estado = EstadoTitulo(esValido = true)
+
         if (titulo.nombre.isBlank()) {
             estado.esValido = false
             estado.errorNombre = "El nom no pot estar buit"
         }
+
         if (titulo.imagen.isBlank()) {
             estado.esValido = false
             estado.errorImagen = "Cal afegir una imatge"
         }
+
+        if (titulo.description.isBlank()) {
+            estado.esValido = false
+            estado.errorDescripcion = "Cal afegir una descripció"
+        }
+
+        if (titulo.genero.isNullOrBlank()) {
+            estado.esValido = false
+            estado.errorGenero = "Cal indicar un gènere"
+        }
+
+
+        if (titulo.edadRecomendada == null || titulo.edadRecomendada <= 0) {
+            estado.esValido = false
+            estado.errorEdad = "L'edat recomanada ha de ser major que 0"
+        }
+
+
         if (titulo.platforms.isBlank()) {
             estado.esValido = false
             estado.errorPlataforma = "Cal indicar almenys una plataforma"
@@ -53,5 +76,6 @@ class TituloViewModel : ViewModel() {
     fun filtrarPorGenero(genero: String): List<Titulo> {
         return listaTitulos.filter { it.genero == genero }
     }
+
     fun obtenerTodos(): List<Titulo> = listaTitulos
 }

@@ -83,6 +83,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.androidx.arch.core.testing)
     implementation( libs.kotlin.parcelize.runtime)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockwebserver)
