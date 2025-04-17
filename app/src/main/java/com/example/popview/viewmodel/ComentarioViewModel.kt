@@ -26,7 +26,7 @@ class ComentarioViewModel : ViewModel() {
         }
         if (comentario.rating < 0 || comentario.rating > 5) {
             estado.esValido = false
-            estado.errorRating = "La puntuación debe estar entre 0 y 5"
+            estado.errorRating = "La puntuación debe estar entre 0 y 4"
         }
         return estado
     }
