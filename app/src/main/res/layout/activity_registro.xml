@@ -88,6 +88,21 @@
                     android:fontFamily="@font/oswald_regular" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- TextInputLayout: Contraseña -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputContrasenyaDos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contrasenya2"
+                    android:textColor="#A6003D"
+                    android:fontFamily="@font/oswald_regular" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Botón de Registro -->
             <Button
                 android:id="@+id/buttonRegistre"
