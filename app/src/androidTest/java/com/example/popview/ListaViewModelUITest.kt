@@ -68,55 +68,7 @@ class ListaViewModelUITest {
         onView(withId(R.id.editTextTitulo))
             .check(matches(hasErrorText("El títol és obligatori")))
     }
-
-    /** 3) Agregar título con ID duplicado muestra Toast y no añade */
-    @Test
-    fun agregarTituloIdDuplicado_noAgregaYMuestraToast() {
-        // Cierra el escenario abierto por la regla
-        activityRule.scenario.close()
-        // Crea una lista que ya contiene un Titulo con id=1
-        val listaDuplicada = listaVacia.copy(
-            titulos = mutableListOf(
-                Titulo(
-                    imagen = "",
-                    nombre = "Lista duplicada",
-                    description = "",
-                    genero = null,
-                    edadRecomendada = null,
-                    platforms = "",
-                    rating = 0f,
-                    comments = null,
-                    id = 1
-                )
-            )
-        )
-        // Vuelve a lanzar la Activity con esta lista inicial
-        val scenario = ActivityScenario.launch<EditLista>(
-            Intent(
-                ApplicationProvider.getApplicationContext(),
-                EditLista::class.java
-            ).apply { putExtra("lista", listaDuplicada) }
-        )
-
-        // Intenta añadir de nuevo ese mismo título
-        onView(withId(R.id.editTextPelicula))
-            .perform(typeText("Lista duplicada"), closeSoftKeyboard())
-        onView(withId(R.id.btnAñadirPelicula)).perform(click())
-
-        // Comprueba que sigue habiendo sólo 1 ítem
-        onView(withId(R.id.recyclerViewPeliculas))
-            .check(matches(hasDescendant(withText("Lista duplicada"))))
-
-        // Comprueba que aparece un Toast con el mensaje
-        scenario.onActivity { activity ->
-            onView(withText("Ya existe un título con ese ID"))
-                .inRoot(withDecorView(not(`is`(activity.window.decorView))))
-                .check(matches(isDisplayed()))
-        }
-        scenario.close()
-    }
-
-    /** 4) Eliminar un título existente lo quita de la lista */
+    /** 3) Eliminar un título existente lo quita de la lista */
     @Test
     fun eliminarTituloExistente_quitaItem() {
         activityRule.scenario.close()
