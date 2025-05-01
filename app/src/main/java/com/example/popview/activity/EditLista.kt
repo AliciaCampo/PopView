@@ -201,49 +201,48 @@ class EditLista : AppCompatActivity() {
             if (peliculaTitulo.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        // 1) Obtener todos los títulos disponibles en el servidor
+                        // 1) Búsqueda en API
                         val titulos = popViewService.getAllTitols() ?: emptyList()
-                        val tituloExistente = titulos.find { it.nombre.equals(peliculaTitulo, ignoreCase = true) }
-                        // Dentro de tu btnAñadirPelicula.setOnClickListener {...}
+                        val tituloExistente = titulos.find {
+                            it.nombre.equals(peliculaTitulo, ignoreCase = true)
+                        }
+
                         if (tituloExistente != null) {
-                            // ya estás dentro de:
-                            CoroutineScope(Dispatchers.IO).launch {
-                                // …validaciones previas…
-                                // 1) Intentas añadir al ViewModel
-                                val seAñadió = viewModel.agregarTitulo(tituloExistente)
-                                if (seAñadió) {
-                                    // 2) Llamada suspend para enviar al servidor: OK porque estás en Dispatcher.IO
-                                    try {
-                                        popViewService.addTituloToList(listaData!!.id, tituloExistente.id)
-                                    } catch (e: Exception) {
-                                        withContext(Dispatchers.Main) {
-                                            Toast.makeText(this@EditLista, "Error al enviar al servidor: ${e.message}", Toast.LENGTH_SHORT).show()
-                                        }
-                                        return@launch
-                                    }
-                                    // 3) Actualizas UI y VM en el hilo principal
-                                    withContext(Dispatchers.Main) {
-                                        peliculasList.add(tituloExistente)
-                                        adapter.notifyItemInserted(peliculasList.size - 1)
-                                        adapter.notifyDataSetChanged()
-                                        viewModel._titulos.clear()
-                                        viewModel._titulos.addAll(peliculasList)
-                                        editTextPelicula.text.clear()
-                                    }
-                                } else {
-                                    // 4) Si no se añadió (duplicado o campo vacío), falla también en Main
-                                    withContext(Dispatchers.Main) {
-                                        if (tituloExistente.nombre.isBlank()) {
-                                            editTextTitulo.error = "El títol és obligatori"
-                                        } else {
-                                            Toast.makeText(this@EditLista, "Ya existe un título con ese ID", Toast.LENGTH_SHORT).show()
-                                        }
+                            // 2) Validación en el ViewModel
+                            val seAñadió = viewModel.agregarTitulo(tituloExistente)
+
+                            if (seAñadió) {
+                                // 3) Envío al servidor (IO)
+                                popViewService.addTituloToList(listaData!!.id, tituloExistente.id)
+
+                                // 4) Actualización de UI y sincronización VM (Main)
+                                withContext(Dispatchers.Main) {
+                                    peliculasList.add(tituloExistente)
+                                    adapter.notifyItemInserted(peliculasList.size - 1)
+                                    adapter.notifyDataSetChanged()
+
+                                    viewModel._titulos.clear()
+                                    viewModel._titulos.addAll(peliculasList)
+
+                                    editTextPelicula.text.clear()
+                                }
+                            } else {
+                                // 5) Falla duplicado o nombre en blanco (Main)
+                                withContext(Dispatchers.Main) {
+                                    if (tituloExistente.nombre.isBlank()) {
+                                        editTextTitulo.error = "El títol és obligatori"
+                                    } else {
+                                        Toast.makeText(
+                                            this@EditLista,
+                                            "Ya existe un título con ese ID",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                             }
-                        }
-                        else {
-                            runOnUiThread {
+                        } else {
+                            // Título no existe en el servidor (Main)
+                            withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     this@EditLista,
                                     "El títol no existeix al servidor.",
@@ -252,8 +251,8 @@ class EditLista : AppCompatActivity() {
                             }
                         }
                     } catch (e: Exception) {
-                        e.printStackTrace()
-                        runOnUiThread {
+                        // Error de red u otro (Main)
+                        withContext(Dispatchers.Main) {
                             Toast.makeText(
                                 this@EditLista,
                                 "Error al afegir el títol: ${e.message}",
@@ -263,10 +262,11 @@ class EditLista : AppCompatActivity() {
                     }
                 }
             } else {
-                // Campo vacío: mostramos directamente el error
+                // Campo vacío: error inmediato
                 editTextTitulo.error = "El títol és obligatori"
             }
         }
+
     }
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
         descripcionField.visibility = if (isPrivada) EditText.GONE else EditText.VISIBLE
