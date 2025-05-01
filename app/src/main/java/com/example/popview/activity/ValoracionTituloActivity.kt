@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -17,18 +18,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.popview.PopViewApp
 import com.example.popview.R
-import com.example.popview.activity.CrearListaActivity
 import com.example.popview.adapter.ComentariosAdapter
 import com.example.popview.data.Comentario
-import com.example.popview.data.DataStoreManager
 import com.example.popview.data.Titulo
 import com.example.popview.fragment.AddTituloLista
 import com.example.popview.service.PopViewAPI
+import com.example.popview.viewmodel.ComentarioViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 class ValoracionTituloActivity : AppCompatActivity() {
+    private val viewModel: ComentarioViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var comentarioAdapter: ComentariosAdapter
     private val api = PopViewAPI().API()
