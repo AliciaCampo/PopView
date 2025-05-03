@@ -89,6 +89,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
 
             if (hayError) return@setOnClickListener
 
+
             enviarComentario(comentarioText, rating, titulo.id)
         }
 

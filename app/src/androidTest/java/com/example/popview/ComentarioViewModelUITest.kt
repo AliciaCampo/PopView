@@ -92,3 +92,4 @@ class ComentarioViewModelUITest {
             .check(matches(hasErrorText("La puntuación debe estar entre 0 y 4")))
     }
 }
+
