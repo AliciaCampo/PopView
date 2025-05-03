@@ -105,6 +105,7 @@ class RegistroActivityUITest {
             .check(matches(hasErrorText("El format de l'email no és vàlid")))
     }
 
+
     @Test
     fun edatInvalidaMenor16() {
         // edad <16
