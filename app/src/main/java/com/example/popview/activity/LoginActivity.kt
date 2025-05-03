@@ -25,10 +25,23 @@ class LoginActivity : AppCompatActivity() {
         inici.setOnClickListener {
             val userID = editTextUserID.text.toString()
             val password = editTextPassword.text.toString()
-
+            var hayError = false
+            if (userID.isEmpty()) {
+                editTextUserID.error = "L'ID d'usuari és obligatori"
+                hayError = true
+            }
+            if (password.isEmpty()) {
+                editTextPassword.error = "La contrasenya és obligatòria"
+                hayError = true
+            }
+            if (hayError) return@setOnClickListener
+            if (!isValidUser(userID, password)) {
+                editTextPassword.error = "ID o contrasenya incorrectes"
+                return@setOnClickListener
+            }
             // Validar campos de texto
             if (userID.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Siusplau, escriu l'ID de l'usuari i la contrasenya", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Siusplau, escriu  l'usuari i la contrasenya", Toast.LENGTH_SHORT).show()
             } else {
                 // Verificar las credenciales del usuario
                 if (isValidUser(userID, password)) {
