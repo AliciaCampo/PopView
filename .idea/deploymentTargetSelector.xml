@@ -2,17 +2,10 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-<<<<<<< HEAD
-      <SelectionState runConfigName="visualitzacioInicial()">
+      <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="RegistroActivityUITest">
-=======
-      <SelectionState runConfigName="RegistroActivityUITest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="LoginActivityUITest">
->>>>>>> b63cbbd831b08b88ccdfb257bbbcc4a387879b24
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
