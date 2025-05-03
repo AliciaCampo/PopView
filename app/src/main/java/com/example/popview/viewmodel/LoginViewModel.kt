@@ -5,47 +5,42 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 data class EstadoLogin(
-    var esValido: Boolean,
-    var errorNombreUsuario: String? = null,
-    var errorEmailUsuario: String? = null,
-    var errorContrasenyaUsuario: String? = null
+    val esValido: Boolean,
+    val errorUserID: String?   = null,
+    val errorPassword: String? = null
 )
 
 class LoginViewModel : ViewModel() {
 
-    private val _validacionLogin = MutableLiveData<EstadoLogin>()
-    val validacionLogin: LiveData<EstadoLogin> = _validacionLogin
-
-    fun validarCredenciales(nombre: String?, email: String?, contrasenya: String?) {
-        val estado = EstadoLogin(esValido = true)
-
-        validarNombre(nombre, estado)
-        validarEmail(email, estado)
-        validarContrasenya(contrasenya, estado)
-
-        _validacionLogin.value = estado
+    companion object {
+        const val ERROR_INCORRECT_CREDENTIALS = "ID o contrasenya incorrectes"
     }
 
-    private fun validarNombre(nombre: String?, estado: EstadoLogin) {
-        if (nombre.isNullOrBlank() || nombre.length < 5) {
-            estado.errorNombreUsuario = "El nom ha de tenir mínim 5 caràcters"
-            estado.esValido = false
-        }
-    }
+    private val _loginState = MutableLiveData<EstadoLogin>()
+    val loginState: LiveData<EstadoLogin> = _loginState
 
-    private fun validarEmail(email: String?, estado: EstadoLogin) {
-        val emailRegex = Regex("^[\\w.-]+@[\\w.-]+\\.(com|es|org|net)\$")
-        if (email.isNullOrBlank() || !emailRegex.matches(email)) {
-            estado.errorEmailUsuario = "L'email no és vàlid"
-            estado.esValido = false
+    fun validar(userID: String, password: String) {
+        // Campos vacíos
+        if (userID.isBlank() || password.isBlank()) {
+            _loginState.value = EstadoLogin(
+                esValido      = false,
+                errorUserID   = if (userID.isBlank()) "L'ID d'usuari és obligatori" else null,
+                errorPassword = if (password.isBlank()) "La contrasenya és obligatòria" else null
+            )
+            return
         }
-    }
 
-    private fun validarContrasenya(contrasenya: String?, estado: EstadoLogin) {
-        val regexContrasenya = Regex("^(?=.*[0-9])(?=.*[!@#\$%^&*()_+=\\-{}|:;\"'<>,.?/]).{8,}\$")
-        if (contrasenya.isNullOrBlank() || !regexContrasenya.matches(contrasenya)) {
-            estado.errorContrasenyaUsuario = "La contrasenya ha de tenir mínim 8 caràcters, un número i un símbol especial"
-            estado.esValido = false
+        // Credenciales estáticas
+        if (userID != "user2131" || password != "pirineus") {
+            _loginState.value = EstadoLogin(
+                esValido      = false,
+                errorUserID   = null,
+                errorPassword = ERROR_INCORRECT_CREDENTIALS
+            )
+            return
         }
+
+        // Si todo OK
+        _loginState.value = EstadoLogin(esValido = true)
     }
 }

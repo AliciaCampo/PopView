@@ -3,41 +3,14 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
-        <entry key="-925572558">
-          <value>
-            <AndroidTestResultsTableState>
-              <option name="preferredColumnWidths">
-                <map>
-                  <entry key="Duration" value="90" />
-<<<<<<< HEAD
-                  <entry key="Medium_Phone" value="120" />
-                  <entry key="Tests" value="360" />
-=======
-                  <entry key="Tests" value="360" />
-                  <entry key="samsung SM-A336B" value="120" />
->>>>>>> b63cbbd831b08b88ccdfb257bbbcc4a387879b24
-                </map>
-              </option>
-            </AndroidTestResultsTableState>
-          </value>
-        </entry>
-<<<<<<< HEAD
-        <entry key="2018626357">
-=======
         <entry key="113394998">
->>>>>>> b63cbbd831b08b88ccdfb257bbbcc4a387879b24
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
-<<<<<<< HEAD
-                  <entry key="Medium_Phone" value="120" />
-                  <entry key="Tests" value="360" />
-=======
                   <entry key="Tests" value="360" />
                   <entry key="samsung SM-A336B" value="120" />
->>>>>>> b63cbbd831b08b88ccdfb257bbbcc4a387879b24
                 </map>
               </option>
             </AndroidTestResultsTableState>

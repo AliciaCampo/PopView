@@ -22,29 +22,27 @@ class LoginActivityUITest {
         // Dejamos ambos campos vacíos
         onView(withId(R.id.editTextUserID)).perform(clearText())
         onView(withId(R.id.editTextPassword)).perform(clearText())
-        // Pulsamos iniciar
         onView(withId(R.id.inici)).perform(click())
 
-        // Verificamos error en userID
+        // Comprobamos inmediatamente los errores
         onView(withId(R.id.editTextUserID))
             .check(matches(hasErrorText("L'ID d'usuari és obligatori")))
 
-        // Verificamos error en password
         onView(withId(R.id.editTextPassword))
             .check(matches(hasErrorText("La contrasenya és obligatòria")))
     }
 
     @Test
     fun credencialesInvalidas_muestraErrorEnPassword() {
-        // Introducimos userID válido
+        // Introducimos un user válido para saltar el primer error
         onView(withId(R.id.editTextUserID))
             .perform(typeText("user2131"), closeSoftKeyboard())
-        // Contraseña no válida
+        // Contraseña inválida
         onView(withId(R.id.editTextPassword))
             .perform(typeText("badpass"), closeSoftKeyboard())
         onView(withId(R.id.inici)).perform(click())
 
-        // Verificamos que solo hay error en password
+        // Comprobamos el error en la contraseña
         onView(withId(R.id.editTextPassword))
             .check(matches(hasErrorText("ID o contrasenya incorrectes")))
     }
