@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -20,13 +21,16 @@ import com.example.popview.adapter.PeliculasAdapter
 import com.example.popview.R
 import com.example.popview.data.DataStoreManager
 import com.example.popview.service.PopViewAPI
+import com.example.popview.viewmodel.ListaViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EditLista : AppCompatActivity() {
+    private val viewModel: ListaViewModel by viewModels()
     private val peliculasList = mutableListOf<Titulo>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PeliculasAdapter
@@ -55,6 +59,8 @@ class EditLista : AppCompatActivity() {
                             peliculasList.clear() // Limpiamos la lista actual
                             peliculasList.addAll(titols) // Añadimos los títulos obtenidos
                             adapter.notifyDataSetChanged() // Notificamos al adaptador que los datos han cambiado
+                            viewModel._titulos.clear()
+                            viewModel._titulos.addAll(peliculasList)
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -195,73 +201,79 @@ class EditLista : AppCompatActivity() {
             if (peliculaTitulo.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        // Obtener todos los títulos disponibles en el servidor
+                        // 1) Búsqueda en API
                         val titulos = popViewService.getAllTitols() ?: emptyList()
-                        val tituloExistente = titulos.find { it.nombre.equals(peliculaTitulo, ignoreCase = true) }
+                        val tituloExistente = titulos.find {
+                            it.nombre.equals(peliculaTitulo, ignoreCase = true)
+                        }
 
                         if (tituloExistente != null) {
-                            // Verifica que el título tiene todos los datos necesarios
-                            if (tituloExistente.id == null || tituloExistente.nombre.isNullOrEmpty()) {
-                                runOnUiThread {
-                                    Toast.makeText(this@EditLista, "El títol no és vàlid.", Toast.LENGTH_SHORT).show()
-                                }
-                                return@launch
-                            }
-                            registrarTituloCreado()
+                            // 2) Validación en el ViewModel
+                            val seAñadió = viewModel.agregarTitulo(tituloExistente)
 
-                            // Añadir el título a la lista en memoria
-                            val position = peliculasList.size
-                            peliculasList.add(tituloExistente)
-                            runOnUiThread {
-                                adapter.notifyItemInserted(position)
-                                editTextPelicula.text.clear()
-                            }
-                            // Actualizar la lista en el servidor
-                            listaData?.let { lista ->
-                                val updatedLista = lista.copy(titulos = peliculasList)
+                            if (seAñadió) {
+                                // 3) Envío al servidor (IO)
+                                popViewService.addTituloToList(listaData!!.id, tituloExistente.id)
 
-                                // Verifica que la lista tiene todos los datos necesarios antes de actualizar
-                                if (updatedLista.titulos.isNullOrEmpty() || updatedLista.titulo.isNullOrEmpty()) {
-                                    runOnUiThread {
-                                        Toast.makeText(this@EditLista, "La llista no té tots els camps necessaris.", Toast.LENGTH_SHORT).show()
-                                    }
-                                    return@launch
-                                }
-
-                                // Actualizar la lista existente en el servidor
-                                popViewService.addTituloToList(lista.id, tituloExistente.id)
-                                runOnUiThread {
+                                // 4) Actualización de UI y sincronización VM (Main)
+                                withContext(Dispatchers.Main) {
+                                    peliculasList.add(tituloExistente)
+                                    adapter.notifyItemInserted(peliculasList.size - 1)
                                     adapter.notifyDataSetChanged()
+
+                                    viewModel._titulos.clear()
+                                    viewModel._titulos.addAll(peliculasList)
+
                                     editTextPelicula.text.clear()
+                                }
+                            } else {
+                                // 5) Falla duplicado o nombre en blanco (Main)
+                                withContext(Dispatchers.Main) {
+                                    if (tituloExistente.nombre.isBlank()) {
+                                        editTextTitulo.error = "El títol és obligatori"
+                                    } else {
+                                        Toast.makeText(
+                                            this@EditLista,
+                                            "Ya existe un título con ese ID",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
                             }
                         } else {
-                            runOnUiThread {
-                                Toast.makeText(this@EditLista, "El títol no existeix al servidor.", Toast.LENGTH_SHORT).show()
+                            // Título no existe en el servidor (Main)
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    this@EditLista,
+                                    "El títol no existeix al servidor.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     } catch (e: Exception) {
-                        e.printStackTrace()
-                        runOnUiThread {
-                            Toast.makeText(this@EditLista, "Error al afegir el títol: ${e.message}", Toast.LENGTH_SHORT).show()
+                        // Error de red u otro (Main)
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@EditLista,
+                                "Error al afegir el títol: ${e.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
             } else {
-                Toast.makeText(this, "Si us plau, introdueix un títol.", Toast.LENGTH_SHORT).show()
+                // Campo vacío: error inmediato
+                editTextTitulo.error = "El títol és obligatori"
             }
         }
 
     }
-
     private fun updateDescripcionVisibility(isPrivada: Boolean, descripcionField: EditText) {
         descripcionField.visibility = if (isPrivada) EditText.GONE else EditText.VISIBLE
     }
-
     private fun registrarListaEditada() {
         val db = FirebaseFirestore.getInstance()
         val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
-
         deviceRef.update("listasEditadas", FieldValue.increment(1))
             .addOnSuccessListener {
                 Log.d("PopViewApp", "Lista editada registrada en Devices")
@@ -270,11 +282,9 @@ class EditLista : AppCompatActivity() {
                 Log.e("PopViewApp", "Error al actualizar listas editadas en Devices", e)
             }
     }
-
     private fun registrarListaEliminada() {
         val db = FirebaseFirestore.getInstance()
         val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)
-
         deviceRef.update("listasEliminadas", FieldValue.increment(1))
             .addOnSuccessListener {
                 Log.d("PopViewApp", "Lista registrado correctamente en Devices")
@@ -283,7 +293,6 @@ class EditLista : AppCompatActivity() {
                 Log.e("PopViewApp", "Error al registrar lista en Devices", e)
             }
     }
-
     private fun registrarTituloCreado() {
         val db = FirebaseFirestore.getInstance()
         val deviceRef = db.collection("Devices").document(PopViewApp.idDispositiu)

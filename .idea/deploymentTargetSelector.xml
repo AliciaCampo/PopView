@@ -13,10 +13,23 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
+<<<<<<< HEAD
       <SelectionState runConfigName="visualitzacioInicial()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="RegistroActivityUITest">
+=======
+      <SelectionState runConfigName="ListaViewModelUITest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="agregarTituloExitoso_muestraItemEnRecycler()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="testNombreUsuarioVacioMuestraError()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="LoginActivityUITest">
+>>>>>>> a9adb74125c6a8a47cdbfa71cefe631af8aa6407
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
