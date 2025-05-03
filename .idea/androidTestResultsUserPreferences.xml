@@ -3,73 +3,27 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
-<<<<<<< HEAD
         <entry key="-925572558">
-=======
-        <entry key="-1995936755">
->>>>>>> a9adb74125c6a8a47cdbfa71cefe631af8aa6407
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
-<<<<<<< HEAD
                   <entry key="Medium_Phone" value="120" />
                   <entry key="Tests" value="360" />
-=======
-                  <entry key="Tests" value="360" />
-                  <entry key="samsung SM-A336B" value="120" />
->>>>>>> a9adb74125c6a8a47cdbfa71cefe631af8aa6407
                 </map>
               </option>
             </AndroidTestResultsTableState>
           </value>
         </entry>
-<<<<<<< HEAD
         <entry key="2018626357">
-=======
-        <entry key="-1928681516">
->>>>>>> a9adb74125c6a8a47cdbfa71cefe631af8aa6407
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
-<<<<<<< HEAD
                   <entry key="Medium_Phone" value="120" />
                   <entry key="Tests" value="360" />
-=======
-                  <entry key="Tests" value="360" />
-                  <entry key="motorola moto g51 5G" value="120" />
-                </map>
-              </option>
-            </AndroidTestResultsTableState>
-          </value>
-        </entry>
-        <entry key="113394998">
-          <value>
-            <AndroidTestResultsTableState>
-              <option name="preferredColumnWidths">
-                <map>
-                  <entry key="Duration" value="90" />
-                  <entry key="Tests" value="360" />
-                  <entry key="samsung SM-A336B" value="120" />
-                </map>
-              </option>
-            </AndroidTestResultsTableState>
-          </value>
-        </entry>
-        <entry key="1740678225">
-          <value>
-            <AndroidTestResultsTableState>
-              <option name="preferredColumnWidths">
-                <map>
-                  <entry key="Duration" value="90" />
-                  <entry key="Medium_Phone_API_35" value="120" />
-                  <entry key="Tests" value="360" />
-                  <entry key="motorola moto g51 5G" value="120" />
-                  <entry key="samsung SM-A336B" value="120" />
->>>>>>> a9adb74125c6a8a47cdbfa71cefe631af8aa6407
                 </map>
               </option>
             </AndroidTestResultsTableState>

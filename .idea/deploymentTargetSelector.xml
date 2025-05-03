@@ -2,34 +2,10 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="app">
-        <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-03-22T12:14:54.980966400Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=RFCTB05RQWJ" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
-      </SelectionState>
-<<<<<<< HEAD
       <SelectionState runConfigName="visualitzacioInicial()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="RegistroActivityUITest">
-=======
-      <SelectionState runConfigName="ListaViewModelUITest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="agregarTituloExitoso_muestraItemEnRecycler()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="testNombreUsuarioVacioMuestraError()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="LoginActivityUITest">
->>>>>>> a9adb74125c6a8a47cdbfa71cefe631af8aa6407
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
