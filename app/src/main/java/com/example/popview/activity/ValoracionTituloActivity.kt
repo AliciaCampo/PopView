@@ -65,6 +65,7 @@ class ValoracionTituloActivity : AppCompatActivity() {
         }
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         val editTextComment = findViewById<EditText>(R.id.editTextComment)
         val ratingBarComment = findViewById<RatingBar>(R.id.ratingBarComment)
         val buttonSend = findViewById<ImageButton>(R.id.buttonSend)
@@ -72,11 +73,24 @@ class ValoracionTituloActivity : AppCompatActivity() {
         buttonSend.setOnClickListener {
             val comentarioText = editTextComment.text.toString()
             val rating = ratingBarComment.rating
-            if (comentarioText.isNotEmpty()) {
-                enviarComentario(comentarioText, rating, titulo.id)  // Pasar titulo.id
-            } else {
+            var hayError = false
+
+            if (comentarioText.isEmpty()) {
+                editTextComment.error = "El comentario no puede estar vacío"
                 Toast.makeText(this, "El comentario no puede estar vacío", Toast.LENGTH_SHORT).show()
+                hayError = true
             }
+
+            if (rating < 0f || rating > 4f) {
+                editTextComment.error = "La puntuación debe estar entre 0 y 4"
+                Toast.makeText(this, "La puntuación debe estar entre 0 y 4", Toast.LENGTH_SHORT).show()
+                hayError = true
+            }
+
+            if (hayError) return@setOnClickListener
+
+
+            enviarComentario(comentarioText, rating, titulo.id)
         }
 
         lifecycleScope.launch {

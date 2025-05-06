@@ -10,23 +10,17 @@ import com.example.popview.databinding.ActivityRegistroBinding
 import com.example.popview.viewmodel.UsuarioViewModel
 
 class RegistroActivity : AppCompatActivity() {
-
     // Usamos el ViewBinding para acceder a las vistas de manera más sencilla
     lateinit var binding: ActivityRegistroBinding
-
     // Instanciamos el ViewModel de la actividad
     private val usuarioViewModel: UsuarioViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Inflamos el layout con ViewBinding
         binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         // Configuramos el botón de registro para que cuando se haga clic, ejecute la validación
         binding.buttonRegistre.setOnClickListener { registrarUsuario() }
-
         // Observar el estado de la validación de los datos
         usuarioViewModel.validacionDatos.observe(this) { estado ->
             // Si los datos no son válidos, mostramos los errores
@@ -34,7 +28,6 @@ class RegistroActivity : AppCompatActivity() {
             binding.textInputEmail.error = estado.errorEmailUsuario
             binding.textInputEdad.error = estado.errorEdadUsuario
             binding.textInputContrasenya.error = estado.errorContrasenyaUsuario
-
             // Si todos los datos son válidos, redirigimos al LoginActivity
             if (estado.esValido) {
                 val intent = Intent(this, LoginActivity::class.java)
@@ -42,7 +35,6 @@ class RegistroActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun registrarUsuario() {
         // Obtenemos los datos de los campos
         val nombre = binding.textInputUsuario.editText?.text.toString()
