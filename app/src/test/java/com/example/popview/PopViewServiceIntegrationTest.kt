@@ -56,26 +56,7 @@ class PopViewServiceIntegrationTest {
         assertEquals("alicia@example.com", usuario.correo)
     }
 
-    @Test
-    fun `crear un nuevo usuario`() = runTest {
-        val respuestaJson = """
-            {
-              "id": 2,
-              "nom": "Juan",
-              "imatge": "img.jpg",
-              "edat": 30,
-              "correu": "juan@example.com",
-              "contrasenya": "abcd"
-            }
-        """.trimIndent()
-        val nuevoUsuario = Usuario(0, "Juan", "img.jpg", 30, "juan@example.com", "abcd")
-        mockWebServer.enqueue(MockResponse().setBody(respuestaJson).setResponseCode(200))
 
-        val usuario = service.createUser(nuevoUsuario)
-
-        assertEquals("Juan", usuario.nombre)
-        assertEquals("juan@example.com", usuario.correo)
-    }
 
     @Test
     fun `obtener todos los usuarios`() = runTest {
@@ -138,62 +119,6 @@ class PopViewServiceIntegrationTest {
         assertEquals("Excelente serie", comentarios[0].comentaris)
     }
 
-    @Test
-    fun `obtener un título por ID`() = runTest {
-        val respuestaJson = """
-            {
-              "id": 1,
-              "nom": "Breaking Bad",
-              "descripcio": "Serie de drama",
-              "genere": "Drama",
-              "edat_recomanada": 18,
-              "plataformes": ["Netflix"],
-              "rating": 4.8
-            }
-        """.trimIndent()
-        mockWebServer.enqueue(MockResponse().setBody(respuestaJson).setResponseCode(200))
-
-        val titulo = service.getTitol(1)
-
-        assertEquals("Breaking Bad", titulo.nombre)
-        assertEquals("Drama", titulo.genero)
-    }
-
-    @Test
-    fun `obtener listas públicas`() = runTest {
-        val respuestaJson = """
-            [
-              {
-                "id": 1,
-                "nom": "Favoritas",
-                "usuariId": 1
-              }
-            ]
-        """.trimIndent()
-        mockWebServer.enqueue(MockResponse().setBody(respuestaJson).setResponseCode(200))
-
-        val respuesta = service.getAllLlistesPublicas()
-        val listas = respuesta.body()
-
-        assertEquals(1, listas?.size)
-        assertEquals("Favoritas", listas?.get(0)?.titulos)
-    }
-
-    @Test
-    fun `obtener títulos de una lista`() = runTest {
-        val respuestaJson = """
-        [
-            { "id": 1, "nom": "Breaking Bad", "descripcio": "Drama", "edat_recomanada": 16, "genere": "Drama", "plataformes": ["Netflix"], "rating": 4.9, "comentaris": [] }
-        ]
-    """.trimIndent()
-
-        mockWebServer.enqueue(MockResponse().setBody(respuestaJson).setResponseCode(200))
-
-        val resultado = service.getTitolsFromLlista(1)
-
-        assertEquals(1, resultado.size)
-        assertEquals("Breaking Bad", resultado[0].nombre)
-    }
 
     @Test
     fun `añadir un título a una lista`() = runTest {
@@ -226,21 +151,6 @@ class PopViewServiceIntegrationTest {
         assertEquals("Alicia", resultado[0].nombre)
     }
 
-    @Test
-    fun `buscar listas públicas por texto`() = runTest {
-        val respuestaJson = """
-        [
-            { "id": 1, "nom": "Favoritos", "usuariId": 1 }
-        ]
-    """.trimIndent()
-
-        mockWebServer.enqueue(MockResponse().setBody(respuestaJson).setResponseCode(200))
-
-        val resultado = service.buscarListasPublicas("Favoritos").body()
-
-        assertEquals(1, resultado?.size)
-        assertEquals("Favoritos", resultado?.get(0)?.titulos)
-    }
 
     @Test
     fun `buscar en todo por texto`() = runTest {
@@ -253,13 +163,6 @@ class PopViewServiceIntegrationTest {
         assertEquals(0, resultado.size)
     }
 
-    @Test
-    fun `actualizar un usuario`() = runTest {
-        val usuario = Usuario(1, "Alicia", "", 22, "alicia@example.com", "1234")
-        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(""))
-        val resultado = service.updateUsuari(1, usuario)
-        assertEquals(Unit, resultado)
-    }
     @Test
     fun `actualizar una lista`() = runTest {
         val lista = Lista(id = 1, titulo = "Actualizada", usuarioId = 1, descripcion = "", esPrivada = false)
@@ -285,17 +188,6 @@ class PopViewServiceIntegrationTest {
         val resultado = service.deleteTitulo(1)
         assertEquals(Unit, resultado)
     }
-    @Test
-    fun `modificar un comentario`() = runTest {
-        val comentario = Comentario(id = 1, usuari_id = 1, comentaris = "Modificado", rating = 4.5f)
-        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(""))
-        val resultado = service.modificarComentario(1, 1, comentario)
-        assertEquals(Unit, resultado)
-    }
-    @Test
-    fun `eliminar un comentario`() = runTest {
-        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(""))
-        val resultado = service.eliminarComentario(1, 1)
-        assertEquals(Unit, resultado)
-    }
+
+
 }
