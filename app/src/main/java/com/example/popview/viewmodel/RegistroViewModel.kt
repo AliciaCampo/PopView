@@ -1,9 +1,10 @@
 package com.example.popview.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
+// Estado de validación de registro
 data class EstadoRegistro(
     var esValido: Boolean = true,
     var errorNombreUsuario: String? = null,
@@ -14,6 +15,7 @@ data class EstadoRegistro(
     var errorAvatar: String? = null
 )
 
+// Datos a registrar
 data class DatosRegistro(
     val nombre: String,
     val email: String,
@@ -23,7 +25,6 @@ data class DatosRegistro(
 )
 
 class RegistroViewModel : ViewModel() {
-
     private val _validacionDatos = MutableLiveData<EstadoRegistro>()
     val validacionDatos: LiveData<EstadoRegistro> = _validacionDatos
 
@@ -57,7 +58,8 @@ class RegistroViewModel : ViewModel() {
         validarConfirmacionContrasenya(contrasenya, confirmacionContrasenya, estado)
         validarAvatar(avatar, estado)
 
-        _validacionDatos.value = estado
+        // Publicamos una copia para que LiveData detecte el cambio de referencia
+        _validacionDatos.value = estado.copy()
         return estado.esValido
     }
 
@@ -107,7 +109,7 @@ class RegistroViewModel : ViewModel() {
     }
 
     private fun validarEmail(email: String?, estado: EstadoRegistro) {
-        val emailRegex = Regex("^[\\w.-]+@[\\w.-]+\\.(com|es|org|net)\$")
+        val emailRegex = Regex("^[\\w.-]+@[\\w.-]+\\.(com|es|org|net)\$" )
         when {
             email.isNullOrBlank() -> {
                 estado.errorEmailUsuario = "L'email és obligatori"
@@ -151,7 +153,7 @@ class RegistroViewModel : ViewModel() {
     }
 
     private fun validarContrasenya(contrasenya: String?, estado: EstadoRegistro) {
-        val regexContrasenya = Regex("^(?=.*[0-9])(?=.*[!@#\$%^&*()_+=\\-{}|:;\"'<>,.?/]).{8,}\$")
+        val regexContrasenya = Regex("^(?=.*[0-9])(?=.*[!@#\$%^&*()_+=\\-{}|:;\"'<>,.?/]).{8,}\$" )
         when {
             contrasenya.isNullOrBlank() -> {
                 estado.errorContrasenyaUsuario = "La contrasenya és obligatòria"
@@ -165,7 +167,7 @@ class RegistroViewModel : ViewModel() {
                 estado.errorContrasenyaUsuario = "La contrasenya ha de contenir al menys un número"
                 estado.esValido = false
             }
-            !contrasenya.contains(Regex("[!@#\$%^&*()_+=\\-{}|:;\"'<>,.?/]")) -> {
+            !contrasenya.contains(Regex("[!@#\$%^&*()_+=\\-{}|:;\"'<>,.?/]") ) -> {
                 estado.errorContrasenyaUsuario = "La contrasenya ha de contenir al menys un símbol especial"
                 estado.esValido = false
             }

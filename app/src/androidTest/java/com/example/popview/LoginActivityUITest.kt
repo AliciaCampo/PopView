@@ -13,17 +13,14 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class LoginActivityUITest {
-
     @get:Rule
     val activityRule = ActivityScenarioRule(LoginActivity::class.java)
-
     @Test
     fun camposVacios_muestraErroresEnAmbosCampos() {
         // Dejamos ambos campos vacíos
         onView(withId(R.id.editTextUserID)).perform(clearText())
         onView(withId(R.id.editTextPassword)).perform(clearText())
         onView(withId(R.id.inici)).perform(click())
-
         // Comprobamos inmediatamente los errores
         onView(withId(R.id.editTextUserID))
             .check(matches(hasErrorText("L'ID d'usuari és obligatori")))

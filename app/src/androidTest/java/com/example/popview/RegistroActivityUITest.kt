@@ -20,10 +20,8 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RegistroActivityUITest {
-
     @get:Rule
     val activityRule = ActivityScenarioRule(RegistroActivity::class.java)
-
     @Test
     fun visualitzacioInicial() {
         onView(withId(R.id.textInputUsuario)).check(matches(isDisplayed()))
@@ -34,7 +32,6 @@ class RegistroActivityUITest {
         onView(withId(R.id.imagenAvatar)).check(matches(isDisplayed()))
         onView(withId(R.id.buttonRegistre)).check(matches(isDisplayed()))
     }
-
     @Test
     fun registreAmbDadesValides() {
         // usuario
