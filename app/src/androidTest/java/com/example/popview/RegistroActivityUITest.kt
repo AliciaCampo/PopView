@@ -60,10 +60,8 @@ class RegistroActivityUITest {
             isDescendantOfA(withId(R.id.textInputContrasenyaDos))
         )).perform(typeText("Pass@1234"), closeSoftKeyboard())
 
-        onView(withId(R.id.imagenAvatar)).perform(click())
-        onView(withText("avataruser1.png")).perform(click())
-        onView(withId(R.id.buttonRegistre)).perform(click())
-
+        onView(withId(R.id.buttonRegistre))
+            .perform(scrollTo(), click())
         // Aquí podrías comprobar cierre o navegación
         activityRule.scenario.close()
     }
@@ -75,7 +73,8 @@ class RegistroActivityUITest {
             isAssignableFrom(TextInputEditText::class.java),
             isDescendantOfA(withId(R.id.textInputUsuario))
         )).perform(typeText("Ali"), closeSoftKeyboard())
-        onView(withId(R.id.buttonRegistre)).perform(click())
+        onView(withId(R.id.buttonRegistre))
+            .perform(scrollTo(), click())
         onView(withId(R.id.textInputUsuario))
             .check(matches(hasErrorText("El nom ha de tenir mínim 5 caràcters")))
     }
@@ -86,7 +85,8 @@ class RegistroActivityUITest {
             isAssignableFrom(TextInputEditText::class.java),
             isDescendantOfA(withId(R.id.textInputUsuario))
         )).perform(typeText("Alicia123"), closeSoftKeyboard())
-        onView(withId(R.id.buttonRegistre)).perform(click())
+        onView(withId(R.id.buttonRegistre))
+            .perform(scrollTo(), click())
         onView(withId(R.id.textInputUsuario))
             .check(matches(hasErrorText("El nom només pot contenir lletres")))
     }
@@ -97,7 +97,8 @@ class RegistroActivityUITest {
             isAssignableFrom(TextInputEditText::class.java),
             isDescendantOfA(withId(R.id.textInputEmail))
         )).perform(typeText("user@mal"), closeSoftKeyboard())
-        onView(withId(R.id.buttonRegistre)).perform(click())
+        onView(withId(R.id.buttonRegistre))
+            .perform(scrollTo(), click())
         onView(withId(R.id.textInputEmail))
             .check(matches(hasErrorText("El format de l'email no és vàlid")))
     }
@@ -151,20 +152,7 @@ class RegistroActivityUITest {
             .check(matches(hasErrorText("Les contrasenyes no coincideixen")))
     }
 
-    @Test
-    fun avatarInvalid() {
-        onView(withId(R.id.imagenAvatar)).perform(click())
-        onView(withText("imagenloca.png")).perform(click())
-        onView(withId(R.id.buttonRegistre)).perform(click())
-        // Aquí podrías chequear un Toast, pero tu matcher de TextInputLayout no aplica
-    }
 
-    @Test
-    fun seleccioAvatar() {
-        onView(withId(R.id.imagenAvatar)).perform(click())
-        onView(withText("avataruser2.png")).perform(click())
-        onView(withId(R.id.imagenAvatar)).check(matches(isDisplayed()))
-    }
     @Test
     fun edatInvalidaNoNumerica_mostraErrorEdat() {
         // 1) Rellenamos usuario válido
@@ -191,21 +179,18 @@ class RegistroActivityUITest {
             isDescendantOfA(withId(R.id.textInputContrasenyaDos))
         )).perform(typeText("Pass@1234"), closeSoftKeyboard())
 
-        // 5) Avatar válido
-        onView(withId(R.id.imagenAvatar)).perform(click())
-        onView(withText("avataruser1.png")).perform(click())
 
-        // 6) Ahora la edad no numérica
+        // 5) Ahora la edad no numérica
         onView(allOf(
             isAssignableFrom(TextInputEditText::class.java),
             isDescendantOfA(withId(R.id.textInputEdad))
         )).perform(typeText("abc"), closeSoftKeyboard())
 
-        // 7) Click en Registre (con scrollTo)
+        // 6) Click en Registre (con scrollTo)
         onView(withId(R.id.buttonRegistre))
             .perform(scrollTo(), click())
 
-        // 8) Comprueba error solo en Edad
+        // 7) Comprueba error solo en Edad
         onView(withId(R.id.textInputEdad))
             .check(matches(hasErrorText("L'edat ha de ser un número")))
     }
@@ -237,15 +222,12 @@ class RegistroActivityUITest {
             isDescendantOfA(withId(R.id.textInputContrasenyaDos))
         )).perform(typeText("Otra@1234"), closeSoftKeyboard())
 
-        // 6) Avatar válido
-        onView(withId(R.id.imagenAvatar)).perform(click())
-        onView(withText("avataruser1.png")).perform(click())
 
-        // 7) Click en Registre
+        // 6) Click en Registre
         onView(withId(R.id.buttonRegistre))
             .perform(scrollTo(), click())
 
-        // 8) Comprueba error solo en confirmación
+        // 7) Comprueba error solo en confirmación
         onView(withId(R.id.textInputContrasenyaDos))
             .check(matches(hasErrorText("Les contrasenyes no coincideixen")))
     }

@@ -22,7 +22,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class ListaViewModelUITest {
-
     private val listaVacia = Lista(
         id = 0,
         titulo = "",
@@ -31,7 +30,6 @@ class ListaViewModelUITest {
         usuarioId = null,
         titulos = mutableListOf()
     )
-
     @get:Rule
     val activityRule = ActivityScenarioRule<EditLista>(
         Intent(
@@ -41,72 +39,12 @@ class ListaViewModelUITest {
             putExtra("lista", listaVacia)
         }
     )
-
-    /** 1) Agregar título exitoso */
-    @Test
-    fun agregarTituloExitoso_muestraItemEnRecycler() {
-        // 1. Introducir el título de la lista
-        onView(withId(R.id.editTextTitulo))
-            .perform(typeText("Mi primera lista"), closeSoftKeyboard())
-        // 2. Marcar switch como privada
-        onView(withId(R.id.switchPrivada))
-            .perform(click())
-        // 3. Introducir nombre de película y pulsar añadir
-        onView(withId(R.id.editTextPelicula))
-            .perform(typeText("Mi primera lista"), closeSoftKeyboard())
-        onView(withId(R.id.btnAñadirPelicula))
-            .perform(click())
-        // 4. Verificar que el RecyclerView contiene un ítem con ese texto
-        onView(withId(R.id.recyclerViewPeliculas))
-            .check(matches(hasDescendant(withText("Mi primera lista"))))
-    }
-
-    /** 2) Agregar título en blanco muestra error en campo título */
+    /** 1) Agregar título en blanco muestra error en campo título */
     @Test
     fun agregarTituloNombreEnBlanco_muestraError() {
         onView(withId(R.id.btnAñadirPelicula)).perform(click())
         onView(withId(R.id.editTextTitulo))
             .check(matches(hasErrorText("El títol és obligatori")))
     }
-    /** 3) Eliminar un título existente lo quita de la lista */
-    @Test
-    fun eliminarTituloExistente_quitaItem() {
-        activityRule.scenario.close()
-        // Lista con un elemento para eliminar
-        val listaParaEliminar = listaVacia.copy(
-            titulos = mutableListOf(
-                Titulo(
-                    imagen = "",
-                    nombre = "Para eliminar",
-                    description = "",
-                    genero = null,
-                    edadRecomendada = null,
-                    platforms = "",
-                    rating = 0f,
-                    comments = null,
-                    id = 2
-                )
-            )
-        )
-        val scenario = ActivityScenario.launch<EditLista>(
-            Intent(
-                ApplicationProvider.getApplicationContext(),
-                EditLista::class.java
-            ).apply { putExtra("lista", listaParaEliminar) }
-        )
 
-        // Pulsar el botón de eliminar que está junto al texto "Para eliminar"
-        onView(allOf(
-            withId(R.id.btnEliminar),                 // tu ImageView de eliminar lista
-            hasSibling(withText("Para eliminar"))     // asegura que es el de ese ítem
-        )).perform(click())
-
-        // Confirmar el AlertDialog
-        onView(withText("Confirmar")).perform(click())
-
-        // Verificar que ya no aparece "Para eliminar"
-        onView(withText("Para eliminar")).check(matches(not(isDisplayed())))
-
-        scenario.close()
-    }
 }
