@@ -2,13 +2,10 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="RegistroActivityUITest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="ComentarioViewModelUITest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="ListaViewModelUITest">
+      <SelectionState runConfigName="testRatingInvalid_showsError()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

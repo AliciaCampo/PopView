@@ -71,6 +71,8 @@ class ValoracionTituloActivity : AppCompatActivity() {
         val buttonSend = findViewById<ImageButton>(R.id.buttonSend)
 
         buttonSend.setOnClickListener {
+            val ratingBarComment = findViewById<RatingBar>(R.id.ratingBarComment)
+            val ratingErrorText = findViewById<TextView>(R.id.ratingErrorText)
             val comentarioText = editTextComment.text.toString()
             val rating = ratingBarComment.rating
             var hayError = false
@@ -82,13 +84,14 @@ class ValoracionTituloActivity : AppCompatActivity() {
             }
 
             if (rating < 0f || rating > 4f) {
-                editTextComment.error = "La puntuación debe estar entre 0 y 4"
-                Toast.makeText(this, "La puntuación debe estar entre 0 y 4", Toast.LENGTH_SHORT).show()
+                ratingErrorText.visibility = View.VISIBLE
+                ratingErrorText.text = "La puntuación debe estar entre 0 y 4"
                 hayError = true
+            } else {
+                ratingErrorText.visibility = View.GONE
             }
 
             if (hayError) return@setOnClickListener
-
 
             enviarComentario(comentarioText, rating, titulo.id)
         }
